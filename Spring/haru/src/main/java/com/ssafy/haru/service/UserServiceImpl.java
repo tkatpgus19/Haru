@@ -18,12 +18,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean join(User user) {
-        int result = 0;
+        boolean result = false;
         if (userDao.selectById(user.getUserId()) == null) {
             result = userDao.insert(user);
-            logger.warn(String.valueOf(result));
         }
-        return result == 1;
+        return result;
     }
 
     @Override

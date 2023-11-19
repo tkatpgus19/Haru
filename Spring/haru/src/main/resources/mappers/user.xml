@@ -9,17 +9,17 @@
         VALUES (#{userId}, #{userPassword}, #{userNickname}, #{userEmail}, #{userHeart})
     </insert>
 
-    <select id="selectById" parameterType="string" resultType="User">
+    <select id="selectById" parameterType="String" resultType="User">
         SELECT * FROM user
         WHERE user_id = #{userId}
     </select>
 
-    <select id="selectByEmail" parameterType="string" resultType="String">
+    <select id="selectByEmail" parameterType="String" resultType="String">
         SELECT user_id FROM user
         WHERE user_email = #{userEmail}
     </select>
 
-    <delete id="delete" parameterType="string">
+    <delete id="delete" parameterType="String">
         DELETE FROM user WHERE user_id = #{userId}
     </delete>
 

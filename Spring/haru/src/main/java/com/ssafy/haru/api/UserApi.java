@@ -36,9 +36,9 @@ public class UserApi {
     }
 
     // 아이디 중복 체크
-    @PostMapping("/isUsed")
-    public ResponseEntity<Boolean> isUsed(@RequestBody User user){
-        boolean result = userService.isUsed(user.getUserId());
+    @GetMapping("/isUsed")
+    public ResponseEntity<Boolean> isUsed(@RequestParam String userId){
+        boolean result = userService.isUsed(userId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

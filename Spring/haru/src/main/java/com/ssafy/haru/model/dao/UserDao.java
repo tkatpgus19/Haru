@@ -5,7 +5,7 @@ import com.ssafy.haru.model.dto.User;
 public interface UserDao {
 
     // 정보 추가
-    int insert(User user);
+    boolean insert(User user);
 
     // 아이디로 정보 조회
     User selectById(String userId);
