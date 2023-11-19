@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.haru.model.dao.UserDao">
+
+    <insert id="insert" parameterType="User">
+        INSERT INTO user
+        VALUES (#{userId}, #{userPassword}, #{userNickname}, #{userEmail}, #{userHeart})
+    </insert>
+
+    <select id="selectById" parameterType="string" resultType="User">
+        SELECT * FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectByEmail" parameterType="string" resultType="String">
+        SELECT user_id FROM user
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM user WHERE user_id = #{userId}
+    </delete>
+
+    <update id="update" parameterType="User">
+        UPDATE user SET user_password = #{userPassword}, user_nickname = #{userNickname}, user_email = #{userEmail}
+        WHERE user_id = #{userId}
+    </update>
+</mapper>
