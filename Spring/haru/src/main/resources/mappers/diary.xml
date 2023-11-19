@@ -14,7 +14,7 @@
     </insert>
 
     <update id="update" parameterType="Diary">
-        UPDATE diary SET diary_emotion = #{diaryEmotion}, diary_content = #{diaryContent}, diary_date = #{diaryDate}
+        UPDATE diary SET diary_emotion = #{diaryEmotion}, diary_content = #{diaryContent}
         WHERE user_id = #{userId} AND diary_date = #{diaryDate}
     </update>
 
