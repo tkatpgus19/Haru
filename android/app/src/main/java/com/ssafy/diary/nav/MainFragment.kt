@@ -1,4 +1,4 @@
-package com.ssafy.diary.diary
+package com.ssafy.diary.nav
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.ssafy.diary.R
 
-class DiaryDetailsFragment : Fragment() {
+
+class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +20,7 @@ class DiaryDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_diary_details, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
 }

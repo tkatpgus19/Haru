@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -49,10 +50,10 @@
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="8dp"
+            android:layout_gravity="left"
             android:gravity="left"
             android:text="오늘의 기분"
             android:textColor="#462727"
@@ -69,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
-                android:text=" 😊"
+                android:text=" "
                 android:textColor="#6A6363"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -166,56 +167,78 @@
 
         </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/imageView2"
+        <ImageButton
+            android:id="@+id/btn_img_choose"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_shape"
-            android:src="@drawable/baseline_insert_photo_24" />
+            android:layout_height="200dp"
+            android:layout_gravity="right"
+            android:background="@drawable/btn_style3"
+            android:src="@drawable/baseline_add_photo_alternate_24"
+            tools:layout_editor_absoluteX="327dp"
+            tools:layout_editor_absoluteY="654dp"
+            android:layout_marginBottom="8dp" />
 
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_upload"
             android:layout_width="72dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_gravity="right"
             android:layout_marginBottom="8dp"
             android:background="@drawable/btn_style2"
-            android:text="저장"
+            android:text="업로드"
             android:textColor="#72635D"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
+            android:id="@+id/edit_text_today_diary"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/btn_style2"
+            android:hint="  오늘 당신의 하루는 어땠나요?"
+            android:textSize="12sp"
+            android:gravity="top"
+            android:layout_marginBottom="64dp"
+            android:textColorHint="#979FA8"/>
+
+        <Button
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="left"
-            android:text="오늘의 일기"
-            android:textColor="#462727"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/img_today_diary"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginBottom="64dp"
-            android:background="@drawable/edit_text_shape"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_diary"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="355dp" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="right"
+            android:text="저장"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:background="@drawable/btn_style"
-            android:src="@drawable/baseline_add_24"
-            tools:layout_editor_absoluteX="327dp"
-            tools:layout_editor_absoluteY="654dp" />
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="삭제"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_style"
+                android:layout_marginRight="16dp"/>
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="수정"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_style"/>
+        </LinearLayout>
 
     </LinearLayout>
 
