@@ -52,8 +52,8 @@
 
             <ImageView
                 android:id="@+id/img_main_item01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:src="@drawable/character01"
                 android:layout_gravity="center"/>
 
