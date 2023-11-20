@@ -82,12 +82,13 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/text_view_shape"
-            android:text="   Q. 오늘의 당신에 대해 3가지 칭찬한다면?"
+            android:text="Q. 오늘의 당신에 대해 3가지 칭찬한다면?"
             android:textStyle="bold"
             android:textColor="#6A6363"
             android:gravity="center_vertical"
             android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:paddingLeft="10dp"/>
 
         <EditText
             android:id="@+id/edit_text_today_question_answer"
@@ -95,8 +96,9 @@
             android:layout_height="160dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/search_box_style"
-            android:hint="  당신의 의견을 적어주세요."
+            android:hint="당신의 의견을 적어주세요."
             android:textColorHint="#9C918D"
+            android:padding="10dp"
             android:gravity="top"/>
 
 
