@@ -5,19 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import com.ssafy.diary.DiaryActivity
+import com.ssafy.diary.DiaryActivity.Companion.DIARY_DETAILS_FRAGMENT
 import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.DIARY_DETAIL_FRAGMENT
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
-import com.ssafy.diary.MainActivity.Companion.OPEN_FRAGMENT
-import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
-import com.ssafy.diary.databinding.FragmentLoginBinding
-import com.ssafy.diary.util.SharedPreferencesUtil
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
-    private val mActivity by lazy { activity as MainActivity }
+    private val dActivity by lazy { activity as DiaryActivity }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +36,25 @@ class DiaryMainFragment : Fragment() {
 //            mActivity.moveFragment(OPEN_FRAGMENT)
 //            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
 //        }
+
+        val now = System.currentTimeMillis()
+        val date = Date(now)
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val currentDate = simpleDateFormat.format(date)
+
+        binding.tvDate.text = currentDate
+
         binding.btnBack.setOnClickListener {
-            mActivity.goBack(this)
-            mActivity.moveFragment(MAIN_FRAGMENT)
+            dActivity.finish()
         }
 
         binding.imageButton.setOnClickListener {
-            mActivity.moveFragment(DIARY_DETAIL_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
         }
         binding.imgTodayDiary.setOnClickListener {
-            mActivity.moveFragment(DIARY_DETAIL_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
         }
+
         return binding.root
     }
 

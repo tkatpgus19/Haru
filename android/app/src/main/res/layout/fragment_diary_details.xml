@@ -28,6 +28,7 @@
             tools:layout_editor_absoluteY="16dp" />
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
@@ -59,8 +60,18 @@
             android:textColor="#462727"
             android:textSize="20sp"
             android:textStyle="bold" />
-
+        <TextView
+            android:id="@+id/feeling"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:text=" 😆"
+            android:textColor="#6A6363"
+            android:textSize="24sp"
+            android:textStyle="bold" />
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/emotion_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -195,11 +206,12 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/btn_style2"
-            android:hint="  오늘 당신의 하루는 어땠나요?"
+            android:hint="오늘 당신의 하루는 어땠나요?"
             android:textSize="12sp"
             android:gravity="top"
             android:layout_marginBottom="64dp"
-            android:textColorHint="#979FA8"/>
+            android:textColorHint="#979FA8"
+            android:padding="20dp"/>
 
         <Button
             android:id="@+id/btn_save"

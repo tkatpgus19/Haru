@@ -5,18 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.JOIN_FRAGMENT
-import com.ssafy.diary.MainActivity.Companion.LOGIN_FRAGMENT
-import com.ssafy.diary.R
-import com.ssafy.diary.databinding.FragmentLoginBinding
+import com.ssafy.diary.LoginActivity
+import com.ssafy.diary.LoginActivity.Companion.JOIN_FRAGMENT
+import com.ssafy.diary.LoginActivity.Companion.LOGIN_FRAGMENT
 import com.ssafy.diary.databinding.FragmentOpenBinding
 
 
 class OpenFragment : Fragment() {
     private val binding by lazy { FragmentOpenBinding.inflate(layoutInflater) }
-    private val mActivity by lazy { activity as MainActivity }
+    private val lActivity by lazy { activity as LoginActivity }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,12 +27,12 @@ class OpenFragment : Fragment() {
         
         // 로그인 프래그먼트로 이동
         binding.btnLogin.setOnClickListener {
-            mActivity.moveFragment(LOGIN_FRAGMENT)
+            lActivity.moveFragment(LOGIN_FRAGMENT)
         }
 
         // 회원가입 프래그먼트로 이동
         binding.btnJoin.setOnClickListener {
-            mActivity.moveFragment(JOIN_FRAGMENT)
+            lActivity.moveFragment(JOIN_FRAGMENT)
         }
         return binding.root
     }

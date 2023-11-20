@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.DIARY_MAIN_FRAGMENT
-import com.ssafy.diary.MainActivity.Companion.OPEN_FRAGMENT
-import com.ssafy.diary.R
+import com.ssafy.diary.LoginActivity
+import com.ssafy.diary.LoginActivity.Companion.OPEN_FRAGMENT
 import com.ssafy.diary.databinding.FragmentJoinBinding
-import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class JoinFragment : Fragment() {
     private val binding by lazy { FragmentJoinBinding.inflate(layoutInflater) }
-    private val mActivity by lazy { activity as MainActivity }
+    private val lActivity by lazy { activity as LoginActivity }
     private var isUsed = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +34,7 @@ class JoinFragment : Fragment() {
 
         // 좌상단 뒤로 가기 아이콘
         binding.btnBack.setOnClickListener {
-            mActivity.goBack(this)
+            lActivity.goBack(this)
         }
 
         // 회원가입 구현
@@ -58,7 +55,7 @@ class JoinFragment : Fragment() {
                         if (RetrofitUtil.userService.join(user).body()!!) {
                             Toast.makeText(requireContext(), "회원가입이 완료되었습니다", Toast.LENGTH_SHORT)
                                 .show()
-                            mActivity.moveFragment(OPEN_FRAGMENT)
+                            lActivity.moveFragment(OPEN_FRAGMENT)
                         }
                     }
                 } else{
