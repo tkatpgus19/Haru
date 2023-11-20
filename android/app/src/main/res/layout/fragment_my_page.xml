@@ -53,7 +53,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:background="#DCDCDC"
-            app:civ_border_overlay="true"
+            app:civ_border_overlay="false"
             app:civ_border_width="5dp"
             app:civ_border_color="@color/lightBrown"
             android:src="@drawable/baseline_person_24"
@@ -144,7 +144,7 @@
 
             <TextView
                 android:id="@+id/text_delete"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="계정 탈퇴"
                 android:textStyle="bold"
