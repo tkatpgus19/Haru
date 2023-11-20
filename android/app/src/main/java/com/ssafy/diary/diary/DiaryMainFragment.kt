@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.ssafy.diary.MainActivity
+import com.ssafy.diary.MainActivity.Companion.DIARY_DETAIL_FRAGMENT
+import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.MainActivity.Companion.OPEN_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
@@ -30,11 +32,22 @@ class DiaryMainFragment : Fragment() {
 
         // **************** 수정 필요 ******************
         // 긴급 로그아웃 구현
+//        binding.btnBack.setOnClickListener {
+//            SharedPreferencesUtil(requireContext()).deleteUser()
+//            mActivity.goBack(this)
+//            mActivity.moveFragment(OPEN_FRAGMENT)
+//            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+//        }
         binding.btnBack.setOnClickListener {
-            SharedPreferencesUtil(requireContext()).deleteUser()
             mActivity.goBack(this)
-            mActivity.moveFragment(OPEN_FRAGMENT)
-            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+            mActivity.moveFragment(MAIN_FRAGMENT)
+        }
+
+        binding.imageButton.setOnClickListener {
+            mActivity.moveFragment(DIARY_DETAIL_FRAGMENT)
+        }
+        binding.imgTodayDiary.setOnClickListener {
+            mActivity.moveFragment(DIARY_DETAIL_FRAGMENT)
         }
         return binding.root
     }

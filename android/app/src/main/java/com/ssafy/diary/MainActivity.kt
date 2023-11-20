@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
+import com.ssafy.diary.diary.DiaryDetailsFragment
 import com.ssafy.diary.diary.DiaryMainFragment
 import com.ssafy.diary.login.FindIdFragment
 import com.ssafy.diary.login.JoinFragment
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity() {
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, TodoListFragment())
                 .commit()
+            8 -> supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
+                .replace(R.id.fragment_container, DiaryDetailsFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
     }
@@ -104,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         const val DIARY_MAIN_FRAGMENT = 5
         const val MYPAGE_FRAGMENT = 6
         const val TODO_LIST_FRAGMENT = 7
+        const val DIARY_DETAIL_FRAGMENT = 8
     }
 
 }

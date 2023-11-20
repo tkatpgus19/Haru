@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.ssafy.diary.MainActivity
+import com.ssafy.diary.MainActivity.Companion.DIARY_MAIN_FRAGMENT
 import com.ssafy.diary.databinding.FragmentMainBinding
 
 
@@ -31,7 +32,11 @@ class MainFragment : Fragment() {
             .load(com.ssafy.diary.R.drawable.character02)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
-        
+
+        binding.btnGoToDiary.setOnClickListener {
+            mActivity.moveFragment(DIARY_MAIN_FRAGMENT)
+        }
+
         return binding.root
     }
 
