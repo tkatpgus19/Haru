@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Final_project"
         tools:targetApi="31">
         <activity
+            android:name=".WalletActivity"
+            android:exported="false"
+            android:label="@string/title_activity_wallet"
+            android:theme="@style/Theme.Final_project" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
