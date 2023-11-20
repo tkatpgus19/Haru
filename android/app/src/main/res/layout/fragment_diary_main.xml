@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -69,7 +70,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/black"/>
 
@@ -116,7 +117,7 @@
             android:layout_height="wrap_content"
             android:text="오늘의 일기"
             android:textColor="#462727"
-            android:textSize="22dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="left"
             android:layout_marginBottom="8dp"/>
@@ -143,7 +144,5 @@
             android:layout_gravity="right"/>
 
     </LinearLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
