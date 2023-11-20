@@ -30,6 +30,7 @@ public class UserApi {
         User tmp = new User();
         User result = userService.login(user.getUserId(), user.getUserPassword());
         if(result != null){
+            log.info("login 성공");
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
         return new ResponseEntity<>(tmp, HttpStatus.OK);

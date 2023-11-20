@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.DIARY_MAIN_FRAGMENT
 import com.ssafy.diary.MainActivity.Companion.FIND_ID_FRAGMENT
+import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.dto.User
@@ -36,7 +37,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
 
         // 좌상단 뒤로 가기 아이콘 이벤트 구현
-        binding.imageView.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             mActivity.goBack(this)
         }
 
@@ -59,7 +60,7 @@ class LoginFragment : Fragment() {
                     if(result!!.userId != null){
                         Toast.makeText(requireContext(), "반갑습니다 ${result.userNickname}님", Toast.LENGTH_SHORT).show()
                         SharedPreferencesUtil(requireContext()).addUser(user)
-                        mActivity.moveFragment(DIARY_MAIN_FRAGMENT)
+                        mActivity.moveFragment(MAIN_FRAGMENT)
                     } else{
                         Toast.makeText(requireContext(), "아이디 혹은 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
                     }

@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.LOGIN_FRAGMENT
 import com.ssafy.diary.R
@@ -33,7 +36,7 @@ class FindIdFragment : Fragment() {
         // Inflate the layout for this fragment
 
         // 좌상단 뒤로 가기 아이콘 이벤트 구현
-        binding.imageView.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             mActivity.goBack(this)
         }
 
@@ -49,9 +52,10 @@ class FindIdFragment : Fragment() {
                 CoroutineScope(Dispatchers.Main).launch {
                     val result = RetrofitUtil.userService.findId(email).body()
                     if(result != null){
-                        Toast.makeText(requireContext(), "아이디는 ${result}입니다", Toast.LENGTH_SHORT).show()
+                        showDialog("당신의 아이디는 ${result}입니다.")
                     } else{
-                        Toast.makeText(requireContext(), "해당 이메일로 가입한 이력이 없습니다...", Toast.LENGTH_SHORT).show()
+                        Log.d("해위", result.toString())
+                        showDialog("해당 이메일로 등록된 아이디가 없습니다.")
                     }
                 }
             } else{
@@ -60,6 +64,20 @@ class FindIdFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun showDialog(result: String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater.inflate(R.layout.dialog_find_id, null)
+        val textView = inflater.findViewById<TextView>(R.id.tv_dialog)
+        builder.apply {
+            setView(inflater)
+            setPositiveButton("확인"){ dialog, _ ->
+                textView.text = result
+            }
+
+        }
+        builder.create().show()
     }
 
 }
