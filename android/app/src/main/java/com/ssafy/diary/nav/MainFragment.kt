@@ -31,6 +31,7 @@ class MainFragment : Fragment() {
             .load(com.ssafy.diary.R.drawable.character02)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
+        
         return binding.root
     }
 

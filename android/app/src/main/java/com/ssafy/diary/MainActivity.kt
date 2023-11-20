@@ -11,6 +11,8 @@ import com.ssafy.diary.login.JoinFragment
 import com.ssafy.diary.login.LoginFragment
 import com.ssafy.diary.login.OpenFragment
 import com.ssafy.diary.nav.MainFragment
+import com.ssafy.diary.nav.MyPageFragment
+import com.ssafy.diary.nav.TodoListFragment
 import com.ssafy.diary.util.SharedPreferencesUtil
 
 class MainActivity : AppCompatActivity() {
@@ -32,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.action_one -> moveFragment(MAIN_FRAGMENT)
-                R.id.action_two -> moveFragment(DIARY_MAIN_FRAGMENT)
-                R.id.action_three -> moveFragment(OPEN_FRAGMENT)
+                R.id.action_two -> moveFragment(TODO_LIST_FRAGMENT)
+                R.id.action_three -> moveFragment(MYPAGE_FRAGMENT)
                 else -> OPEN_FRAGMENT
             }
             true
@@ -72,6 +74,14 @@ class MainActivity : AppCompatActivity() {
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, DiaryMainFragment())
                 .commit()
+            6 -> supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
+                .replace(R.id.fragment_container, MyPageFragment())
+                .commit()
+            7 -> supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
+                .replace(R.id.fragment_container, TodoListFragment())
+                .commit()
         }
 
     }
@@ -92,6 +102,8 @@ class MainActivity : AppCompatActivity() {
         const val FIND_ID_FRAGMENT = 3
         const val MAIN_FRAGMENT = 4
         const val DIARY_MAIN_FRAGMENT = 5
+        const val MYPAGE_FRAGMENT = 6
+        const val TODO_LIST_FRAGMENT = 7
     }
 
 }
