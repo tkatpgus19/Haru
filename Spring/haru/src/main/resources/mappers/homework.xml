@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.haru.model.dao.HomeworkDao">
+    <select id="select" parameterType="Map" resultType="Homework">
+        SELECT * FROM homework
+        WHERE user_id = #{userId} AND homework_date = #{homeworkDate}
+    </select>
+
+    <insert id="insert" parameterType="Homework">
+        INSERT INTO homework (user_id, homework_question, homework_content, homework_date)
+        VALUES (#{userId}, #{homeworkQuestion}, #{homeworkContent}, #{homeworkDate})
+    </insert>
+
+    <update id="update" parameterType="Homework">
+        UPDATE homework SET homework_content = #{homeworkContent}
+        WHERE user_id = #{userId} AND homework_date = #{homeworkDate}
+    </update>
+
+    <delete id="delete" parameterType="Map">
+        DELETE FROM homework WHERE user_id = #{userId} AND homework_date = #{homeworkDate}
+    </delete>
+</mapper>
