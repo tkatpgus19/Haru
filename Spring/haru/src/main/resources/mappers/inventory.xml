@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.haru.model.dao.InventoryDao">
+    <select id="select" parameterType="String" resultType="InventoryItem">
+        SELECT inv.user_id, inv.item_id, ite.item_name, ite.item_type
+        FROM item ite, inventory inv
+        WHERE inv.user_id = #{userId} AND ite.item_id = inv.item_id
+    </select>
+
+    <insert id="insert" parameterType="Map">
+        INSERT INTO inventory(user_id, item_id)
+        VALUES(#{userId}, #{itemId})
+    </insert>
+</mapper>
