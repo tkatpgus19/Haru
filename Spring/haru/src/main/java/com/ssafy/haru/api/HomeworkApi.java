@@ -19,9 +19,9 @@ public class HomeworkApi {
 
     // 숙제 조회
     @GetMapping("/selectHomework")
-    public ResponseEntity<Homework> selectHomework(@RequestParam String userId, @RequestParam String homeworkDate) {
+    public ResponseEntity<Homework> select(@RequestParam String userId, @RequestParam String homeworkDate) {
         Homework tmp = new Homework();
-        Homework result = homeworkService.selectHomework(userId, homeworkDate);
+        Homework result = homeworkService.select(userId, homeworkDate);
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
@@ -29,31 +29,31 @@ public class HomeworkApi {
     }
 
     // 숙제 저장
-    @PostMapping("/saveHomework")
-    public ResponseEntity<Boolean> saveHomework(@RequestBody Homework homework) {
+    @PostMapping("/insert")
+    public ResponseEntity<Boolean> insert(@RequestBody Homework homework) {
         boolean result = false;
-        if (homeworkService.selectHomework(homework.getUserId(), homework.getHomeworkDate()) == null) {
-            result = homeworkService.saveHomework(homework);
+        if (homeworkService.select(homework.getUserId(), homework.getHomeworkDate()) == null) {
+            result = homeworkService.insert(homework);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 숙제 수정
-    @PutMapping("/updateHomework")
-    public ResponseEntity<Boolean> updateHomework(@RequestBody Homework homework){
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> update(@RequestBody Homework homework){
         boolean result = false;
-        if (homeworkService.selectHomework(homework.getUserId(), homework.getHomeworkDate()) != null) {
-            result = homeworkService.updateHomework(homework);
+        if (homeworkService.select(homework.getUserId(), homework.getHomeworkDate()) != null) {
+            result = homeworkService.update(homework);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 숙제 삭제
     @DeleteMapping("/deleteHomework")
-    public ResponseEntity<Boolean> deleteHomework(@RequestParam String userId, @RequestParam String homeworkDate){
+    public ResponseEntity<Boolean> delete(@RequestParam String userId, @RequestParam String homeworkDate){
         boolean result = false;
-        if(homeworkService.selectHomework(userId, homeworkDate) != null){
-            result = homeworkService.deleteHomework(userId, homeworkDate);
+        if(homeworkService.select(userId, homeworkDate) != null){
+            result = homeworkService.delete(userId, homeworkDate);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

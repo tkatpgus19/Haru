@@ -20,7 +20,7 @@ public class HomeworkServiceImpl implements HomeworkService{
     private HomeworkDao homeworkDao;
 
     @Override
-    public Homework selectHomework(String userId, String homeworkDate) {
+    public Homework select(String userId, String homeworkDate) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("homeworkDate", homeworkDate);
@@ -28,17 +28,17 @@ public class HomeworkServiceImpl implements HomeworkService{
     }
 
     @Override
-    public boolean saveHomework(Homework homework) {
+    public boolean insert(Homework homework) {
         return homeworkDao.insert(homework);
     }
 
     @Override
-    public boolean updateHomework(Homework homework) {
+    public boolean update(Homework homework) {
         return homeworkDao.update(homework);
     }
 
     @Override
-    public boolean deleteHomework(String userId, String homeworkDate) {
+    public boolean delete(String userId, String homeworkDate) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("homeworkDate", homeworkDate);

@@ -18,10 +18,10 @@ public class DiaryApi {
     DiaryService diaryService;
 
     // 일기 조회
-    @GetMapping("/selectDiary")
-    public ResponseEntity<Diary> selectDiary(@RequestParam String userId, @RequestParam String diaryDate){
+    @GetMapping("/select")
+    public ResponseEntity<Diary> select(@RequestParam String userId, @RequestParam String diaryDate){
         Diary tmp = new Diary();
-        Diary result = diaryService.selectDiary(userId, diaryDate);
+        Diary result = diaryService.select(userId, diaryDate);
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
@@ -29,31 +29,31 @@ public class DiaryApi {
     }
 
     // 일기 저장
-    @PostMapping("/saveDiary")
-    public ResponseEntity<Boolean> saveDiary(@RequestBody Diary diary){
+    @PostMapping("/insert")
+    public ResponseEntity<Boolean> insert(@RequestBody Diary diary){
         boolean result = false;
-        if(diaryService.selectDiary(diary.getUserId(), diary.getDiaryDate()) == null) {
-            result = diaryService.saveDiary(diary);
+        if(diaryService.select(diary.getUserId(), diary.getDiaryDate()) == null) {
+            result = diaryService.insert(diary);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 일기 수정
-    @PutMapping("/updateDiary")
-    public ResponseEntity<Boolean> updateDiary(@RequestBody Diary diary){
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> update(@RequestBody Diary diary){
         boolean result = false;
-        if(diaryService.selectDiary(diary.getUserId(), diary.getDiaryDate()) != null){
-            result = diaryService.updateDiary(diary);
+        if(diaryService.select(diary.getUserId(), diary.getDiaryDate()) != null){
+            result = diaryService.update(diary);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 일기 삭제
-    @DeleteMapping("/deleteDiary")
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteDiary(@RequestParam String userId, @RequestParam String diaryDate){
         boolean result = false;
-        if(diaryService.selectDiary(userId, diaryDate) != null){
-            result = diaryService.deleteDiary(userId, diaryDate);
+        if(diaryService.select(userId, diaryDate) != null){
+            result = diaryService.delete(userId, diaryDate);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -20,7 +20,7 @@ public class DiaryServiceImpl implements DiaryService{
     private DiaryDao diaryDao;
 
     @Override
-    public Diary selectDiary(String userId, String diaryDate) {
+    public Diary select(String userId, String diaryDate) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("diaryDate", diaryDate);
@@ -28,17 +28,17 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public boolean saveDiary(Diary diary) {
+    public boolean insert(Diary diary) {
         return diaryDao.insert(diary);
     }
 
     @Override
-    public boolean updateDiary(Diary diary) {
+    public boolean update(Diary diary) {
         return diaryDao.update(diary);
     }
 
     @Override
-    public boolean deleteDiary(String userId, String diaryDate) {
+    public boolean delete(String userId, String diaryDate) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("diaryDate", diaryDate);
