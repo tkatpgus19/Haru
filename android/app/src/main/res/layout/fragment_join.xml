@@ -62,24 +62,52 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-        </LinearLayout>
-        <EditText
-            android:id="@+id/edit_id"
-            android:layout_width="220dp"
-            android:layout_height="48dp"
-            android:background="@drawable/search_box_style"
-            android:hint="  id"
-            android:textColorHint="#9C918D"
-            android:layout_marginBottom="8dp"/>
+            <EditText
+                android:id="@+id/edit_id"
+                android:layout_width="220dp"
+                android:layout_height="48dp"
+                android:background="@drawable/search_box_style"
+                android:hint="  id"
+                android:textColorHint="#9C918D"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"/>
 
-        <EditText
-            android:id="@+id/edit_password"
+            <Button
+                android:id="@+id/btn_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="중복 체크"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#72635D"
+                android:background="@drawable/btn_style2"/>
+
+        </LinearLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/search_box_style"
-            android:hint="  password"
-            android:textColorHint="#9C918D"
-            android:layout_marginBottom="8dp"/>
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/search_box_style"
+                android:hint="  password"
+                android:textColorHint="#9C918D"
+                android:layout_marginBottom="8dp"/>
+
+            <ImageView
+                android:id="@+id/img_password_eye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/baseline_remove_red_eye_24"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="12dp"/>
+
+
+        </FrameLayout>
 
         <EditText
             android:id="@+id/edit_email"
