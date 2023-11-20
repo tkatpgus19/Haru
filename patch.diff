@@ -1,0 +1,334 @@
+From fe442dd7b2be9d48c78a7ff634a42820b6e64e04 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=EA=B9=80=EA=B7=9C=EB=A6=AC?= <rlarbfl0702@naver.com>
+Date: Mon, 20 Nov 2023 10:22:09 +0900
+Subject: [PATCH] =?UTF-8?q?=EB=8B=A4=EC=9D=B4=EC=96=B4=EB=A6=AC=20?=
+ =?UTF-8?q?=EC=84=B8=EB=B6=80=20UI?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../ssafy/diary/diary/DiaryDetailsFragment.kt |  26 ++
+ .../res/drawable/baseline_insert_photo_24.xml |   5 +
+ .../res/layout/fragment_diary_details.xml     | 223 ++++++++++++++++++
+ .../main/res/layout/fragment_diary_main.xml   |   9 +-
+ 4 files changed, 258 insertions(+), 5 deletions(-)
+ create mode 100644 android/app/src/main/java/com/ssafy/diary/diary/DiaryDetailsFragment.kt
+ create mode 100644 android/app/src/main/res/drawable/baseline_insert_photo_24.xml
+ create mode 100644 android/app/src/main/res/layout/fragment_diary_details.xml
+
+diff --git a/android/app/src/main/java/com/ssafy/diary/diary/DiaryDetailsFragment.kt b/android/app/src/main/java/com/ssafy/diary/diary/DiaryDetailsFragment.kt
+new file mode 100644
+index 0000000..61b50cc
+--- /dev/null
++++ b/android/app/src/main/java/com/ssafy/diary/diary/DiaryDetailsFragment.kt
+@@ -0,0 +1,26 @@
++package com.ssafy.diary.diary
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import com.ssafy.diary.R
++
++
++class DiaryDetailsFragment : Fragment() {
++
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++
++    }
++
++    override fun onCreateView(
++        inflater: LayoutInflater, container: ViewGroup?,
++        savedInstanceState: Bundle?
++    ): View? {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_diary_details, container, false)
++    }
++
++}
+\ No newline at end of file
+diff --git a/android/app/src/main/res/drawable/baseline_insert_photo_24.xml b/android/app/src/main/res/drawable/baseline_insert_photo_24.xml
+new file mode 100644
+index 0000000..f8ea0e8
+--- /dev/null
++++ b/android/app/src/main/res/drawable/baseline_insert_photo_24.xml
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#71625D"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
++</vector>
+diff --git a/android/app/src/main/res/layout/fragment_diary_details.xml b/android/app/src/main/res/layout/fragment_diary_details.xml
+new file mode 100644
+index 0000000..234d0ef
+--- /dev/null
++++ b/android/app/src/main/res/layout/fragment_diary_details.xml
+@@ -0,0 +1,223 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@drawable/btn_style2"
++    tools:context=".diary.DiaryDetailsFragment">
++
++    <LinearLayout
++        android:id="@+id/layout01"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <ImageView
++            android:id="@+id/imageView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginLeft="16dp"
++            android:layout_marginTop="16dp"
++            android:src="@drawable/baseline_arrow_back_ios_new_24"
++            tools:layout_editor_absoluteX="17dp"
++            tools:layout_editor_absoluteY="16dp" />
++
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginLeft="120dp"
++            android:layout_marginTop="12dp"
++            android:text="2023.11.17"
++            android:textColor="#462727"
++            android:textSize="20dp"
++            android:textStyle="bold" />
++
++    </LinearLayout>
++
++    <LinearLayout
++        android:layout_width="360dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="20dp"
++        android:orientation="vertical"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/layout01">
++
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center"
++            android:layout_marginLeft="8dp"
++            android:gravity="left"
++            android:text="오늘의 기분"
++            android:textColor="#462727"
++            android:textSize="20sp"
++            android:textStyle="bold" />
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
++
++            <TextView
++                android:id="@+id/feeling01"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😊"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling02"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😆"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling03"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😂"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling04"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😥"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling05"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😭"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling06"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😔"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling07"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😤"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling08"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 😡"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling09"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 🤬"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++            <TextView
++                android:id="@+id/feeling10"
++                android:layout_width="wrap_content"
++                android:layout_height="48dp"
++                android:gravity="center_vertical"
++                android:text=" 🤒"
++                android:textColor="#6A6363"
++                android:textSize="24sp"
++                android:textStyle="bold" />
++
++        </LinearLayout>
++
++
++        <ImageView
++            android:id="@+id/imageView2"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="@drawable/edit_text_shape"
++            android:src="@drawable/baseline_insert_photo_24" />
++
++        <Button
++            android:id="@+id/btn_save"
++            android:layout_width="72dp"
++            android:layout_height="35dp"
++            android:layout_gravity="right"
++            android:layout_marginBottom="8dp"
++            android:background="@drawable/btn_style2"
++            android:text="저장"
++            android:textColor="#72635D"
++            android:textSize="16sp"
++            android:textStyle="bold" />
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginBottom="8dp"
++            android:gravity="left"
++            android:text="오늘의 일기"
++            android:textColor="#462727"
++            android:textSize="20dp"
++            android:textStyle="bold" />
++
++        <ImageView
++            android:id="@+id/img_today_diary"
++            android:layout_width="match_parent"
++            android:layout_height="160dp"
++            android:layout_marginBottom="64dp"
++            android:background="@drawable/edit_text_shape"
++            android:scaleType="centerCrop"
++            android:src="@drawable/img_diary"
++            tools:layout_editor_absoluteX="0dp"
++            tools:layout_editor_absoluteY="355dp" />
++
++        <ImageButton
++            android:id="@+id/imageButton"
++            android:layout_width="48dp"
++            android:layout_height="48dp"
++            android:layout_gravity="right"
++            android:background="@drawable/btn_style"
++            android:src="@drawable/baseline_add_24"
++            tools:layout_editor_absoluteX="327dp"
++            tools:layout_editor_absoluteY="654dp" />
++
++    </LinearLayout>
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/android/app/src/main/res/layout/fragment_diary_main.xml b/android/app/src/main/res/layout/fragment_diary_main.xml
+index 5c12dec..893aaf8 100644
+--- a/android/app/src/main/res/layout/fragment_diary_main.xml
++++ b/android/app/src/main/res/layout/fragment_diary_main.xml
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+@@ -69,7 +70,7 @@
+                 android:textStyle="bold"
+                 android:layout_gravity="center"
+                 android:gravity="left"
+-                android:textSize="22sp"
++                android:textSize="20sp"
+                 android:layout_marginLeft="8dp"
+                 android:textColor="@color/black"/>
+ 
+@@ -116,7 +117,7 @@
+             android:layout_height="wrap_content"
+             android:text="오늘의 일기"
+             android:textColor="#462727"
+-            android:textSize="22dp"
++            android:textSize="20sp"
+             android:textStyle="bold"
+             android:gravity="left"
+             android:layout_marginBottom="8dp"/>
+@@ -144,6 +145,4 @@
+ 
+     </LinearLayout>
+ 
+-
+-
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+-- 
+2.39.1.windows.1
+
