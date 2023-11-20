@@ -101,18 +101,50 @@
             android:padding="10dp"
             android:gravity="top"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
 
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="72dp"
-            android:layout_height="35dp"
-            android:text="저장"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#72635D"
-            android:background="@drawable/btn_style2"
-            android:layout_marginBottom="8dp"
-            android:layout_gravity="right"/>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:text="저장"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#72635D"
+                android:background="@drawable/btn_style2"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="4dp"/>
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:text="삭제"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#72635D"
+                android:background="@drawable/btn_style2"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="4dp"/>
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:text="수정"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#72635D"
+                android:background="@drawable/btn_style2"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="right"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
