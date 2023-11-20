@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
 
         // 좌상단 뒤로 가기 아이콘 이벤트 구현
-        binding.imageView.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             mActivity.goBack(this)
         }
 

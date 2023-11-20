@@ -30,7 +30,7 @@ class DiaryMainFragment : Fragment() {
 
         // **************** 수정 필요 ******************
         // 긴급 로그아웃 구현
-        binding.imageView.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             SharedPreferencesUtil(requireContext()).deleteUser()
             mActivity.goBack(this)
             mActivity.moveFragment(OPEN_FRAGMENT)
