@@ -73,9 +73,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/search_box_style"
-            android:hint="  email"
+            android:hint="email"
             android:textColorHint="#9C918D"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:paddingLeft="10dp"/>
 
         <Button
             android:id="@+id/btn_find_id"

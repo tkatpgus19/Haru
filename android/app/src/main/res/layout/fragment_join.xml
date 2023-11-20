@@ -53,9 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/search_box_style"
-            android:hint="  name"
+            android:hint="name"
             android:textColorHint="#9C918D"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,10 +68,11 @@
                 android:layout_width="220dp"
                 android:layout_height="48dp"
                 android:background="@drawable/search_box_style"
-                android:hint="  id"
+                android:hint="id"
                 android:textColorHint="#9C918D"
                 android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"/>
+                android:layout_marginRight="8dp"
+                android:paddingLeft="10dp"/>
 
             <Button
                 android:id="@+id/btn_check"
@@ -93,9 +95,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/search_box_style"
-                android:hint="  password"
+                android:hint="password"
                 android:textColorHint="#9C918D"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:paddingLeft="10dp"/>
 
             <ImageView
                 android:id="@+id/img_password_eye"
@@ -114,9 +117,10 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/search_box_style"
-            android:hint="  email"
+            android:hint="email"
             android:textColorHint="#9C918D"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:paddingLeft="10dp"/>
 
         <Button
             android:id="@+id/btn_login"
