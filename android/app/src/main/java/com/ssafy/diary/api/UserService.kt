@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -29,6 +30,10 @@ interface UserService {
     // 계정 탈퇴
     @DELETE("api/user/unregister/{userId}")
     suspend fun deleteAccount(@Path("userId") userId: String): Response<Boolean>
+
+    // 개인 정보 수정
+    @PUT("api/user/update")
+    suspend fun update(@Body user: User): Response<Boolean>
 
     // 비밀번호 매칭
     @GET("api/user/match")

@@ -5,7 +5,7 @@ data class User(
     var userPassword: String,
     var userNickname: String,
     var userEmail: String,
-    val userHeart: Int
+    var userHeart: Int
 ){
     constructor(): this("", "", "", "", 0)
 }

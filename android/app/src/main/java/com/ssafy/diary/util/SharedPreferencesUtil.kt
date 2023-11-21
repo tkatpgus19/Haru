@@ -15,6 +15,7 @@ class SharedPreferencesUtil (context: Context) {
         val editor = preferences.edit()
         editor.putString("id", user.userId)
         editor.putString("nickname", user.userNickname)
+        editor.putString("email", user.userEmail)
         editor.putInt("heart", user.userHeart)
         editor.apply()
     }
@@ -24,8 +25,9 @@ class SharedPreferencesUtil (context: Context) {
         if (id != ""){
             val id = preferences.getString("id", "")
             val nickname = preferences.getString("nickname", "")
+            val email = preferences.getString("email", "")
             val heart = preferences.getInt("heart", 0)
-            return User(id!!, "", nickname!!, "", heart)
+            return User(id!!, "", nickname!!, email!!, heart)
         }else{
             return User()
         }
