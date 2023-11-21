@@ -219,7 +219,7 @@
             android:gravity="top"
             android:textColorHint="#979FA8"
             android:padding="20dp"
-            android:enabled="false"/>
+            android:scrollbars="vertical"/>
 
     </LinearLayout>
 

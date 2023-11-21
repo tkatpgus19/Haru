@@ -23,8 +23,10 @@ public class HomeworkApi {
         Homework tmp = new Homework();
         Homework result = homeworkService.select(userId, homeworkDate);
         if (result != null) {
+            log.warn(result.toString());
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
+        log.warn(tmp.toString());
         return new ResponseEntity<>(tmp, HttpStatus.OK);
     }
 

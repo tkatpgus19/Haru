@@ -2,6 +2,7 @@ package com.ssafy.diary.diary
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -50,7 +51,7 @@ class DiaryDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val emotions =
-            mapOf<TextView, String>(binding.feeling01 to "", binding.feeling02 to "\uD83D\uDE06", binding.feeling03 to "\uD83D\uDE02", binding.feeling04 to "\uD83D\uDE25",
+            mapOf<TextView, String>(binding.feeling01 to "\uD83D\uDE0A", binding.feeling02 to "\uD83D\uDE06", binding.feeling03 to "\uD83D\uDE02", binding.feeling04 to "\uD83D\uDE25",
                 binding.feeling05 to "\uD83D\uDE2D", binding.feeling06 to "\uD83D\uDE14", binding.feeling07 to "\uD83D\uDE24", binding.feeling08 to "\uD83D\uDE21",
                 binding.feeling09 to "\uD83E\uDD2C", binding.feeling10 to "\uD83E\uDD12", )
 
@@ -60,7 +61,7 @@ class DiaryDetailsFragment : Fragment() {
             dActivity.goBack(this)
         }
 
-
+        binding.editTextTodayDiary.movementMethod = ScrollingMovementMethod.getInstance()
         binding.tvDate.text = date
 
         lifecycleScope.launch {
@@ -82,6 +83,7 @@ class DiaryDetailsFragment : Fragment() {
                 binding.btnDelete.visibility = View.VISIBLE
                 binding.btnEdit.visibility = View.VISIBLE
                 todayFeeling = result.diaryEmotion
+                binding.editTextTodayDiary.isEnabled = false
             }
         }
 
