@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    android:layout_width="310dp"
+    android:layout_height="match_parent"
+    android:background="@color/lightBrown"
+    android:layout_gravity="start"
+    android:paddingStart="20dp"
+    android:orientation="vertical">
+
+</LinearLayout>
