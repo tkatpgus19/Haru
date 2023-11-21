@@ -70,18 +70,20 @@
             android:textSize="24sp"
             android:textStyle="bold" />
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/emotion_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/btn_style2"
+            android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/feeling01"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
-                android:text=" "
+                android:text="😊"
+                android:layout_marginLeft="4dp"
                 android:textColor="#6A6363"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -172,6 +174,7 @@
                 android:layout_height="48dp"
                 android:gravity="center_vertical"
                 android:text=" 🤒"
+                android:layout_marginRight="2dp"
                 android:textColor="#6A6363"
                 android:textSize="24sp"
                 android:textStyle="bold" />
