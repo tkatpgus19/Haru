@@ -64,7 +64,7 @@ class DiaryMainFragment : Fragment() {
             dActivity.finish()
         }
 
-        binding.imageButton.setOnClickListener {
+        binding.btnAddDiary.setOnClickListener {
             dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
         }
         binding.imgTodayDiary.setOnClickListener {
