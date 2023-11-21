@@ -3,6 +3,7 @@ package com.ssafy.diary.diary
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +21,15 @@ import java.util.Date
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
+    lateinit var year: String
+    lateinit var month: String
+    lateinit var day: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        year = arguments!!.getString("year")!!
+        month = arguments!!.getString("month")!!
+        day = arguments!!.getString("day")!!
     }
 
     override fun onCreateView(
@@ -41,20 +47,18 @@ class DiaryMainFragment : Fragment() {
 //            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
 //        }
 
-        val calendar = Calendar.getInstance()
-        var year = calendar.get(Calendar.YEAR)
-        var month = calendar.get(Calendar.MONTH)
-        var day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        binding.tvDate.text = "${year}-${month+1}-${day}"
+//        var date = "${year}-${month+1}-${day}"
+        binding.tvDate.text = "${year}-${month}-${day}"
         binding.tvDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
-                year = y
-                month = m
-                day = d
-                binding.tvDate.text = "${year}-${month+1}-${day}"
+                year = y.toString()
+                month = (m+1).toString()
+                day = d.toString()
+                binding.tvDate.text = "${y}-${m+1}-${d}"
             }
-            val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year, month, day)
+            Log.d("뭔데", year+month+day)
+            val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year.toInt(), month.toInt(), day.toInt())
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
             datePickerDialog.show()
         }
@@ -65,10 +69,10 @@ class DiaryMainFragment : Fragment() {
         }
 
         binding.btnAddDiary.setOnClickListener {
-            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, year, month, day)
         }
         binding.imgTodayDiary.setOnClickListener {
-            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, year, month, day)
         }
 
         return binding.root
