@@ -18,7 +18,7 @@ public class HomeworkApi {
     HomeworkService homeworkService;
 
     // 숙제 조회
-    @GetMapping("/selectHomework")
+    @GetMapping("/select")
     public ResponseEntity<Homework> select(@RequestParam String userId, @RequestParam String homeworkDate) {
         Homework tmp = new Homework();
         Homework result = homeworkService.select(userId, homeworkDate);
@@ -51,7 +51,7 @@ public class HomeworkApi {
     }
 
     // 숙제 삭제
-    @DeleteMapping("/deleteHomework")
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> delete(@RequestParam String userId, @RequestParam String homeworkDate){
         boolean result = false;
         if(homeworkService.select(userId, homeworkDate) != null){
