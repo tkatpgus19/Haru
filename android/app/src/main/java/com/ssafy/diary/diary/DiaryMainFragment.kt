@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.DiaryActivity.Companion.DIARY_DETAILS_FRAGMENT
@@ -15,6 +16,7 @@ import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
+import com.ssafy.diary.dto.Homework
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
@@ -26,13 +28,16 @@ import kotlin.random.Random
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
-    private val question = arrayOf("질문 1", "질문 2", "질문 3", "질문 4", "질문 5","질문 6" )
+    private val questionList = arrayOf("질문 1", "질문 2", "질문 3", "질문 4", "질문 5","질문 6" )
+    private var question = questionList[(0..5).random()]
     lateinit var userId: String
 
     lateinit var year: String
     lateinit var month: String
     lateinit var day: String
     lateinit var date: String
+    private var modify = false
+    private val homework = Homework()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +75,16 @@ class DiaryMainFragment : Fragment() {
                 binding.btnDelete.visibility = View.VISIBLE
                 binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
                 binding.editTextTodayQuestionAnswer.isEnabled = false
+                binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
+                modify = true
             } else{
-                binding.textTodayQuestion.text = question[(0..5).random()]
+                binding.textTodayQuestion.text = "Q " + question
                 binding.btnSave.visibility = View.VISIBLE
                 binding.btnEdit.visibility = View.GONE
                 binding.btnDelete.visibility = View.GONE
                 binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
                 binding.editTextTodayQuestionAnswer.isEnabled = true
+                modify = false
             }
         }
 
@@ -99,13 +107,16 @@ class DiaryMainFragment : Fragment() {
                         binding.btnDelete.visibility = View.VISIBLE
                         binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
                         binding.editTextTodayQuestionAnswer.isEnabled = false
+                        binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
+                        modify = true
                     } else{
-                        binding.textTodayQuestion.text = question[(0..5).random()]
+                        binding.textTodayQuestion.text = "Q " + question
                         binding.btnSave.visibility = View.VISIBLE
                         binding.btnEdit.visibility = View.GONE
                         binding.btnDelete.visibility = View.GONE
                         binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
                         binding.editTextTodayQuestionAnswer.isEnabled = true
+                        modify = false
                     }
                 }
             }
@@ -135,11 +146,42 @@ class DiaryMainFragment : Fragment() {
             binding.editTextTodayQuestionAnswer.isEnabled = true
         }
         binding.btnSave.setOnClickListener {
+            lifecycleScope.launch {
+                homework.homeworkContent = binding.editTextTodayQuestionAnswer.text.toString()
+                homework.userId = userId
+                homework.homeworkDate = date
+                homework.homeworkQuestion = question
+                if(!modify){
+                    val result = RetrofitUtil.homeworkService.saveHomework(homework).body()
+                    if(result!!){
+                        Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
+                    }
+
+                } else{
+                    val result = RetrofitUtil.homeworkService.updateHomework(homework).body()
+                    Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
+
             binding.btnSave.visibility = View.GONE
             binding.btnEdit.visibility = View.VISIBLE
             binding.btnDelete.visibility = View.VISIBLE
             binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
             binding.editTextTodayQuestionAnswer.isEnabled = false
+        }
+
+        binding.btnDelete.setOnClickListener {
+            lifecycleScope.launch {
+                val result = RetrofitUtil.homeworkService.deleteHomework(userId, date).body()
+                if(result!!){
+                    Toast.makeText(requireContext(), "삭제 되었습니다", Toast.LENGTH_SHORT).show()
+                    binding.btnSave.visibility = View.VISIBLE
+                    binding.btnEdit.visibility = View.GONE
+                    binding.btnDelete.visibility = View.GONE
+                    binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
+                    binding.editTextTodayQuestionAnswer.isEnabled = true
+                }
+            }
         }
 
         return binding.root

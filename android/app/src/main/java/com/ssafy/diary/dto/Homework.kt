@@ -6,4 +6,6 @@ data class Homework(
     var homeworkQuestion: String,
     var homeworkContent: String,
     var homeworkDate: String
-)
+) {
+    constructor(): this(0, "", "", "", "")
+}

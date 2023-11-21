@@ -67,7 +67,7 @@ class DiaryDetailsFragment : Fragment() {
         lifecycleScope.launch {
             val result = RetrofitUtil.diaryService.getDiary(userId, date).body()
             if(result!!.userId == null){
-                binding.feeling.visibility = View.GONE
+                binding.feeling.visibility = View.INVISIBLE
                 binding.emotionContainer.visibility = View.VISIBLE
                 binding.btnSave.visibility = View.VISIBLE
                 binding.btnDelete.visibility = View.INVISIBLE
