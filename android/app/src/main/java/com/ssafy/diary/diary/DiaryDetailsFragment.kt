@@ -56,7 +56,6 @@ class DiaryDetailsFragment : Fragment() {
                 binding.feeling09 to "\uD83E\uDD2C", binding.feeling10 to "\uD83E\uDD12", )
 
         userId = SharedPreferencesUtil(requireContext()).getUser().userId
-
         binding.btnBack.setOnClickListener {
             dActivity.goBack(this)
         }

@@ -66,4 +66,10 @@ public class UserApi {
         boolean result = userService.update(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/match")
+    public ResponseEntity<Boolean> matchPassword(@RequestParam String userId, @RequestParam String userPassword){
+        boolean result = userService.matchPassword(userId, userPassword);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
