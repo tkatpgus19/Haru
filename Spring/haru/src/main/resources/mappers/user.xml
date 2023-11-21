@@ -27,4 +27,9 @@
         UPDATE user SET user_password = #{userPassword}, user_nickname = #{userNickname}, user_email = #{userEmail}
         WHERE user_id = #{userId}
     </update>
+
+    <select id="selectByPassword" parameterType="Map" resultType="User">
+        SELECT * FROM user
+        WHERE user_id = #{userId} AND user_password = #{userPassword}
+    </select>
 </mapper>

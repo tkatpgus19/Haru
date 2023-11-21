@@ -58,8 +58,9 @@ class LoginFragment : Fragment() {
                     // 로그인에 성공하면 서버로 부터 받은 회원 정보 sharedPreference 에 저장
                     if(result!!.userId != null){
                         Toast.makeText(requireContext(), "반갑습니다 ${result.userNickname}님", Toast.LENGTH_SHORT).show()
-                        SharedPreferencesUtil(requireContext()).addUser(user)
+                        SharedPreferencesUtil(requireContext()).addUser(result)
                         startActivity(Intent(requireActivity(), MainActivity::class.java))
+                        lActivity.finish()
                     } else{
                         Toast.makeText(requireContext(), "아이디 혹은 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
                     }

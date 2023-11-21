@@ -53,17 +53,6 @@ class DiaryMainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        // **************** 수정 필요 ******************
-        // 긴급 로그아웃 구현
-//        binding.btnBack.setOnClickListener {
-//            SharedPreferencesUtil(requireContext()).deleteUser()
-//            mActivity.goBack(this)
-//            mActivity.moveFragment(OPEN_FRAGMENT)
-//            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
-//        }
-
-//        var date = "${year}-${month+1}-${day}"
-
         userId = SharedPreferencesUtil(requireContext()).getUser().userId
 
         lifecycleScope.launch {

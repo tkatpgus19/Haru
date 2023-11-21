@@ -20,4 +20,7 @@ public interface UserService {
 
     // 계정 정보 수정
     boolean update(User user);
+
+    // 비밀번호 일치여부 조회
+    User matchPassword(String userId, String userPassword);
 }
