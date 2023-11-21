@@ -14,6 +14,7 @@ import com.ssafy.diary.login.FindIdFragment
 import com.ssafy.diary.login.JoinFragment
 import com.ssafy.diary.login.LoginFragment
 import com.ssafy.diary.login.OpenFragment
+import com.ssafy.diary.mypage.MyInfoFragment
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
 import com.ssafy.diary.nav.TodoListFragment
@@ -62,6 +63,10 @@ class MainActivity : AppCompatActivity() {
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, MyPageFragment())
                 .commit()
+            3 -> supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
+                .replace(R.id.fragment_container, MyInfoFragment())
+                .commit()
         }
 
     }
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         const val MAIN_FRAGMENT = 0
         const val TODO_LIST_FRAGMENT = 1
         const val MYPAGE_FRAGMENT = 2
+        const val MYINFO_PAGE_FRAGMENT = 3
     }
 
 }
