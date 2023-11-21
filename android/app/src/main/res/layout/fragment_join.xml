@@ -93,25 +93,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/edit_password"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/search_box_style"
-                android:hint="password"
-                android:textColorHint="#9C918D"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="10dp"/>
-
-            <ImageView
-                android:id="@+id/img_password_eye"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@drawable/baseline_remove_red_eye_24"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="12dp"/>
+                app:passwordToggleEnabled="true"
+                app:hintTextColor="@color/white">
 
+
+                <EditText
+                    android:id="@+id/edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/search_box_style"
+                    android:textColorHint="#9C918D"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="textPassword"
+                    android:hint="password"
+                    android:paddingLeft="10dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </FrameLayout>
 

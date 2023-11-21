@@ -23,6 +23,6 @@ interface HomeworkService {
     suspend fun updateHomework(@Body homework: Homework): Response<Boolean>
 
     // 숙제 삭제
-    @DELETE("api/homework/delete")
+    @DELETE("api/homework/deleteHomework")
     suspend fun deleteHomework(@Query("userId") userId: String, @Query("homeworkDate") homeworkDate: String): Response<Boolean>
 }
