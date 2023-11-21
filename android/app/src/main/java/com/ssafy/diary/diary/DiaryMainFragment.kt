@@ -20,10 +20,11 @@ import java.util.Date
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
+    lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        date = arguments!!.getString("date")!!
     }
 
     override fun onCreateView(
@@ -46,13 +47,15 @@ class DiaryMainFragment : Fragment() {
         var month = calendar.get(Calendar.MONTH)
         var day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        binding.tvDate.text = "${year}-${month+1}-${day}"
+//        var date = "${year}-${month+1}-${day}"
+        binding.tvDate.text = date
         binding.tvDate.setOnClickListener {
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 year = y
                 month = m
                 day = d
-                binding.tvDate.text = "${year}-${month+1}-${day}"
+                binding.tvDate.text = "${y}-${m+1}-${d}"
+                date = "${y}-${m+1}-${d}"
             }
             val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year, month, day)
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
@@ -65,10 +68,10 @@ class DiaryMainFragment : Fragment() {
         }
 
         binding.imageButton.setOnClickListener {
-            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, date)
         }
         binding.imgTodayDiary.setOnClickListener {
-            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT)
+            dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, date)
         }
 
         return binding.root

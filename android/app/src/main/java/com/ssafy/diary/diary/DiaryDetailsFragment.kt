@@ -27,16 +27,13 @@ class DiaryDetailsFragment : Fragment() {
     private val binding by lazy { FragmentDiaryDetailsBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
     lateinit var userId: String
-    private val now = System.currentTimeMillis()
-    private val date = Date(now)
-    private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-    private val currentDate = simpleDateFormat.format(date)
+    lateinit var date: String
     private var modify = false
 
     private var todayFeeling = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        date = arguments!!.getString("date")!!
     }
 
     override fun onCreateView(
@@ -56,10 +53,10 @@ class DiaryDetailsFragment : Fragment() {
         }
 
 
-        binding.tvDate.text = currentDate
+        binding.tvDate.text = date
 
         lifecycleScope.launch {
-            val result = RetrofitUtil.diaryService.getDiary(userId, currentDate).body()
+            val result = RetrofitUtil.diaryService.getDiary(userId, date).body()
             if(result!!.userId == null){
                 binding.feeling.visibility = View.GONE
                 binding.emotionContainer.visibility = View.VISIBLE
@@ -86,19 +83,31 @@ class DiaryDetailsFragment : Fragment() {
                     val diary = Diary()
                     diary.diaryContent = binding.editTextTodayDiary.text.toString()
                     diary.userId = userId
-                    diary.diaryDate = currentDate
+                    diary.diaryDate = date
                     diary.diaryEmotion = todayFeeling
                     if(!modify) {
                         val result = RetrofitUtil.diaryService.saveDiary(diary).body()
                         if (result!!) {
                             Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
-                            dActivity.goBack(this@DiaryDetailsFragment)
+
+                            binding.feeling.visibility = View.VISIBLE
+                            binding.emotionContainer.visibility = View.GONE
+                            binding.btnSave.visibility = View.INVISIBLE
+                            binding.btnDelete.visibility = View.VISIBLE
+                            binding.btnEdit.visibility = View.VISIBLE
+                            binding.editTextTodayDiary.isEnabled = false
                         }
                     } else{
                         val result = RetrofitUtil.diaryService.updateDiary(diary).body()
                         if(result!!){
                             Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
-                            dActivity.goBack(this@DiaryDetailsFragment)
+
+                            binding.feeling.visibility = View.VISIBLE
+                            binding.emotionContainer.visibility = View.GONE
+                            binding.btnSave.visibility = View.INVISIBLE
+                            binding.btnDelete.visibility = View.VISIBLE
+                            binding.btnEdit.visibility = View.VISIBLE
+                            binding.editTextTodayDiary.isEnabled = false
                         }
                     }
                 }
@@ -121,7 +130,7 @@ class DiaryDetailsFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener {
             lifecycleScope.launch {
-                val result = RetrofitUtil.diaryService.deleteDiary(userId, currentDate).body()
+                val result = RetrofitUtil.diaryService.deleteDiary(userId, date).body()
                 if(result!!){
                     Toast.makeText(requireContext(), "삭제 되었습니다", Toast.LENGTH_SHORT).show()
                     dActivity.goBack(this@DiaryDetailsFragment)
