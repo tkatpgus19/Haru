@@ -13,37 +13,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/baseline_arrow_back_ios_new_24"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="16dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="12dp"
-            android:text="2023.11.17"
-            android:textColor="#462727"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/baseline_arrow_back_ios_new_24"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2023.11.17"
+                android:textColor="#462727"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </FrameLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +121,7 @@
                 android:textStyle="bold"
                 android:textColor="#72635D"
                 android:background="@drawable/btn_style2"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="4dp"/>
 
@@ -130,7 +134,7 @@
                 android:textStyle="bold"
                 android:textColor="#72635D"
                 android:background="@drawable/btn_style2"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:layout_gravity="right"
                 android:layout_marginRight="4dp"/>
 
@@ -143,7 +147,7 @@
                 android:textStyle="bold"
                 android:textColor="#72635D"
                 android:background="@drawable/btn_style2"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:layout_gravity="right"/>
         </LinearLayout>
 
@@ -160,7 +164,7 @@
         <ImageView
             android:id="@+id/img_today_diary"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:clipToOutline="true"
             android:background="@drawable/edit_text_shape"

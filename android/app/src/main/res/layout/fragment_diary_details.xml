@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/btn_style2"
     tools:context=".diary.DiaryDetailsFragment">
 
     <LinearLayout
@@ -13,30 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/baseline_arrow_back_ios_new_24"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="16dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="12dp"
-            android:text="2023.11.17"
-            android:textColor="#462727"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/baseline_arrow_back_ios_new_24"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2023.11.17"
+                android:textColor="#462727"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -44,7 +47,7 @@
         android:id="@+id/layout02"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -199,7 +202,7 @@
             android:layout_width="72dp"
             android:layout_height="30dp"
             android:layout_gravity="right"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/btn_style2"
             android:text="업로드"
             android:textColor="#72635D"
@@ -224,7 +227,6 @@
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layout02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -234,19 +236,19 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:background="@drawable/btn_style"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
         android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/layout02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="24dp"
         android:gravity="center">
 
         <Button
