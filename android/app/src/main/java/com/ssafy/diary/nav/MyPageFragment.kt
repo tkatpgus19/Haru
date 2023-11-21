@@ -70,7 +70,7 @@ class MyPageFragment : Fragment() {
                     if (editText.text.isNotEmpty()) {
                         val pass = editText.text.toString()
                         val isMatch = RetrofitUtil.userService.matchPassword(userId, pass).body()
-                        if(isMatch!!){
+                        if(isMatch != null){
                             val result = RetrofitUtil.userService.deleteAccount(userId).body()
                             if(result!!){
                                 Toast.makeText(requireContext(), "계정 탈퇴가 완료되었습니다...", Toast.LENGTH_SHORT).show()

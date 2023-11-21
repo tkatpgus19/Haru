@@ -59,14 +59,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean matchPassword(String userId, String userPassword) {
+    public User matchPassword(String userId, String userPassword) {
         Map<String, String> map = new HashMap<>();
         map.put("userId", userId);
         map.put("userPassword", userPassword);
         User user = userDao.selectByPassword(map);
-        if(user != null){
-            return true;
-        }
-        return false;
+        return user;
     }
 }

@@ -68,8 +68,12 @@ public class UserApi {
     }
 
     @GetMapping("/match")
-    public ResponseEntity<Boolean> matchPassword(@RequestParam String userId, @RequestParam String userPassword){
-        boolean result = userService.matchPassword(userId, userPassword);
+    public ResponseEntity<User> matchPassword(@RequestParam String userId, @RequestParam String userPassword){
+        User result = new User();
+        User tmp = userService.matchPassword(userId, userPassword);
+        if(tmp != null){
+            result = tmp;
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

@@ -32,5 +32,5 @@ interface UserService {
 
     // 비밀번호 매칭
     @GET("api/user/match")
-    suspend fun matchPassword(@Query("userId") userId: String, @Query("userPassword") userPassword: String): Response<Boolean>
+    suspend fun matchPassword(@Query("userId") userId: String, @Query("userPassword") userPassword: String): Response<User>
 }

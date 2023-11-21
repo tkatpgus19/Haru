@@ -22,5 +22,5 @@ public interface UserService {
     boolean update(User user);
 
     // 비밀번호 일치여부 조회
-    boolean matchPassword(String userId, String userPassword);
+    User matchPassword(String userId, String userPassword);
 }
