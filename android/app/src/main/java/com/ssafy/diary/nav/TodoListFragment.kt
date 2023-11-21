@@ -1,6 +1,7 @@
 package com.ssafy.diary.nav
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +51,9 @@ class TodoListFragment : Fragment() {
             } else{
                 binding.checkboxTodayDiary.setBackgroundResource(R.drawable.check_box_style)
             }
-            
+
+            val inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()
+            Log.d("해위", inventoryItems.toString())
 
         }
 
