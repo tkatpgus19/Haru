@@ -1,5 +1,6 @@
 package com.ssafy.diary.diary
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class DiaryDetailsFragment : Fragment() {
     private val date = Date(now)
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     private val currentDate = simpleDateFormat.format(date)
+    private var modify = false
 
     private var todayFeeling = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,19 +61,22 @@ class DiaryDetailsFragment : Fragment() {
         lifecycleScope.launch {
             val result = RetrofitUtil.diaryService.getDiary(userId, currentDate).body()
             if(result!!.userId == null){
-                binding.feeling.visibility = View.INVISIBLE
+                binding.feeling.visibility = View.GONE
                 binding.emotionContainer.visibility = View.VISIBLE
                 binding.btnSave.visibility = View.VISIBLE
                 binding.btnDelete.visibility = View.INVISIBLE
                 binding.btnEdit.visibility = View.INVISIBLE
+                binding.editTextTodayDiary.isEnabled = true
+                binding.btnUpload.visibility = View.VISIBLE
             } else{
                 binding.feeling.visibility = View.VISIBLE
-                binding.feeling.setText(result.diaryEmotion)
+                binding.feeling.text = result.diaryEmotion
                 binding.emotionContainer.visibility = View.GONE
                 binding.editTextTodayDiary.setText(result.diaryContent)
                 binding.btnSave.visibility = View.INVISIBLE
                 binding.btnDelete.visibility = View.VISIBLE
                 binding.btnEdit.visibility = View.VISIBLE
+                todayFeeling = result.diaryEmotion
             }
         }
 
@@ -83,10 +88,18 @@ class DiaryDetailsFragment : Fragment() {
                     diary.userId = userId
                     diary.diaryDate = currentDate
                     diary.diaryEmotion = todayFeeling
-                    val result = RetrofitUtil.diaryService.saveDiary(diary).body()
-                    if(result!!){
-                        Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
-                        dActivity.goBack(this@DiaryDetailsFragment)
+                    if(!modify) {
+                        val result = RetrofitUtil.diaryService.saveDiary(diary).body()
+                        if (result!!) {
+                            Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
+                            dActivity.goBack(this@DiaryDetailsFragment)
+                        }
+                    } else{
+                        val result = RetrofitUtil.diaryService.updateDiary(diary).body()
+                        if(result!!){
+                            Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
+                            dActivity.goBack(this@DiaryDetailsFragment)
+                        }
                     }
                 }
             }
@@ -94,16 +107,15 @@ class DiaryDetailsFragment : Fragment() {
 
         binding.btnEdit.setOnClickListener {
             lifecycleScope.launch {
-                val diary = Diary()
-                diary.diaryContent = binding.editTextTodayDiary.text.toString()
-                diary.userId = userId
-                diary.diaryDate = currentDate
-                diary.diaryEmotion = todayFeeling
-                val result = RetrofitUtil.diaryService.updateDiary(diary).body()
-                if(result!!){
-                    Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
-                    dActivity.goBack(this@DiaryDetailsFragment)
-                }
+                modify = true
+
+                binding.btnUpload.visibility = View.VISIBLE
+                binding.emotionContainer.visibility = View.VISIBLE
+                binding.btnSave.visibility = View.VISIBLE
+                binding.btnDelete.visibility = View.INVISIBLE
+                binding.btnEdit.visibility = View.INVISIBLE
+
+                binding.editTextTodayDiary.isEnabled = true
             }
         }
 
@@ -121,6 +133,9 @@ class DiaryDetailsFragment : Fragment() {
             val key = it.key
             it.key.setOnClickListener {
                 todayFeeling = emotions[key]!!
+                binding.feeling.text = todayFeeling
+                binding.feeling.visibility = View.VISIBLE
+
             }
         }
 
