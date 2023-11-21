@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".diary.DiaryDetailsFragment"
-    android:scrollbars="vertical">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/layout01"
@@ -14,10 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="8dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -47,13 +44,10 @@
     <LinearLayout
         android:id="@+id/layout02"
         android:layout_width="360dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout01">
-
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,23 +70,26 @@
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
+        <GridLayout
             android:id="@+id/emotion_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:background="@drawable/btn_style2"
+            android:columnCount="11"
+            android:orientation="horizontal"
             android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/feeling01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="😊"
-                android:layout_marginLeft="4dp"
+                android:text=" 😊"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -102,9 +99,12 @@
                 android:id="@+id/feeling02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😆"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="2"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -114,9 +114,12 @@
                 android:id="@+id/feeling03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😂"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="3"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -126,9 +129,12 @@
                 android:id="@+id/feeling04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😥"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="4"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -138,9 +144,12 @@
                 android:id="@+id/feeling05"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😭"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="5"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -150,9 +159,12 @@
                 android:id="@+id/feeling06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😔"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="6"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -162,9 +174,12 @@
                 android:id="@+id/feeling07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😤"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="7"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -174,9 +189,12 @@
                 android:id="@+id/feeling08"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 😡"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="8"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -186,9 +204,12 @@
                 android:id="@+id/feeling09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:text=" 🤬"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="9"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -198,15 +219,18 @@
                 android:id="@+id/feeling10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text=" 🤒 "
+                android:text=" 🤒"
                 android:textColor="#6A6363"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_column="10"
+                android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"/>
 
-        </LinearLayout>
+        </GridLayout>
 
         <ImageButton
             android:id="@+id/btn_img_choose"
@@ -242,7 +266,8 @@
             android:gravity="top"
             android:textColorHint="#979FA8"
             android:padding="20dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:layout_marginBottom="24dp"/>
 
         <Button
             android:id="@+id/btn_save"
@@ -254,16 +279,12 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:background="@drawable/btn_style"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
             android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp"
             android:gravity="center">
 
             <Button
@@ -290,4 +311,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
