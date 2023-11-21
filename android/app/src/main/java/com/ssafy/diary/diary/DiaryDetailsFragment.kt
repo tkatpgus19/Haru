@@ -30,10 +30,18 @@ class DiaryDetailsFragment : Fragment() {
     lateinit var date: String
     private var modify = false
 
+    lateinit var year: String
+    lateinit var month: String
+    lateinit var day: String
+
     private var todayFeeling = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        date = arguments!!.getString("date")!!
+        year = arguments!!.getString("year")!!
+        month = arguments!!.getString("month")!!
+        day = arguments!!.getString("day")!!
+        date = "${year}-${month}-${day}"
+        binding.tvDate.text = date
     }
 
     override fun onCreateView(

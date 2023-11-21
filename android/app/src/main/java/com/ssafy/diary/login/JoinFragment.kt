@@ -38,7 +38,7 @@ class JoinFragment : Fragment() {
         }
 
         // 회원가입 구현
-        binding.btnLogin.setOnClickListener {
+        binding.btnJoin.setOnClickListener {
             val name = binding.editName.text.toString()
             val id = binding.editId.text.toString()
             val pass = binding.editPassword.text.toString()

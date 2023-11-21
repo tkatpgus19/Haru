@@ -21,14 +21,16 @@ class DiaryActivity : AppCompatActivity() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
-        moveFragment(DIARY_MAIN_FRAGMENT, "${year}-${month+1}-${day}")
+        moveFragment(DIARY_MAIN_FRAGMENT, year.toString(), (month+1).toString(), day.toString())
     }
 
 
     // 프래그먼트 이동 함수
-    fun moveFragment(destination: Int, date: String){
+    fun moveFragment(destination: Int, year: String, month: String, day: String){
         val bundle = Bundle()
-        bundle.putString("date", date)
+        bundle.putString("year", year)
+        bundle.putString("month", month)
+        bundle.putString("day", day)
         when(destination){
             0 ->
             {
