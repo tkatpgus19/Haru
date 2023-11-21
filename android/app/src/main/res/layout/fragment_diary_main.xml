@@ -168,16 +168,20 @@
             tools:layout_editor_absoluteY="355dp"
             android:layout_marginBottom="64dp"/>
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/btn_style"
-            android:src="@drawable/baseline_add_24"
-            tools:layout_editor_absoluteX="327dp"
-            tools:layout_editor_absoluteY="654dp"
-            android:layout_gravity="right"/>
-
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_add_diary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_style"
+        android:src="@drawable/baseline_add_24"
+        tools:layout_editor_absoluteX="327dp"
+        tools:layout_editor_absoluteY="654dp"
+        android:layout_gravity="right"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
