@@ -3,6 +3,9 @@ package com.ssafy.diary
 import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.diary.DiaryDetailsFragment
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         if(userInfo.userId != ""){
             moveFragment(MAIN_FRAGMENT)
         } else{
-            moveFragment(LOGIN_FRAGMENT)
+            finish()
         }
 
         // 하단 네비게이션 바
@@ -36,11 +39,11 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.action_one -> moveFragment(MAIN_FRAGMENT)
                 R.id.action_two -> moveFragment(TODO_LIST_FRAGMENT)
-                R.id.action_three -> moveFragment(MYPAGE_FRAGMENT)
-                else -> OPEN_FRAGMENT
+                else -> moveFragment(MYPAGE_FRAGMENT)
             }
             true
         }
+
 
     }
 
@@ -49,44 +52,15 @@ class MainActivity : AppCompatActivity() {
         when(destination){
             0 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, OpenFragment())
-                .addToBackStack(null)
+                .replace(R.id.fragment_container, MainFragment())
                 .commit()
             1 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, LoginFragment())
-                .addToBackStack(null)
+                .replace(R.id.fragment_container, TodoListFragment())
                 .commit()
             2 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, JoinFragment())
-                .addToBackStack(null)
-                .commit()
-            3 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, FindIdFragment())
-                .addToBackStack(null)
-                .commit()
-            4 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, MainFragment())
-                .commit()
-            5 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, DiaryMainFragment())
-                .commit()
-            6 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, MyPageFragment())
-                .commit()
-            7 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, TodoListFragment())
-                .commit()
-            8 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, DiaryDetailsFragment())
-                .addToBackStack(null)
                 .commit()
         }
 
@@ -100,17 +74,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.popBackStack()
     }
 
-
     companion object{
-        const val OPEN_FRAGMENT = 0
-        const val LOGIN_FRAGMENT = 1
-        const val JOIN_FRAGMENT = 2
-        const val FIND_ID_FRAGMENT = 3
-        const val MAIN_FRAGMENT = 4
-        const val DIARY_MAIN_FRAGMENT = 5
-        const val MYPAGE_FRAGMENT = 6
-        const val TODO_LIST_FRAGMENT = 7
-        const val DIARY_DETAIL_FRAGMENT = 8
+        const val MAIN_FRAGMENT = 0
+        const val TODO_LIST_FRAGMENT = 1
+        const val MYPAGE_FRAGMENT = 2
     }
 
 }

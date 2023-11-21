@@ -1,17 +1,16 @@
 package com.ssafy.diary.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.ssafy.diary.LoginActivity
+import com.ssafy.diary.LoginActivity.Companion.FIND_ID_FRAGMENT
 import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.DIARY_MAIN_FRAGMENT
-import com.ssafy.diary.MainActivity.Companion.FIND_ID_FRAGMENT
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
-import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
@@ -23,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private val binding by lazy { FragmentLoginBinding.inflate(layoutInflater) }
-    private val mActivity by lazy { activity as MainActivity }
+    private val lActivity by lazy { activity as LoginActivity }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class LoginFragment : Fragment() {
 
         // 좌상단 뒤로 가기 아이콘 이벤트 구현
         binding.btnBack.setOnClickListener {
-            mActivity.goBack(this)
+            lActivity.goBack(this)
         }
 
         // 로그인 구현
@@ -60,7 +59,7 @@ class LoginFragment : Fragment() {
                     if(result!!.userId != null){
                         Toast.makeText(requireContext(), "반갑습니다 ${result.userNickname}님", Toast.LENGTH_SHORT).show()
                         SharedPreferencesUtil(requireContext()).addUser(user)
-                        mActivity.moveFragment(MAIN_FRAGMENT)
+                        startActivity(Intent(requireActivity(), MainActivity::class.java))
                     } else{
                         Toast.makeText(requireContext(), "아이디 혹은 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
                     }
@@ -74,7 +73,7 @@ class LoginFragment : Fragment() {
         
         // 아이디 조회 프래그먼트 이동
         binding.btnFindId.setOnClickListener {
-            mActivity.moveFragment(FIND_ID_FRAGMENT)
+            lActivity.moveFragment(FIND_ID_FRAGMENT)
         }
         return binding.root
     }
