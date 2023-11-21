@@ -7,6 +7,7 @@ public interface DiaryService {
     Diary select(String userId, String diaryDate);
 
     // 일기 저장
+    // 300
     boolean insert(Diary diary);
 
     // 일기 수정

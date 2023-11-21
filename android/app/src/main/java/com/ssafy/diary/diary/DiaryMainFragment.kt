@@ -1,5 +1,7 @@
 package com.ssafy.diary.diary
 
+import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +11,10 @@ import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.DiaryActivity.Companion.DIARY_DETAILS_FRAGMENT
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
+import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 
 class DiaryMainFragment : Fragment() {
@@ -37,12 +41,24 @@ class DiaryMainFragment : Fragment() {
 //            Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
 //        }
 
-        val now = System.currentTimeMillis()
-        val date = Date(now)
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val currentDate = simpleDateFormat.format(date)
+        val calendar = Calendar.getInstance()
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        binding.tvDate.text = currentDate
+        binding.tvDate.text = "${year}-${month+1}-${day}"
+        binding.tvDate.setOnClickListener {
+            val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
+                year = y
+                month = m
+                day = d
+                binding.tvDate.text = "${year}-${month+1}-${day}"
+            }
+            val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year, month, day)
+            datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
+            datePickerDialog.show()
+        }
+        binding.imgTodayDiary.clipToOutline = true
 
         binding.btnBack.setOnClickListener {
             dActivity.finish()
