@@ -13,49 +13,39 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/baseline_arrow_back_ios_new_24"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="150dp"
             android:layout_marginTop="12dp"
             android:text="마이 페이지"
             android:textColor="#462727"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/layout02"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/layout01"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout01">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_vertical"
+        android:paddingTop="20dp"
+        android:background="@drawable/profile_back_style"
+        android:orientation="vertical">
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/img_personal"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="#DCDCDC"
-            app:civ_border_overlay="false"
-            app:civ_border_width="5dp"
-            app:civ_border_color="@color/lightBrown"
+            android:background="@drawable/profile_style"
             android:src="@drawable/baseline_person_24"
             android:layout_marginBottom="8dp"/>
 
@@ -69,6 +59,17 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout02">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:text="내 정보"
                 android:layout_gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="#462727"
                 android:textStyle="bold"
                 android:layout_marginLeft="16dp"
@@ -124,7 +125,7 @@
                 android:text="로그아웃"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="#462727"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="220dp"/>
@@ -149,7 +150,7 @@
                 android:text="계정 탈퇴"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="#462727"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="220dp"/>
