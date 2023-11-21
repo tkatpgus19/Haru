@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface HomeworkService {
     // 숙제 조회
-    @GET("api/homework/selectHomework")
+    @GET("api/homework/select")
     suspend fun getHomework(@Query("userId") userId: String, @Query("homeworkDate") homeworkDate: String): Response<Homework>
 
     // 숙제 저장
@@ -23,6 +23,6 @@ interface HomeworkService {
     suspend fun updateHomework(@Body homework: Homework): Response<Boolean>
 
     // 숙제 삭제
-    @DELETE("api/homework/deleteHomework")
+    @DELETE("api/homework/delete")
     suspend fun deleteHomework(@Query("userId") userId: String, @Query("homeworkDate") homeworkDate: String): Response<Boolean>
 }
