@@ -13,21 +13,13 @@ import java.util.concurrent.TimeUnit
 class ApplicationClass : Application() {
     companion object{
 //        const val SERVER_URL = "http://mobile-pjt.sample.ssafy.io/"
-        const val SERVER_URL = "http://192.168.33.130:9999/"
+        const val SERVER_URL = "http://192.168.0.107:9999/"
 
         const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
         const val IMGS_URL = "${SERVER_URL}imgs/"
 
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
-
-        // 모든 퍼미션 관련 배열
-        val requiredPermissions = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-        )
-
-        // 주문 준비 완료 확인 시간 1분
-        const val ORDER_COMPLETED_TIME = 60*1000
 
     }
 
