@@ -1,15 +1,20 @@
 package com.ssafy.diary.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity.Companion.bCheckbox
 import com.ssafy.diary.MainActivity.Companion.backgroundImg
 import com.ssafy.diary.MainActivity.Companion.cCheckbox
@@ -17,57 +22,52 @@ import com.ssafy.diary.MainActivity.Companion.characterImg
 import com.ssafy.diary.R
 import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
+import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
+import kotlinx.coroutines.launch
 
-class StoreAdapter(val context: Context, val list: ArrayList<Item>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<StoreAdapter.StoreHolder>() {
+class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryItem>, val list: ArrayList<Item>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<StoreAdapter.StoreHolder>() {
     inner class StoreHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val itemImage = itemView.findViewById<ImageView>(R.id.img_store_item_type)
         val itemBlocked = itemView.findViewById<TextView>(R.id.text_store_item_blocked)
         val itemLockImg = itemView.findViewById<ImageView>(R.id.img_store_item_locked)
         val itemPrice = itemView.findViewById<TextView>(R.id.text_item_heart_count)
-        val setting = SharedPreferencesUtil(context).getSetting()
+        val itemHeart = itemView.findViewById<ImageView>(R.id.img_heart)
 
         fun bind(){
             var hasItem = false
             itemImage.setImageResource(itemList[layoutPosition])
-            itemPrice.text = list[layoutPosition].toString()
+            itemPrice.text = list[layoutPosition].itemPrice.toString()
 
-            list.forEach {
+            inventoryList.forEach {
                 if(layoutPosition == it.itemId){
                     itemBlocked.visibility = View.GONE
                     itemLockImg.visibility = View.GONE
+                    itemPrice.visibility = View.GONE
+                    itemHeart.visibility = View.GONE
                     hasItem = true
                 }
             }
-//            if(setting.character == itemList[layoutPosition] || setting.background == itemList[layoutPosition]){
-//                itemCheckbox.setBackgroundResource(R.drawable.check_box_style2)
-//                if(type == "B")
-//                    bCheckbox = itemCheckbox
-//                else{
-//                    cCheckbox = itemCheckbox
-//                }
-//
-//            }
-//            itemImage.setOnClickListener {
-//                if(bCheckbox != itemCheckbox && cCheckbox != itemCheckbox) {
-//                    if (hasItem) {
-//                        itemCheckbox.setBackgroundResource(R.drawable.check_box_style2)
-//                        if (type == "B") {
-//                            backgroundImg = itemList[layoutPosition]
-//                            bCheckbox.setBackgroundResource(R.drawable.check_box_style)
-//                            bCheckbox = itemCheckbox
-////                            SharedPreferencesUtil(context).saveSetting(itemList[layoutPosition], -1)
-//                        } else {
-//                            characterImg = itemList[layoutPosition]
-//                            cCheckbox.setBackgroundResource(R.drawable.check_box_style)
-//                            cCheckbox = itemCheckbox
-////                            SharedPreferencesUtil(context).saveSetting(-1, itemList[layoutPosition])
-//                        }
-//                    } else {
-//                        Toast.makeText(context, "구입하지 않은 아이템입니다...", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
+
+            itemImage.setOnClickListener {
+                if(hasItem){
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+
+
+                    val inflater = LayoutInflater.from(context).inflate(R.layout.dialog_match_password, null)
+                    builder.apply {
+                        setView(inflater)
+                        setPositiveButton("확인"){ dialog, _ ->
+                            dialog.cancel()
+                        }
+                        setNegativeButton("취소"){dialog, _ ->
+                            dialog.cancel()
+                        }
+                    }
+                    builder.create().show()
+                }
+            }
+
         }
     }
 

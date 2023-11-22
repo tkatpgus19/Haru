@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ssafy.diary.MainActivity.Companion.backgroundList
 import com.ssafy.diary.MainActivity.Companion.characterList
 import com.ssafy.diary.R
 import com.ssafy.diary.adapter.StoreAdapter
 import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.databinding.FragmentStoreBinding
+import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
@@ -37,6 +39,9 @@ class StoreFragment : Fragment() {
         var itemList = ArrayList<Item>()
         var cItems = ArrayList<Item>()
         var bItems = ArrayList<Item>()
+        var cInvItems = ArrayList<InventoryItem>()
+        var bInvItems = ArrayList<InventoryItem>()
+        var inventoryItems = ArrayList<InventoryItem>()
         lifecycleScope.launch {
             itemList = RetrofitUtil.storeSerivce.getItem().body()!!
 
@@ -51,10 +56,24 @@ class StoreFragment : Fragment() {
             }
             Log.d("해위", cItems.toString())
 
+            inventoryItems = RetrofitUtil.inventoryService.getInventory(userInfo.userId).body()!!
 
-            val adapter = StoreAdapter(requireContext(), cItems, characterList, "C")
-            binding.recyclerItem.adapter = adapter
+            inventoryItems.forEach {
+                if(it.itemType == "B"){
+                    bInvItems.add(it)
+                } else{
+                    it.itemId -= 5
+                    cInvItems.add(it)
+                }
+            }
+
+            val cAdapter = StoreAdapter(requireContext(), inventoryItems, cItems, characterList, "C")
+            binding.recyclerItem.adapter = cAdapter
             binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+            val bAdapter = StoreAdapter(requireContext(), inventoryItems, bItems, backgroundList, "B")
+            binding.recyclerBack.adapter = bAdapter
+            binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
 
         return binding.root
