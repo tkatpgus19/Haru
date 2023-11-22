@@ -81,6 +81,10 @@ class DiaryMainFragment : Fragment() {
         binding.tvDate.text = date
         binding.tvDate.setOnClickListener {
             val calendar = Calendar.getInstance()
+            val format = SimpleDateFormat("yyyy-MM-dd")
+            val today = format.format(calendar.time)
+            Log.d("씨발", today)
+
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 year = y.toString()
                 month = (m+1).toString()
@@ -91,21 +95,41 @@ class DiaryMainFragment : Fragment() {
                     val result = RetrofitUtil.homeworkService.getHomework(userId, date).body()
                     if(result!!.userId != null){
                         binding.textTodayQuestion.text = result.homeworkQuestion
-                        binding.btnSave.visibility = View.GONE
-                        binding.btnEdit.visibility = View.VISIBLE
-                        binding.btnDelete.visibility = View.VISIBLE
-                        binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
                         binding.editTextTodayQuestionAnswer.isEnabled = false
                         binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
-                        modify = true
+                        binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
+
+                        if(date == today){
+                            binding.btnSave.visibility = View.GONE
+                            binding.btnEdit.visibility = View.VISIBLE
+                            binding.btnDelete.visibility = View.VISIBLE
+                            modify = true
+                        }
+                        else{
+                            binding.btnSave.visibility = View.GONE
+                            binding.btnEdit.visibility = View.GONE
+                            binding.btnDelete.visibility = View.GONE
+                            modify = false
+                        }
                     } else{
                         binding.textTodayQuestion.text = "Q " + question
-                        binding.btnSave.visibility = View.VISIBLE
-                        binding.btnEdit.visibility = View.GONE
-                        binding.btnDelete.visibility = View.GONE
                         binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
-                        binding.editTextTodayQuestionAnswer.isEnabled = true
-                        modify = false
+                        if(date == today){
+                            binding.editTextTodayQuestionAnswer.isEnabled = true
+                            binding.btnSave.visibility = View.VISIBLE
+                            binding.btnEdit.visibility = View.GONE
+                            binding.btnDelete.visibility = View.GONE
+                            modify = false
+                        }
+                        else{
+                            binding.editTextTodayQuestionAnswer.isEnabled = false
+                            binding.editTextTodayQuestionAnswer.setText("작성된 일기가 없습니다.")
+                            binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
+                            binding.btnSave.visibility = View.GONE
+                            binding.btnEdit.visibility = View.GONE
+                            binding.btnDelete.visibility = View.GONE
+                            modify = false
+                        }
                     }
                 }
             }
@@ -114,7 +138,6 @@ class DiaryMainFragment : Fragment() {
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
             datePickerDialog.show()
         }
-        binding.imgTodayDiary.clipToOutline = true
 
         binding.btnBack.setOnClickListener {
             dActivity.finish()

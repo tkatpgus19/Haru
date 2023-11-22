@@ -69,5 +69,12 @@ class SharedPreferencesUtil (context: Context) {
         editor.apply()
     }
 
+    // 오늘의 질문 저장
+    fun saveQuestion(){
+        val editor = preferences.edit()
+        editor.putInt("question", (0..5).random())
+        editor.apply()
+    }
+
 
 }
