@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.LoginActivity.Companion.OPEN_FRAGMENT
+import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentJoinBinding
 import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
+import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,7 +57,9 @@ class JoinFragment : Fragment() {
                         if (RetrofitUtil.userService.join(user).body()!!) {
                             Toast.makeText(requireContext(), "회원가입이 완료되었습니다", Toast.LENGTH_SHORT)
                                 .show()
+                            RetrofitUtil.inventoryService.addItem(user.userId, "0")
                             lActivity.moveFragment(OPEN_FRAGMENT)
+                            SharedPreferencesUtil(requireContext()).saveSetting(R.drawable.background01, R.drawable.character01)
                         }
                     }
                 } else{

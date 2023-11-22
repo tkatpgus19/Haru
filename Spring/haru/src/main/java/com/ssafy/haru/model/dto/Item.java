@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Item {
     private int itemId;
     private String itemType;
-    private String itemName;
+    private String itemSource;
     private int itemPrice;
 
     @Override
@@ -16,7 +16,7 @@ public class Item {
         return "Item{" +
                 "itemId=" + itemId +
                 ", itemType='" + itemType + '\'' +
-                ", itemName='" + itemName + '\'' +
+                ", itemName='" + itemSource + '\'' +
                 ", itemPrice=" + itemPrice +
                 '}';
     }

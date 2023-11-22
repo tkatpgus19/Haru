@@ -3,6 +3,6 @@ package com.ssafy.diary.dto
 data class InventoryItem(
     var userId: String,
     var itemId: Int,
-    var itemName: String,
+    var itemSource: String,
     var itemType: String
 )
