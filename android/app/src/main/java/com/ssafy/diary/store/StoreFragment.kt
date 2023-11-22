@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ssafy.diary.R
+import com.ssafy.diary.databinding.FragmentMyPageBinding
+import com.ssafy.diary.databinding.FragmentStoreBinding
+import com.ssafy.diary.util.SharedPreferencesUtil
 
 class StoreFragment : Fragment() {
+    private val binding by lazy { FragmentStoreBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +23,9 @@ class StoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false)
+        val userInfo = SharedPreferencesUtil(requireContext()).getUser()
+        binding.textHeartCount.text = "${userInfo.userHeart}개"
+        return binding.root
     }
 
 }
