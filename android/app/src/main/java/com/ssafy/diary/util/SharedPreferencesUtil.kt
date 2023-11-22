@@ -42,6 +42,13 @@ class SharedPreferencesUtil (context: Context) {
         editor.apply()
     }
 
+    // 사용자 하트 저장
+    fun updateHeart(heart: Int){
+        val editor = preferences.edit()
+        editor.putInt("heart", heart)
+        editor.apply()
+    }
+
     fun getUser(): User{
         val id = preferences.getString("id", "")
         if (id != ""){
@@ -59,6 +66,13 @@ class SharedPreferencesUtil (context: Context) {
         //preference 지우기
         val editor = preferences.edit()
         editor.clear()
+        editor.apply()
+    }
+
+    // 오늘의 질문 저장
+    fun saveQuestion(){
+        val editor = preferences.edit()
+        editor.putInt("question", (0..5).random())
         editor.apply()
     }
 

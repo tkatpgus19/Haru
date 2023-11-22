@@ -32,4 +32,9 @@
         SELECT * FROM user
         WHERE user_id = #{userId} AND user_password = #{userPassword}
     </select>
+
+    <update id="updateHeart" parameterType="Map">
+        UPDATE user SET user_heart = #{userHeart}
+        WHERE user_id = #{userId}
+    </update>
 </mapper>
