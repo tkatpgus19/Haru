@@ -4,9 +4,14 @@ import android.content.Intent
 import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
+import com.ssafy.diary.dto.User
 import com.ssafy.diary.mypage.MyInfoFragment
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
@@ -15,7 +20,6 @@ import com.ssafy.diary.util.SharedPreferencesUtil
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private var status = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -42,6 +46,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DiaryActivity::class.java))
         }
 
+        binding.btnMenu.setOnClickListener {
+            binding.layoutMain.open()
+        }
+
+        binding.layoutMain.findViewById<LinearLayout>(R.id.btn_logout).setOnClickListener {
+            SharedPreferencesUtil(this).deleteUser()
+            Toast.makeText(this, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+            finish()
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+        binding.inViewDrawer.textName.text = userInfo.userNickname
+        binding.inViewDrawer.textHeartCount.text = userInfo.userHeart.toString()
 
     }
 
@@ -67,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     // 프래그먼트 뒤로가기 구현
     fun goBack(fragment: Fragment){
         supportFragmentManager.beginTransaction()
