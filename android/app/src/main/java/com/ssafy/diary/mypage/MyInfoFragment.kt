@@ -69,7 +69,7 @@ class MyInfoFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
 
         val inflater = layoutInflater.inflate(R.layout.dialog_match_password, null)
-        val editText = inflater.findViewById<EditText>(R.id.et_match_dialog)
+        val editText = inflater.findViewById<EditText>(R.id.edit_password_dialog)
         builder.apply {
             setView(inflater)
             setPositiveButton("확인"){ dialog, _ ->
