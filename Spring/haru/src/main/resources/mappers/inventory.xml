@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.haru.model.dao.InventoryDao">
     <select id="select" parameterType="String" resultType="InventoryItem">
-        SELECT inv.user_id, inv.item_id, ite.item_name, ite.item_type
+        SELECT inv.user_id, inv.item_id, ite.item_source, ite.item_type
         FROM item ite, inventory inv
         WHERE inv.user_id = #{userId} AND ite.item_id = inv.item_id
     </select>
