@@ -96,12 +96,19 @@
             android:gravity="left"
             android:layout_marginBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_back"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:layout_marginBottom="64dp"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style3"
+            android:padding="1dp"
+            android:layout_marginBottom="8dp">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_back"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"/>
+
+        </LinearLayout>
 
 
         <TextView
@@ -114,11 +121,19 @@
             android:gravity="left"
             android:layout_marginBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_item"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style3"
+            android:padding="1dp"
+            android:layout_marginBottom="8dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_item"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
