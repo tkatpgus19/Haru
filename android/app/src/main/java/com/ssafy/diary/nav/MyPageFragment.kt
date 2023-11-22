@@ -1,22 +1,23 @@
 package com.ssafy.diary.nav
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
-import com.ssafy.diary.SubActivity
-import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
@@ -64,7 +65,45 @@ class MyPageFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
 
         val inflater = layoutInflater.inflate(R.layout.dialog_match_password, null)
-        val editText = inflater.findViewById<EditText>(R.id.et_match_dialog)
+        val editText = inflater.findViewById<EditText>(R.id.edit_password_dialog)
+        val ok = inflater.findViewById<Button>(R.id.btn_ok)
+
+//        ok.setOnTouchListener { view, motionEvent ->
+//            ok.setTextColor(Color.parseColor("#FFFFFF"))
+//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
+//
+//            true
+//        }
+//        ok.setOnTouchListener(new ok2.OnTouchListener() {
+//            ok.setTextColor(Color.parseColor("#FFFFFF"))
+//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
+//        })
+
+        ok.setOnClickListener {
+//            ok.setTextColor(Color.parseColor("#FFFFFF"))
+//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
+
+            lifecycleScope.launch {
+                if (editText.text.isNotEmpty()) {
+                    val pass = editText.text.toString()
+                    val isMatch = RetrofitUtil.userService.matchPassword(userId, pass).body()
+                    if(isMatch != null){
+                        val result = RetrofitUtil.userService.deleteAccount(userId).body()
+                        if(result!!){
+                            Toast.makeText(requireContext(), "계정 탈퇴가 완료되었습니다...", Toast.LENGTH_SHORT).show()
+                            SharedPreferencesUtil(requireContext()).deleteUser()
+                            mActivity.finish()
+                            startActivity(Intent(requireContext(), LoginActivity::class.java))
+                        }
+                    } else{
+                        Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
+                    }
+                } else{
+                    Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         builder.apply {
             setView(inflater)
             setPositiveButton("확인"){ dialog, _ ->
