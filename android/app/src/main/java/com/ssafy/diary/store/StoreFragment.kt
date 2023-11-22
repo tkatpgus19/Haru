@@ -65,11 +65,11 @@ class StoreFragment : Fragment() {
                 }
             }
 
-            val cAdapter = StoreAdapter(requireContext(), cInvItems, cItems, characterList, "C")
+            val cAdapter = StoreAdapter(binding, requireContext(), cInvItems, cItems, characterList, "C")
             binding.recyclerItem.adapter = cAdapter
             binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-            val bAdapter = StoreAdapter(requireContext(), bInvItems, bItems, backgroundList, "B")
+            val bAdapter = StoreAdapter(binding, requireContext(), bInvItems, bItems, backgroundList, "B")
             binding.recyclerBack.adapter = bAdapter
             binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }

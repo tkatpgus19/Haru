@@ -20,6 +20,7 @@ import com.ssafy.diary.MainActivity.Companion.backgroundImg
 import com.ssafy.diary.MainActivity.Companion.cCheckbox
 import com.ssafy.diary.MainActivity.Companion.characterImg
 import com.ssafy.diary.R
+import com.ssafy.diary.databinding.FragmentStoreBinding
 import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
 import com.ssafy.diary.util.RetrofitUtil
@@ -28,14 +29,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryItem>, val list: ArrayList<Item>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<StoreAdapter.StoreHolder>() {
+class StoreAdapter(val binding: FragmentStoreBinding, val context: Context, val inventoryList: ArrayList<InventoryItem>, val list: ArrayList<Item>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<StoreAdapter.StoreHolder>() {
     inner class StoreHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val itemImage = itemView.findViewById<ImageView>(R.id.img_store_item_type)
         val itemBlocked = itemView.findViewById<TextView>(R.id.text_store_item_blocked)
         val itemLockImg = itemView.findViewById<ImageView>(R.id.img_store_item_locked)
         val itemPrice = itemView.findViewById<TextView>(R.id.text_item_heart_count)
         val itemHeart = itemView.findViewById<ImageView>(R.id.img_heart)
-        val userInfo = SharedPreferencesUtil(context).getUser()
 
         fun bind(){
             var hasItem = false
@@ -54,6 +54,7 @@ class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryI
 
             itemImage.setOnClickListener {
                 if(!hasItem){
+                    val userInfo = SharedPreferencesUtil(context).getUser()
                     if(userInfo.userHeart < list[layoutPosition].itemPrice){
                         Toast.makeText(context, "하트 개수가 부족합니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -63,14 +64,14 @@ class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryI
 
                         val inflater =
                             LayoutInflater.from(context).inflate(R.layout.dialog_store_buy, null)
-                        val itemImg =
+                        val dialogItemImg =
                             inflater.findViewById<ImageView>(R.id.img_store_item_type_dialog)
-                        val itemPrice =
+                        val dialogItemPrice =
                             inflater.findViewById<TextView>(R.id.text_item_heart_count_dialog)
                         builder.apply {
                             setView(inflater)
-                            itemImg.setImageResource(itemList[layoutPosition])
-                            itemPrice.text = list[layoutPosition].itemPrice.toString()
+                            dialogItemImg.setImageResource(itemList[layoutPosition])
+                            dialogItemPrice.text = list[layoutPosition].itemPrice.toString()
                             setPositiveButton("확인") { dialog, _ ->
                                 CoroutineScope(Dispatchers.Main).launch {
                                     if(type == "B"){
@@ -82,6 +83,12 @@ class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryI
                                     RetrofitUtil.userService.updateHeart(userInfo.userId, (userInfo.userHeart-list[layoutPosition].itemPrice).toString())
                                     SharedPreferencesUtil(context).updateHeart(userInfo.userHeart-list[layoutPosition].itemPrice)
                                     Toast.makeText(context, "구매했습니다", Toast.LENGTH_SHORT).show()
+                                    itemBlocked.visibility = View.GONE
+                                    itemLockImg.visibility = View.GONE
+                                    itemPrice.visibility = View.GONE
+                                    itemHeart.visibility = View.GONE
+                                    hasItem = true
+                                    binding.textHeartCount.text = "${(userInfo.userHeart-list[layoutPosition].itemPrice)}개"
                                 }
                                 dialog.cancel()
                             }
