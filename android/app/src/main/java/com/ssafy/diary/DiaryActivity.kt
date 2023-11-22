@@ -39,7 +39,6 @@ class DiaryActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                     .replace(R.id.fragment_container, fragment)
-                    .addToBackStack(null)
                     .commit()
             }
             1 ->

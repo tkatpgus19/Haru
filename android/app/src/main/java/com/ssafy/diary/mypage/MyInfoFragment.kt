@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
+import com.ssafy.diary.SubActivity
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.databinding.FragmentMyInfoBinding
 import com.ssafy.diary.dto.User
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class MyInfoFragment : Fragment() {
     private val binding by lazy { FragmentMyInfoBinding.inflate(layoutInflater) }
-    private val mActivity by lazy { activity as MainActivity }
+    private val sActiity by lazy { activity as SubActivity }
     private var userInfo = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +46,7 @@ class MyInfoFragment : Fragment() {
             showDialog()
         }
         binding.btnBack.setOnClickListener {
-            mActivity.goBack(this)
+            sActiity.finish()
         }
 
         binding.btnSave.setOnClickListener {

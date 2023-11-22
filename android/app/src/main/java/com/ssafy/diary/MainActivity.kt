@@ -83,10 +83,6 @@ class MainActivity : AppCompatActivity() {
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, MyPageFragment())
                 .commit()
-            3 -> supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, MyInfoFragment())
-                .commit()
         }
 
     }
@@ -102,7 +98,6 @@ class MainActivity : AppCompatActivity() {
         const val MAIN_FRAGMENT = 0
         const val TODO_LIST_FRAGMENT = 1
         const val MYPAGE_FRAGMENT = 2
-        const val MYINFO_PAGE_FRAGMENT = 3
 
         lateinit var bCheckbox: TextView
         lateinit var cCheckbox: TextView

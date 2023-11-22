@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity.Companion.backgroundList
 import com.ssafy.diary.MainActivity.Companion.characterList
 import com.ssafy.diary.R
+import com.ssafy.diary.SubActivity
 import com.ssafy.diary.adapter.StoreAdapter
 import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.databinding.FragmentStoreBinding
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class StoreFragment : Fragment() {
     private val binding by lazy { FragmentStoreBinding.inflate(layoutInflater) }
+    private val sActivity by lazy { activity as SubActivity }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,11 @@ class StoreFragment : Fragment() {
         var cInvItems = ArrayList<InventoryItem>()
         var bInvItems = ArrayList<InventoryItem>()
         var inventoryItems = ArrayList<InventoryItem>()
+
+        binding.btnBack.setOnClickListener {
+            sActivity.finish()
+        }
+
         lifecycleScope.launch {
             itemList = RetrofitUtil.storeSerivce.getItem().body()!!
 
