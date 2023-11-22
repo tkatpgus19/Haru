@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin("*")
@@ -72,7 +74,7 @@ public class UserApi {
         User result = new User();
         User tmp = userService.matchPassword(userId, userPassword);
         if(tmp != null){
-            result = tmp;
+            return new ResponseEntity<>(tmp, HttpStatus.OK);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

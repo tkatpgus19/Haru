@@ -2,6 +2,8 @@ package com.ssafy.diary.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.ssafy.diary.R
+import com.ssafy.diary.dto.Setting
 import com.ssafy.diary.dto.User
 
 class SharedPreferencesUtil (context: Context) {
@@ -10,11 +12,26 @@ class SharedPreferencesUtil (context: Context) {
     var preferences: SharedPreferences =
         context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
+    // 배경화면 세팅 저장
+    fun saveSetting(background: Int, character: Int){
+        val editor = preferences.edit()
+        editor.putInt("background", background)
+        editor.putInt("character", character)
+        editor.apply()
+    }
+    fun getSetting(): Setting{
+        val setting = Setting()
+        setting.background = preferences.getInt("background", R.drawable.background01)
+        setting.background = preferences.getInt("character", R.drawable.character01)
+        return setting
+    }
+
     //사용자 정보 저장
     fun addUser(user: User){
         val editor = preferences.edit()
         editor.putString("id", user.userId)
         editor.putString("nickname", user.userNickname)
+        editor.putString("email", user.userEmail)
         editor.putInt("heart", user.userHeart)
         editor.apply()
     }
@@ -24,8 +41,9 @@ class SharedPreferencesUtil (context: Context) {
         if (id != ""){
             val id = preferences.getString("id", "")
             val nickname = preferences.getString("nickname", "")
+            val email = preferences.getString("email", "")
             val heart = preferences.getInt("heart", 0)
-            return User(id!!, "", nickname!!, "", heart)
+            return User(id!!, "", nickname!!, email!!, heart)
         }else{
             return User()
         }

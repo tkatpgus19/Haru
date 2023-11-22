@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity
+import com.ssafy.diary.MainActivity.Companion.backgroundList
+import com.ssafy.diary.MainActivity.Companion.characterList
 import com.ssafy.diary.R
+import com.ssafy.diary.adapter.InventoryAdapter
 import com.ssafy.diary.databinding.FragmentMainBinding
 import com.ssafy.diary.databinding.FragmentTodoListBinding
+import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
@@ -37,6 +42,7 @@ class TodoListFragment : Fragment() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val date = "${year}-${month+1}-${day}"
+        var inventoryItems = emptyList<InventoryItem>()
         lifecycleScope.launch {
             val isHomeworkDone = RetrofitUtil.homeworkService.getHomework(userId, date).body()
             if(isHomeworkDone!!.userId != null){
@@ -52,10 +58,17 @@ class TodoListFragment : Fragment() {
                 binding.checkboxTodayDiary.setBackgroundResource(R.drawable.check_box_style)
             }
 
-            val inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()
+            inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()!!
             Log.d("해위", inventoryItems.toString())
-
+            val cAdapter = InventoryAdapter(requireContext(), inventoryItems, characterList)
+            val bAdapter = InventoryAdapter(requireContext(), inventoryItems, backgroundList)
+            binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recyclerBack.adapter = bAdapter
+            binding.recyclerItem.adapter = cAdapter
         }
+
+
 
         return binding.root
     }

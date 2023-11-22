@@ -8,7 +8,7 @@ import lombok.Setter;
 public class InventoryItem {
     private String userId;
     private int itemId;
-    private String itemName;
+    private String itemSource;
     private String itemType;
 
     @Override
@@ -16,7 +16,7 @@ public class InventoryItem {
         return "InventoryItem{" +
                 "userId='" + userId + '\'' +
                 ", itemId=" + itemId +
-                ", itemName='" + itemName + '\'' +
+                ", itemName='" + itemSource + '\'' +
                 ", itemType='" + itemType + '\'' +
                 '}';
     }
