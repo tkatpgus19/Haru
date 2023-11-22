@@ -36,7 +36,15 @@ class StoreFragment : Fragment() {
         lifecycleScope.launch {
             list = RetrofitUtil.itemService.getItem().body()!!
         }
-
+        val bItems = ArrayList<Item>()
+        val cItems = ArrayList<Item>()
+        list.forEach { 
+            if(it.itemType == "B"){
+                bItems.add(it)
+            }else{
+                cItems.add(it)
+            }
+        }
         val adapter = ItemAdapter(requireContext(), emptyList(),characterList,  "C")
         binding.recyclerItem.adapter = adapter
         binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
