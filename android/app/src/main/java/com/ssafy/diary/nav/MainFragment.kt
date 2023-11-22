@@ -36,17 +36,11 @@ class MainFragment : Fragment() {
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
 
-        binding.btnGoToDiary.setOnClickListener {
-            startActivity(Intent(requireContext(), DiaryActivity::class.java))
-        }
+//        binding.btnGoToDiary.setOnClickListener {
+//            startActivity(Intent(requireContext(), DiaryActivity::class.java))
+//        }
 
-        binding.btnMenu.setOnClickListener {
-//            LayoutInflater inflater = (LayoutInflater)getSystemService(
-//                    Context.LAYOUT_INFLATER_SERVICE
-//            )
-//
-            inflater.inflate(R.layout.drawer, container, true)
-        }
+
 
         return binding.root
     }

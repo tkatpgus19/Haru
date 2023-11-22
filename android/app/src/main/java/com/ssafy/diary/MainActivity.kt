@@ -1,5 +1,7 @@
 package com.ssafy.diary
 
+import android.content.Intent
+import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +35,10 @@ class MainActivity : AppCompatActivity() {
                 else -> moveFragment(MYPAGE_FRAGMENT)
             }
             true
+        }
+
+        binding.btnGoToDiary.setOnClickListener {
+            startActivity(Intent(this, DiaryActivity::class.java))
         }
 
 
