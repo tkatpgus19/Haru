@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity
+import com.ssafy.diary.MainActivity.Companion.backgroundList
+import com.ssafy.diary.MainActivity.Companion.characterList
 import com.ssafy.diary.R
 import com.ssafy.diary.adapter.InventoryAdapter
 import com.ssafy.diary.databinding.FragmentMainBinding
@@ -57,12 +59,13 @@ class TodoListFragment : Fragment() {
             }
 
             inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()!!
-
-            val adapter = InventoryAdapter(requireContext(), inventoryItems)
+            Log.d("해위", inventoryItems.toString())
+            val cAdapter = InventoryAdapter(requireContext(), inventoryItems, characterList)
+            val bAdapter = InventoryAdapter(requireContext(), inventoryItems, backgroundList)
             binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            binding.recyclerBack.adapter = adapter
-            binding.recyclerItem.adapter = adapter
+            binding.recyclerBack.adapter = bAdapter
+            binding.recyclerItem.adapter = cAdapter
         }
 
 

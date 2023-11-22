@@ -1,19 +1,9 @@
 package com.ssafy.diary
 
-import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
-import com.ssafy.diary.diary.DiaryDetailsFragment
-import com.ssafy.diary.diary.DiaryMainFragment
-import com.ssafy.diary.login.FindIdFragment
-import com.ssafy.diary.login.JoinFragment
-import com.ssafy.diary.login.LoginFragment
-import com.ssafy.diary.login.OpenFragment
 import com.ssafy.diary.mypage.MyInfoFragment
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
@@ -84,8 +74,9 @@ class MainActivity : AppCompatActivity() {
         const val TODO_LIST_FRAGMENT = 1
         const val MYPAGE_FRAGMENT = 2
         const val MYINFO_PAGE_FRAGMENT = 3
-        val itemList = listOf(R.drawable.character01, R.drawable.character02, R.drawable.character03)
-        val backList = listOf(R.drawable.sky01)
+
+        val characterList = listOf(R.drawable.character01, R.drawable.character02, R.drawable.character03, R.drawable.character04, R.drawable.character05, R.drawable.character06)
+        val backgroundList = listOf(R.drawable.background01, R.drawable.background02, R.drawable.background03, R.drawable.background04, R.drawable.background05)
     }
 
 }
