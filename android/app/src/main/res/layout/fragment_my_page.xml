@@ -42,9 +42,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="40dp">
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp">
 
             <ImageView
                 android:id="@+id/img_my_info"
@@ -86,12 +88,22 @@
 
         </LinearLayout>
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="8dp"
+            android:background="#5B72635D" />
+
         <LinearLayout
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="40dp">
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp">
 
             <ImageView
                 android:id="@+id/img_logout"
@@ -112,10 +124,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="8dp"
+            android:background="#5B72635D" />
+
         <LinearLayout
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -136,6 +158,13 @@
                 android:layout_marginLeft="16dp"/>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="16dp"
+            android:background="#5B72635D" />
 
     </LinearLayout>
 
