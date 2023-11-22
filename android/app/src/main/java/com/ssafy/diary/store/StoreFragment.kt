@@ -45,19 +45,17 @@ class StoreFragment : Fragment() {
         lifecycleScope.launch {
             itemList = RetrofitUtil.storeSerivce.getItem().body()!!
 
-            Log.d("해위", itemList.toString())
-
             itemList.forEach {
                 if(it.itemType == "B"){
                     bItems.add(it)
                 } else{
+                    it.itemId -= 5
                     cItems.add(it)
                 }
             }
-            Log.d("해위", cItems.toString())
 
             inventoryItems = RetrofitUtil.inventoryService.getInventory(userInfo.userId).body()!!
-
+            Log.d("해위", inventoryItems.toString())
             inventoryItems.forEach {
                 if(it.itemType == "B"){
                     bInvItems.add(it)
@@ -67,11 +65,11 @@ class StoreFragment : Fragment() {
                 }
             }
 
-            val cAdapter = StoreAdapter(requireContext(), inventoryItems, cItems, characterList, "C")
+            val cAdapter = StoreAdapter(requireContext(), cInvItems, cItems, characterList, "C")
             binding.recyclerItem.adapter = cAdapter
             binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-            val bAdapter = StoreAdapter(requireContext(), inventoryItems, bItems, backgroundList, "B")
+            val bAdapter = StoreAdapter(requireContext(), bInvItems, bItems, backgroundList, "B")
             binding.recyclerBack.adapter = bAdapter
             binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }

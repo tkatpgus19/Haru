@@ -24,6 +24,8 @@ import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryItem>, val list: ArrayList<Item>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<StoreAdapter.StoreHolder>() {
@@ -33,6 +35,7 @@ class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryI
         val itemLockImg = itemView.findViewById<ImageView>(R.id.img_store_item_locked)
         val itemPrice = itemView.findViewById<TextView>(R.id.text_item_heart_count)
         val itemHeart = itemView.findViewById<ImageView>(R.id.img_heart)
+        val userInfo = SharedPreferencesUtil(context).getUser()
 
         fun bind(){
             var hasItem = false
@@ -50,21 +53,44 @@ class StoreAdapter(val context: Context, val inventoryList: ArrayList<InventoryI
             }
 
             itemImage.setOnClickListener {
-                if(hasItem){
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-
-
-                    val inflater = LayoutInflater.from(context).inflate(R.layout.dialog_match_password, null)
-                    builder.apply {
-                        setView(inflater)
-                        setPositiveButton("확인"){ dialog, _ ->
-                            dialog.cancel()
-                        }
-                        setNegativeButton("취소"){dialog, _ ->
-                            dialog.cancel()
-                        }
+                if(!hasItem){
+                    if(userInfo.userHeart < list[layoutPosition].itemPrice){
+                        Toast.makeText(context, "하트 개수가 부족합니다.", Toast.LENGTH_SHORT).show()
                     }
-                    builder.create().show()
+                    else {
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+
+
+                        val inflater =
+                            LayoutInflater.from(context).inflate(R.layout.dialog_store_buy, null)
+                        val itemImg =
+                            inflater.findViewById<ImageView>(R.id.img_store_item_type_dialog)
+                        val itemPrice =
+                            inflater.findViewById<TextView>(R.id.text_item_heart_count_dialog)
+                        builder.apply {
+                            setView(inflater)
+                            itemImg.setImageResource(itemList[layoutPosition])
+                            itemPrice.text = list[layoutPosition].itemPrice.toString()
+                            setPositiveButton("확인") { dialog, _ ->
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    if(type == "B"){
+                                        RetrofitUtil.inventoryService.addItem(userInfo.userId, list[layoutPosition].itemId.toString())
+                                    }
+                                    else{
+                                        RetrofitUtil.inventoryService.addItem(userInfo.userId, (list[layoutPosition].itemId+5).toString())
+                                    }
+                                    RetrofitUtil.userService.updateHeart(userInfo.userId, (userInfo.userHeart-list[layoutPosition].itemPrice).toString())
+                                    SharedPreferencesUtil(context).updateHeart(userInfo.userHeart-list[layoutPosition].itemPrice)
+                                    Toast.makeText(context, "구매했습니다", Toast.LENGTH_SHORT).show()
+                                }
+                                dialog.cancel()
+                            }
+                            setNegativeButton("취소") { dialog, _ ->
+                                dialog.cancel()
+                            }
+                        }
+                        builder.create().show()
+                    }
                 }
             }
 

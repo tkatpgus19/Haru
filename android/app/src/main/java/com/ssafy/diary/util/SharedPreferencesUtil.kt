@@ -42,6 +42,13 @@ class SharedPreferencesUtil (context: Context) {
         editor.apply()
     }
 
+    // 사용자 하트 저장
+    fun updateHeart(heart: Int){
+        val editor = preferences.edit()
+        editor.putInt("heart", heart)
+        editor.apply()
+    }
+
     fun getUser(): User{
         val id = preferences.getString("id", "")
         if (id != ""){

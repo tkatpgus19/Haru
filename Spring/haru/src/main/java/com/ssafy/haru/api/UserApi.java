@@ -78,4 +78,9 @@ public class UserApi {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PutMapping("/updateHeart")
+    public ResponseEntity<Boolean> updateHeart(@RequestParam String userId, @RequestParam String userHeart){
+        return new ResponseEntity<>(userService.updateHeart(userId, userHeart), HttpStatus.OK);
+    }
 }

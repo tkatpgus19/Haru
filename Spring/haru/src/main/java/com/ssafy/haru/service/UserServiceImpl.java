@@ -66,4 +66,12 @@ public class UserServiceImpl implements UserService{
         User user = userDao.selectByPassword(map);
         return user;
     }
+
+    @Override
+    public boolean updateHeart(String userId, String userHeart) {
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("userHeart", userHeart);
+        return userDao.updateHeart(map);
+    }
 }

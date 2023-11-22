@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMenu.setOnClickListener {
+            binding.inViewDrawer.textHeartCount.text = "${SharedPreferencesUtil(this).getUser().userHeart}개"
             binding.layoutMain.open()
         }
 

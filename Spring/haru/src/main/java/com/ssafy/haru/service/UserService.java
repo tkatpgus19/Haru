@@ -23,4 +23,7 @@ public interface UserService {
 
     // 비밀번호 일치여부 조회
     User matchPassword(String userId, String userPassword);
+
+    // 사용자 하트 수 수정
+    boolean updateHeart(String userId, String userHeart);
 }
