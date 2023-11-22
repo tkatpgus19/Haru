@@ -20,11 +20,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/text_view_shape"
+            android:background="@drawable/btn_style"
             android:text="오늘의 할 일"
             android:paddingStart="16dp"
             android:textStyle="bold"
-            android:textColor="#6A6363"
+            android:textColor="@color/white"
             android:gravity="center_vertical"
             android:textSize="20sp"
             android:layout_marginBottom="16dp"/>
@@ -110,14 +110,21 @@
                 android:layout_marginBottom="8dp"/>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_back"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:background="@drawable/btn_style2"
-            android:layout_marginBottom="8dp"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style3"
+            android:padding="1dp"
+            android:layout_marginBottom="8dp">
 
-        <Button
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_back"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save_back_type"
             android:layout_width="70dp"
             android:layout_height="30dp"
@@ -138,14 +145,21 @@
                 android:gravity="left"
                 android:layout_marginBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_item"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="155dp"
-            android:background="@drawable/btn_style2"
-            android:layout_marginBottom="8dp"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_style3"
+            android:padding="1dp"
+            android:layout_marginBottom="8dp">
 
-        <Button
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save_item_type"
             android:layout_width="70dp"
             android:layout_height="30dp"

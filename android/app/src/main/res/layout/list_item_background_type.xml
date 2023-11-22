@@ -8,11 +8,13 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/lightBrown"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +22,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/store_items_locked">
 
             <ImageView
                 android:id="@+id/img_background_type"
@@ -28,13 +31,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:background="@drawable/store_items_locked"
                 android:src="@drawable/background01" />
 
             <TextView
                 android:id="@+id/text_background_blocked"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/search_box_style"
+                android:background="@drawable/store_items_locked"
                 android:backgroundTint="#954C3F3F"
                 android:paddingLeft="10dp" />
 
@@ -48,7 +52,7 @@
 
         </FrameLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/checkbox_used_background"

@@ -8,11 +8,13 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
+        app:cardElevation="5dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/lightBrown"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +26,9 @@
 
             <ImageView
                 android:id="@+id/img_store_item_type"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:src="@drawable/character01" />
 
@@ -34,7 +36,7 @@
                 android:id="@+id/text_store_item_blocked"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/search_box_style"
+                android:background="@drawable/store_items_locked"
                 android:backgroundTint="#954C3F3F"
                 android:paddingLeft="10dp" />
 
@@ -48,7 +50,7 @@
 
         </FrameLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:layout_width="match_parent"
