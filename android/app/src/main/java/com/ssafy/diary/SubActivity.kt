@@ -22,7 +22,7 @@ class SubActivity : AppCompatActivity() {
         if(type == "store"){
             moveFragment(STORE_FRAGMENT)
         } else{
-            moveFragment(MYPAGE_FRAGMENT)
+            moveFragment(MY_INFO_FRAGMENT)
         }
 
     }
@@ -36,13 +36,13 @@ class SubActivity : AppCompatActivity() {
                 .commit()
             1 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
-                .replace(R.id.fragment_container, MyPageFragment())
+                .replace(R.id.fragment_container, MyInfoFragment())
                 .commit()
         }
 
     }
     companion object {
         const val STORE_FRAGMENT = 0
-        const val MYPAGE_FRAGMENT = 1
+        const val MY_INFO_FRAGMENT = 1
     }
 }

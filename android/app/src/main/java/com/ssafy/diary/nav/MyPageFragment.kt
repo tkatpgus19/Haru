@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.MYINFO_PAGE_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.util.RetrofitUtil
@@ -44,7 +43,9 @@ class MyPageFragment : Fragment() {
         binding.textName.text = userName
 
         binding.btnMyInfo.setOnClickListener {
-            mActivity.moveFragment(MYINFO_PAGE_FRAGMENT)
+            val intent = Intent(requireContext(), SubActivity::class.java)
+            intent.putExtra("type", "mypage")
+            startActivity(intent)
         }
 
         binding.btnLogout.setOnClickListener{

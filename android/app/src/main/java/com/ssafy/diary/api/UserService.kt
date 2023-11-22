@@ -38,4 +38,8 @@ interface UserService {
     // 비밀번호 매칭
     @GET("api/user/match")
     suspend fun matchPassword(@Query("userId") userId: String, @Query("userPassword") userPassword: String): Response<User>
+
+    // 하트 수 변경
+    @PUT("api/user/updateHeart")
+    suspend fun updateHeart(@Query("userId") userId: String, @Query("userHeart") userHeart: String): Response<Boolean>
 }
