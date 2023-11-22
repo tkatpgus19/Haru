@@ -38,14 +38,14 @@ class StoreFragment : Fragment() {
         }
         val bItems = ArrayList<Item>()
         val cItems = ArrayList<Item>()
-        list.forEach { 
+        list.forEach {
             if(it.itemType == "B"){
                 bItems.add(it)
             }else{
                 cItems.add(it)
             }
         }
-        val adapter = ItemAdapter(requireContext(), emptyList(),characterList,  "C")
+        val adapter = ItemAdapter(requireContext(), characterList, cItems,  "C")
         binding.recyclerItem.adapter = adapter
         binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         return binding.root

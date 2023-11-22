@@ -19,7 +19,7 @@ import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
 import com.ssafy.diary.util.SharedPreferencesUtil
 
-class ItemAdapter(val context: Context, val list: List<Int>, val itemList: List<Int>, val type: String): RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
+class ItemAdapter(val context: Context, val list: List<Int>, val itemList: List<Item>, val type: String): RecyclerView.Adapter<ItemAdapter.ItemHolder>() {
     inner class ItemHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val itemImage = itemView.findViewById<ImageView>(R.id.img_store_item_type)
         val itemBlocked = itemView.findViewById<TextView>(R.id.text_store_item_blocked)
@@ -29,7 +29,7 @@ class ItemAdapter(val context: Context, val list: List<Int>, val itemList: List<
 
         fun bind(){
             var hasItem = false
-            itemImage.setImageResource(itemList[layoutPosition])
+            itemImage.setImageResource(list[layoutPosition])
             itemTv.setText("10")
             list.forEach {
                 if(layoutPosition == it){
@@ -48,7 +48,7 @@ class ItemAdapter(val context: Context, val list: List<Int>, val itemList: List<
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {

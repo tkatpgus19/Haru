@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SubActivity::class.java)
             intent.putExtra("type", "store")
             startActivity(intent)
+            binding.layoutMain.close()
         }
         binding.inViewDrawer.textName.text = userInfo.userNickname
         binding.inViewDrawer.textHeartCount.text = "${userInfo.userHeart}개"
