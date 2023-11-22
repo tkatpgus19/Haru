@@ -84,6 +84,8 @@ class MainActivity : AppCompatActivity() {
         const val TODO_LIST_FRAGMENT = 1
         const val MYPAGE_FRAGMENT = 2
         const val MYINFO_PAGE_FRAGMENT = 3
+        val itemList = listOf(R.drawable.character01, R.drawable.character02, R.drawable.character03)
+        val backList = listOf(R.drawable.sky01)
     }
 
 }

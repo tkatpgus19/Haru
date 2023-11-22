@@ -39,10 +39,29 @@ class MyInfoFragment : Fragment() {
         userInfo = SharedPreferencesUtil(requireContext()).getUser()
 
         binding.editEmail.setText(userInfo.userEmail)
+        binding.editName.setText(userInfo.userNickname)
+        binding.editId.setText(userInfo.userId)
         binding.btnChangePassword.setOnClickListener {
             showDialog()
         }
+        binding.btnBack.setOnClickListener {
+            mActivity.goBack(this)
+        }
 
+        binding.btnSave.setOnClickListener {
+            lifecycleScope.launch {
+                val user = User()
+                user.userHeart = userInfo.userHeart
+                user.userEmail = binding.editEmail.text.toString()
+                user.userId = userInfo.userId
+                user.userPassword = binding.editPassword.text.toString()
+                user.userNickname = binding.editName.text.toString()
+                val result = RetrofitUtil.userService.update(user).body()
+                if(result!!){
+                    Toast.makeText(requireContext(), "수정했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         return binding.root
     }
 
@@ -57,15 +76,10 @@ class MyInfoFragment : Fragment() {
                 lifecycleScope.launch {
                     if (editText.text.isNotEmpty()) {
                         val pass = editText.text.toString()
-                        Log.d("해위", pass)
-                        val isMatch = RetrofitUtil.userService.matchPassword(userInfo.userId, pass).body()
-                        Log.d("해위", isMatch.toString())
-                        if(isMatch != null){
-                            val result = RetrofitUtil.userService.deleteAccount(userInfo.userId).body()
-                            if(result!!){
-                                binding.editPassword.isEnabled = true;
-                                binding.textPasswordBlocked.visibility = View.GONE
-                            }
+                        if(RetrofitUtil.userService.matchPassword(userInfo.userId, pass).body() != null){
+                            binding.editPassword.isEnabled = true;
+                            binding.editPassword.setText(pass)
+                            binding.textPasswordBlocked.visibility = View.GONE
                         } else{
                             Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                         }
