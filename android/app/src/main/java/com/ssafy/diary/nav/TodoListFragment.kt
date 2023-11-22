@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity
+import com.ssafy.diary.MainActivity.Companion.backgroundImg
 import com.ssafy.diary.MainActivity.Companion.backgroundList
+import com.ssafy.diary.MainActivity.Companion.characterImg
 import com.ssafy.diary.MainActivity.Companion.characterList
 import com.ssafy.diary.R
 import com.ssafy.diary.adapter.InventoryAdapter
@@ -36,13 +38,19 @@ class TodoListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        val setting = SharedPreferencesUtil(requireContext()).getSetting()
+        backgroundImg = setting.background
+        characterImg = setting.character
+
         userId = SharedPreferencesUtil(requireContext()).getUser().userId
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val date = "${year}-${month+1}-${day}"
-        var inventoryItems = emptyList<InventoryItem>()
+
+
         lifecycleScope.launch {
             val isHomeworkDone = RetrofitUtil.homeworkService.getHomework(userId, date).body()
             if(isHomeworkDone!!.userId != null){
@@ -58,18 +66,31 @@ class TodoListFragment : Fragment() {
                 binding.checkboxTodayDiary.setBackgroundResource(R.drawable.check_box_style)
             }
 
-            inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()!!
-            Log.d("해위", inventoryItems.toString())
-            val cAdapter = InventoryAdapter(requireContext(), inventoryItems, characterList)
-            val bAdapter = InventoryAdapter(requireContext(), inventoryItems, backgroundList)
+            val inventoryItems = RetrofitUtil.inventoryService.getInventory(userId).body()!!
+
+            val cItems = ArrayList<Int>()
+            val bItems = ArrayList<Int>()
+            inventoryItems.forEach {
+                if(it.itemType == "B"){
+                    bItems.add(it.itemId)
+                } else{
+                    cItems.add(it.itemId-5)
+                }
+            }
+            val cAdapter = InventoryAdapter(requireContext(), cItems, characterList, "C")
+            val bAdapter = InventoryAdapter(requireContext(), bItems, backgroundList, "B")
             binding.recyclerBack.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.recyclerBack.adapter = bAdapter
             binding.recyclerItem.adapter = cAdapter
         }
 
-
-
+        binding.btnSaveItemType.setOnClickListener {
+            SharedPreferencesUtil(requireContext()).saveSetting(backgroundImg, characterImg)
+        }
+        binding.btnSaveBackType.setOnClickListener {
+            SharedPreferencesUtil(requireContext()).saveSetting(backgroundImg, characterImg)
+        }
         return binding.root
     }
 

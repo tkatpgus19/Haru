@@ -15,14 +15,20 @@ class SharedPreferencesUtil (context: Context) {
     // 배경화면 세팅 저장
     fun saveSetting(background: Int, character: Int){
         val editor = preferences.edit()
-        editor.putInt("background", background)
-        editor.putInt("character", character)
+        if(background == -1){
+            editor.putInt("character", character)
+        } else if(character == -1){
+            editor.putInt("background", background)
+        } else{
+            editor.putInt("character", character)
+            editor.putInt("background", background)
+        }
         editor.apply()
     }
     fun getSetting(): Setting{
         val setting = Setting()
         setting.background = preferences.getInt("background", R.drawable.background01)
-        setting.background = preferences.getInt("character", R.drawable.character01)
+        setting.character = preferences.getInt("character", R.drawable.character01)
         return setting
     }
 

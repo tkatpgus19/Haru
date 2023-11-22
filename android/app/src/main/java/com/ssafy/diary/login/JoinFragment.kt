@@ -58,8 +58,8 @@ class JoinFragment : Fragment() {
                             Toast.makeText(requireContext(), "회원가입이 완료되었습니다", Toast.LENGTH_SHORT)
                                 .show()
                             lActivity.moveFragment(OPEN_FRAGMENT)
-                            RetrofitUtil.inventoryService.addItem(user.userId, 0)
-                            RetrofitUtil.inventoryService.addItem(user.userId, 4)
+                            RetrofitUtil.inventoryService.addItem(user.userId, "0")
+                            RetrofitUtil.inventoryService.addItem(user.userId, "5")
                             SharedPreferencesUtil(requireContext()).saveSetting(R.drawable.background01, R.drawable.character01)
                         }
                     }

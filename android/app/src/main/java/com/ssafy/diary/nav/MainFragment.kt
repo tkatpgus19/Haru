@@ -14,6 +14,7 @@ import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentMainBinding
+import com.ssafy.diary.util.SharedPreferencesUtil
 
 
 class MainFragment : Fragment() {
@@ -31,16 +32,15 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+        val setting = SharedPreferencesUtil(requireContext()).getSetting()
         Glide.with(this)
-            .load(com.ssafy.diary.R.drawable.character02)
+            .load(setting.character)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
 
-//        binding.btnGoToDiary.setOnClickListener {
-//            startActivity(Intent(requireContext(), DiaryActivity::class.java))
-//        }
-
-
+        Glide.with(this)
+            .load(setting.background)
+            .into(binding.imgMainBack01)
 
         return binding.root
     }

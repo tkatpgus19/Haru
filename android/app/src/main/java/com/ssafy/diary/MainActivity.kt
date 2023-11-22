@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.mypage.MyInfoFragment
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         const val MYPAGE_FRAGMENT = 2
         const val MYINFO_PAGE_FRAGMENT = 3
 
+        lateinit var bCheckbox: TextView
+        lateinit var cCheckbox: TextView
+        var backgroundImg = -1
+        var characterImg = -1
         val characterList = listOf(R.drawable.character01, R.drawable.character02, R.drawable.character03, R.drawable.character04, R.drawable.character05, R.drawable.character06)
         val backgroundList = listOf(R.drawable.background01, R.drawable.background02, R.drawable.background03, R.drawable.background04, R.drawable.background05)
     }
