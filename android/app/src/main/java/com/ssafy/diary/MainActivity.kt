@@ -50,14 +50,19 @@ class MainActivity : AppCompatActivity() {
             binding.layoutMain.open()
         }
 
-        binding.layoutMain.findViewById<LinearLayout>(R.id.btn_logout).setOnClickListener {
+        binding.inViewDrawer.btnStore.setOnClickListener {
+            val intent = Intent(this, SubActivity::class.java)
+            intent.putExtra("type", "store")
+            startActivity(intent)
+        }
+        binding.inViewDrawer.textName.text = userInfo.userNickname
+        binding.inViewDrawer.textHeartCount.text = "${userInfo.userHeart}개"
+        binding.inViewDrawer.btnLogout.setOnClickListener {
             SharedPreferencesUtil(this).deleteUser()
             Toast.makeText(this, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
             finish()
             startActivity(Intent(this, LoginActivity::class.java))
         }
-        binding.inViewDrawer.textName.text = userInfo.userNickname
-        binding.inViewDrawer.textHeartCount.text = userInfo.userHeart.toString()
 
     }
 

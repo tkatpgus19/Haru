@@ -53,7 +53,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/btn_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -99,6 +98,7 @@
             android:background="#5B72635D" />
 
         <LinearLayout
+            android:id="@+id/btn_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
