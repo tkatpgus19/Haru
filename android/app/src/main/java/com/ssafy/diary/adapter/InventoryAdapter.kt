@@ -34,6 +34,7 @@ class InventoryAdapter(val context: Context, val list: List<InventoryItem>, val 
             }
             if(setting.character == itemList[layoutPosition] || setting.background == itemList[layoutPosition]){
                 itemCheckbox.setBackgroundResource(R.drawable.check_box_style2)
+                // 주석추가
             }
 
         }
