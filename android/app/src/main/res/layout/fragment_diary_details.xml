@@ -224,7 +224,7 @@
             tools:layout_editor_absoluteY="654dp"
             android:layout_marginBottom="8dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:visibility="invisible"
             android:id="@+id/btn_upload"
             android:layout_width="72dp"
@@ -250,7 +250,7 @@
             android:scrollbars="vertical"
             android:layout_marginBottom="24dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
