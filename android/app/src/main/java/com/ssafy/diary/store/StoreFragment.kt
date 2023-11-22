@@ -1,6 +1,7 @@
 package com.ssafy.diary.store
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,21 +35,28 @@ class StoreFragment : Fragment() {
         binding.textHeartCount.text = "${userInfo.userHeart}개"
 
         var itemList = ArrayList<Item>()
-        lifecycleScope.launch {
-            itemList = RetrofitUtil.storeSerivce.getItem().body()!!
-        }
         var cItems = ArrayList<Item>()
         var bItems = ArrayList<Item>()
-        itemList.forEach {
-            if(it.itemType == "B"){
-                bItems.add(it)
-            } else{
-                cItems.add(it)
+        lifecycleScope.launch {
+            itemList = RetrofitUtil.storeSerivce.getItem().body()!!
+
+            Log.d("해위", itemList.toString())
+
+            itemList.forEach {
+                if(it.itemType == "B"){
+                    bItems.add(it)
+                } else{
+                    cItems.add(it)
+                }
             }
+            Log.d("해위", cItems.toString())
+
+
+            val adapter = StoreAdapter(requireContext(), cItems, characterList, "C")
+            binding.recyclerItem.adapter = adapter
+            binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
-        val adapter = StoreAdapter(requireContext(), cItems, characterList, "C")
-        binding.recyclerItem.adapter = adapter
-        binding.recyclerItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
         return binding.root
     }
 

@@ -30,13 +30,15 @@ class StoreAdapter(val context: Context, val list: ArrayList<Item>, val itemList
         fun bind(){
             var hasItem = false
             itemImage.setImageResource(itemList[layoutPosition])
-//            list.forEach {
-//                if(layoutPosition == it){
-//                    itemBlocked.visibility = View.GONE
-//                    itemLockImg.visibility = View.GONE
-//                    hasItem = true
-//                }
-//            }
+            itemPrice.text = list[layoutPosition].toString()
+
+            list.forEach {
+                if(layoutPosition == it.itemId){
+                    itemBlocked.visibility = View.GONE
+                    itemLockImg.visibility = View.GONE
+                    hasItem = true
+                }
+            }
 //            if(setting.character == itemList[layoutPosition] || setting.background == itemList[layoutPosition]){
 //                itemCheckbox.setBackgroundResource(R.drawable.check_box_style2)
 //                if(type == "B")
