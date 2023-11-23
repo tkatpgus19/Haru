@@ -46,7 +46,7 @@ class InventoryAdapter(val context: Context, val list: List<Int>, val itemList: 
 
             }
             itemImage.setOnClickListener {
-                if(bCheckbox != itemCheckbox && cCheckbox != itemCheckbox) {
+                if((bCheckbox != itemCheckbox && cCheckbox != itemCheckbox) || bCheckbox == null || cCheckbox == null) {
                     if (hasItem) {
                         itemCheckbox.setBackgroundResource(R.drawable.check_box_style2)
                         if (type == "B") {

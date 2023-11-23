@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity
@@ -87,10 +88,13 @@ class TodoListFragment : Fragment() {
 
         binding.btnSaveItemType.setOnClickListener {
             SharedPreferencesUtil(requireContext()).saveSetting(backgroundImg, characterImg)
+            Toast.makeText(requireContext(), "적용되었습니다.", Toast.LENGTH_SHORT).show()
         }
         binding.btnSaveBackType.setOnClickListener {
             SharedPreferencesUtil(requireContext()).saveSetting(backgroundImg, characterImg)
+            Toast.makeText(requireContext(), "적용되었습니다.", Toast.LENGTH_SHORT).show()
         }
+
         return binding.root
     }
 

@@ -3,6 +3,8 @@ package com.ssafy.haru.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 public class User {
@@ -11,6 +13,7 @@ public class User {
     private String userNickname;
     private String userEmail;
     private int userHeart;
+    private Timestamp joinDate;
 
     @Override
     public String toString() {
@@ -20,6 +23,7 @@ public class User {
                 ", userNickname='" + userNickname + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userHeart=" + userHeart +
+                ", joinDate=" + joinDate +
                 '}';
     }
 }

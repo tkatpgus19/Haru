@@ -37,7 +37,6 @@ class StoreFragment : Fragment() {
         // Inflate the layout for this fragment
         val userInfo = SharedPreferencesUtil(requireContext()).getUser()
         binding.textHeartCount.text = "${userInfo.userHeart}개"
-
         var itemList = ArrayList<Item>()
         var cItems = ArrayList<Item>()
         var bItems = ArrayList<Item>()

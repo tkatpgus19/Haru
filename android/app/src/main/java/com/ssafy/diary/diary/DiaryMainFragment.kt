@@ -17,9 +17,11 @@ import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import com.ssafy.diary.dto.Homework
+import com.ssafy.diary.util.CommonUtil
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -28,9 +30,10 @@ import kotlin.random.Random
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
-    private val questionList = arrayOf("질문 1", "질문 2", "질문 3", "질문 4", "질문 5","질문 6" )
-    private var question = questionList[(0..5).random()]
+    private val questionList = arrayOf("내가 할 수 있을까?", "만약 성공한다면?", "내가 만약 부자라면?", "좀 더 효율적인 방법은 없을까?", "왜 그럴까?", "히히히히히히히히" )
+    private lateinit var question: String
     lateinit var userId: String
+    lateinit var joinDate: String
 
     lateinit var year: String
     lateinit var month: String
@@ -45,6 +48,18 @@ class DiaryMainFragment : Fragment() {
         month = arguments!!.getString("month")!!
         day = arguments!!.getString("day")!!
         date = "${year}-${month}-${day}"
+
+        val calendar = Calendar.getInstance()
+        val now = calendar.timeInMillis
+        val today = SharedPreferencesUtil(requireContext()).getQuestionDate()+ 86400000
+        val tmp = SharedPreferencesUtil(requireContext()).getQuestion()
+        if(tmp == -1 || now > today){
+            SharedPreferencesUtil(requireContext()).saveQuestion(CommonUtil(requireContext()).convertDateToTimestamp(date))
+            question = questionList[SharedPreferencesUtil(requireContext()).getQuestion()]
+        } else{
+            question = questionList[tmp]
+        }
+
     }
 
     override fun onCreateView(
@@ -52,10 +67,15 @@ class DiaryMainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-        userId = SharedPreferencesUtil(requireContext()).getUser().userId
+        val userInfo = SharedPreferencesUtil(requireContext()).getUser()
+        userId = userInfo.userId
+        joinDate = userInfo.joinDate
 
         lifecycleScope.launch {
+
+
+
+
             val result = RetrofitUtil.homeworkService.getHomework(userId, date).body()
             if(result!!.userId != null){
                 binding.textTodayQuestion.text = result.homeworkQuestion
@@ -67,6 +87,7 @@ class DiaryMainFragment : Fragment() {
                 binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
                 modify = true
             } else{
+
                 binding.textTodayQuestion.text = "Q " + question
                 binding.btnSave.visibility = View.VISIBLE
                 binding.btnEdit.visibility = View.GONE
@@ -83,7 +104,6 @@ class DiaryMainFragment : Fragment() {
             val calendar = Calendar.getInstance()
             val format = SimpleDateFormat("yyyy-MM-dd")
             val today = format.format(calendar.time)
-            Log.d("씨발", today)
 
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 year = y.toString()
@@ -135,6 +155,8 @@ class DiaryMainFragment : Fragment() {
             }
             Log.d("뭔데", year+month+day)
             val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year.toInt(), month.toInt(), day.toInt())
+
+            datePickerDialog.datePicker.minDate = CommonUtil(requireContext()).convertDateToTimestamp(joinDate)
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
             datePickerDialog.show()
         }
@@ -167,6 +189,8 @@ class DiaryMainFragment : Fragment() {
                     val result = RetrofitUtil.homeworkService.saveHomework(homework).body()
                     if(result!!){
                         Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
+                        RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart+1).toString())
+                        SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart+1)
                     }
 
                 } else{
@@ -192,6 +216,9 @@ class DiaryMainFragment : Fragment() {
                     binding.btnDelete.visibility = View.GONE
                     binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
                     binding.editTextTodayQuestionAnswer.isEnabled = true
+
+                    RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart-1).toString())
+                    SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart-1)
                 }
             }
         }
