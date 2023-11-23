@@ -172,12 +172,13 @@ class DiaryMainFragment : Fragment() {
                     }
                 }
             }
-            Log.d("뭔데", year+month+day)
             val datePickerDialog = DatePickerDialog(requireContext(), R.style.MySpinnerDatePickerStyle, dpListener, year.toInt(), month.toInt(), day.toInt())
 
             datePickerDialog.datePicker.minDate = CommonUtil(requireContext()).convertDateToTimestamp(joinDate)
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis - 1000
             datePickerDialog.show()
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.darkBrown))
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.darkBrown))
         }
 
         binding.btnBack.setOnClickListener {

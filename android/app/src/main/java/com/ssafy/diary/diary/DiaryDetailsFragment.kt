@@ -46,6 +46,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import java.io.File
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 
 class DiaryDetailsFragment : Fragment() {
@@ -92,16 +93,31 @@ class DiaryDetailsFragment : Fragment() {
         binding.editTextTodayDiary.movementMethod = ScrollingMovementMethod.getInstance()
         binding.tvDate.text = date
 
+        val calendar = Calendar.getInstance()
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val today = format.format(calendar.time)
+
         lifecycleScope.launch {
             val result = RetrofitUtil.diaryService.getDiary(userId, date).body()
             if(result!!.userId == null){
-                binding.feeling.visibility = View.INVISIBLE
-                binding.emotionContainer.visibility = View.VISIBLE
-                binding.btnSave.visibility = View.VISIBLE
-                binding.btnDelete.visibility = View.INVISIBLE
-                binding.btnEdit.visibility = View.INVISIBLE
-                binding.editTextTodayDiary.isEnabled = true
-                binding.btnUpload.visibility = View.VISIBLE
+                if(date == today) {
+                    binding.feeling.visibility = View.INVISIBLE
+                    binding.emotionContainer.visibility = View.VISIBLE
+                    binding.btnSave.visibility = View.VISIBLE
+                    binding.btnDelete.visibility = View.INVISIBLE
+                    binding.btnEdit.visibility = View.INVISIBLE
+                    binding.editTextTodayDiary.isEnabled = true
+                    binding.btnUpload.visibility = View.VISIBLE
+                } else{
+                    binding.feeling.visibility = View.GONE
+                    binding.editTextTodayDiary.setText("지난 날의 일기는 작성할 수 없습니다.")
+                    binding.emotionContainer.visibility = View.GONE
+                    binding.btnSave.visibility = View.INVISIBLE
+                    binding.btnDelete.visibility = View.INVISIBLE
+                    binding.btnEdit.visibility = View.INVISIBLE
+                    binding.editTextTodayDiary.isEnabled = false
+                    binding.btnUpload.visibility = View.INVISIBLE
+                }
             } else{
                 binding.feeling.visibility = View.VISIBLE
                 binding.feeling.text = result.diaryEmotion
