@@ -17,6 +17,7 @@ import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentDiaryDetailsBinding
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import com.ssafy.diary.dto.Diary
+import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ import java.util.Date
 class DiaryDetailsFragment : Fragment() {
     private val binding by lazy { FragmentDiaryDetailsBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
+    lateinit var userInfo: User
     lateinit var userId: String
     lateinit var date: String
     private var modify = false
@@ -55,7 +57,8 @@ class DiaryDetailsFragment : Fragment() {
                 binding.feeling05 to "\uD83D\uDE2D", binding.feeling06 to "\uD83D\uDE14", binding.feeling07 to "\uD83D\uDE24", binding.feeling08 to "\uD83D\uDE21",
                 binding.feeling09 to "\uD83E\uDD2C", binding.feeling10 to "\uD83E\uDD12", )
 
-        userId = SharedPreferencesUtil(requireContext()).getUser().userId
+        userInfo = SharedPreferencesUtil(requireContext()).getUser()
+        userId = userInfo.userId
         binding.btnBack.setOnClickListener {
             dActivity.goBack(this)
         }
@@ -105,6 +108,9 @@ class DiaryDetailsFragment : Fragment() {
                             binding.btnDelete.visibility = View.VISIBLE
                             binding.btnEdit.visibility = View.VISIBLE
                             binding.editTextTodayDiary.isEnabled = false
+
+                            RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart+1).toString())
+                            SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart+1)
                         }
                     } else{
                         val result = RetrofitUtil.diaryService.updateDiary(diary).body()
@@ -142,6 +148,8 @@ class DiaryDetailsFragment : Fragment() {
                 val result = RetrofitUtil.diaryService.deleteDiary(userId, date).body()
                 if(result!!){
                     Toast.makeText(requireContext(), "삭제 되었습니다", Toast.LENGTH_SHORT).show()
+                    RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart-1).toString())
+                    SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart-1)
                     dActivity.goBack(this@DiaryDetailsFragment)
                 }
             }

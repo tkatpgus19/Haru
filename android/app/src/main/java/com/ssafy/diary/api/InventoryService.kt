@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface InventoryService {
     // 인벤토리 조회
     @GET("api/inventory/select")
-    suspend fun getInventory(@Query("userId") userId: String): Response<List<InventoryItem>>
+    suspend fun getInventory(@Query("userId") userId: String): Response<ArrayList<InventoryItem>>
 
     // 인벤토리 아이템 추가
     @GET("api/inventory/insert")

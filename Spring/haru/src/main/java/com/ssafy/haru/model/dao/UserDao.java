@@ -23,4 +23,7 @@ public interface UserDao {
 
     // 비밀번호 일치 조회
     User selectByPassword(Map<String, String> map);
+
+    // 사용자 하트 수 수정
+    Boolean updateHeart(Map<String, String> map);
 }

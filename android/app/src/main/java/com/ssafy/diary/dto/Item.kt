@@ -5,4 +5,6 @@ data class Item(
     var itemType: String,
     var itemSource: String,
     var itemPrice: Int
-)
+) {
+    constructor(): this(0, "", "", 0)
+}
