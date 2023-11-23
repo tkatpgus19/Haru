@@ -15,7 +15,7 @@ class ApplicationClass : Application() {
 //        const val SERVER_URL = "http://mobile-pjt.sample.ssafy.io/"
         const val SERVER_URL = "http://192.168.33.130:9999/"
 
-        const val MENU_IMGS_URL = "${SERVER_URL}imgs/menu/"
+        const val MENU_IMGS_URL = "${SERVER_URL}imgs/diary/"
         const val IMGS_URL = "${SERVER_URL}imgs/"
 
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil

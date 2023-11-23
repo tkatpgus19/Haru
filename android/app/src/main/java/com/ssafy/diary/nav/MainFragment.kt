@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
+import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.DrawerBinding
 import com.ssafy.diary.databinding.FragmentMainBinding
 import com.ssafy.diary.util.SharedPreferencesUtil
@@ -40,11 +41,13 @@ class MainFragment : Fragment() {
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
 
+//        Glide.with(this)
+//            .load(setting.background)
+//            .into(binding.imgMainBack01)
+
         Glide.with(this)
-            .load(setting.background)
+            .load("${ApplicationClass.MENU_IMGS_URL}500eb7f1-f6a3-4bf2-b140-c16723d3c10f.jpg")
             .into(binding.imgMainBack01)
-
-
         return binding.root
     }
 
