@@ -36,20 +36,38 @@ public class DiaryApi {
 
     // 일기 저장
     @PostMapping("/insert")
-    public ResponseEntity<Boolean> insert(@RequestBody Diary diary){
+    public ResponseEntity<Boolean> insert(@RequestPart(value = "diary") Diary diary, @RequestPart(value = "diaryImg", required = false)MultipartFile diaryImg) throws IOException {
         boolean result = false;
-        if(diaryService.select(diary.getUserId(), diary.getDiaryDate()) == null) {
-            result = diaryService.insert(diary);
+        try {
+            if (diaryService.select(diary.getUserId(), diary.getDiaryDate()) == null) {
+                if (diaryImg != null) {
+                    UploadFile ufile = FileConverter.storeFile(diaryImg, "/diary/");
+                    assert ufile != null;
+                    diary.setDiaryImg(ufile.getStoreImgName());
+                }
+                result = diaryService.insert(diary);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     // 일기 수정
     @PutMapping("/update")
-    public ResponseEntity<Boolean> update(@RequestBody Diary diary){
+    public ResponseEntity<Boolean> update(@RequestPart(value = "diary") Diary diary, @RequestPart(value = "diaryImg", required = false)MultipartFile diaryImg){
         boolean result = false;
-        if(diaryService.select(diary.getUserId(), diary.getDiaryDate()) != null){
-            result = diaryService.update(diary);
+        try {
+            if (diaryService.select(diary.getUserId(), diary.getDiaryDate()) != null) {
+                if (diaryImg != null) {
+                    UploadFile ufile = FileConverter.storeFile(diaryImg, "/diary/");
+                    assert ufile != null;
+                    diary.setDiaryImg(ufile.getStoreImgName());
+                }
+                result = diaryService.update(diary);
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -65,14 +83,5 @@ public class DiaryApi {
     }
 
 
-    // 테스트
-    @PostMapping("/test")
-    public ResponseEntity<Boolean> test(@RequestPart(value = "image")MultipartFile image) throws IOException {
 
-        UploadFile ufile = FileConverter.storeFile(image, "/diary/");
-        log.warn(ufile.toString());
-//            log.warn(ufile.getStoreImgName());
-//            log.warn(ufile.getOriginImgName());
-        return new ResponseEntity<>(true, HttpStatus.OK);
-    }
 }

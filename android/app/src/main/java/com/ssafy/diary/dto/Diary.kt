@@ -5,7 +5,8 @@ data class Diary(
     var userId: String,
     var diaryEmotion: String,
     var diaryContent: String,
-    var diaryDate: String
+    var diaryDate: String,
+    var diaryImg: String
 ){
-    constructor(): this(0, "", "", "", "")
+    constructor(): this(0, "", "", "", "", "")
 }

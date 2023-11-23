@@ -41,13 +41,10 @@ class MainFragment : Fragment() {
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(binding.imgMainItem01)
 
-//        Glide.with(this)
-//            .load(setting.background)
-//            .into(binding.imgMainBack01)
-
         Glide.with(this)
-            .load("${ApplicationClass.MENU_IMGS_URL}500eb7f1-f6a3-4bf2-b140-c16723d3c10f.jpg")
+            .load(setting.background)
             .into(binding.imgMainBack01)
+
         return binding.root
     }
 
