@@ -43,14 +43,17 @@ class LoginActivity : AppCompatActivity() {
             1 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, LoginFragment())
+                .addToBackStack(null)
                 .commit()
             2 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, JoinFragment())
+                .addToBackStack(null)
                 .commit()
             3 -> supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fadein, R.anim.fadeout, R.anim.fadein, R.anim.fadeout)
                 .replace(R.id.fragment_container, FindIdFragment())
+                .addToBackStack(null)
                 .commit()
         }
 
