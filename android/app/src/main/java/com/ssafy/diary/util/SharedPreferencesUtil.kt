@@ -41,6 +41,7 @@ class SharedPreferencesUtil (context: Context) {
         editor.putString("email", user.userEmail)
         editor.putInt("heart", user.userHeart)
         editor.putString("joinDate", user.joinDate)
+        editor.putString("userImg", user.userImg)
         editor.apply()
     }
 
@@ -59,8 +60,9 @@ class SharedPreferencesUtil (context: Context) {
             val email = preferences.getString("email", "")
             val heart = preferences.getInt("heart", 0)
             val joinDate = preferences.getString("joinDate", "")
+            val userImg = preferences.getString("userImg", "")
 
-            return User(id!!, "", nickname!!, email!!, heart, joinDate!!, "")
+            return User(id!!, "", nickname!!, email!!, heart, joinDate!!, userImg!!)
         }else{
             return User()
         }
@@ -91,5 +93,10 @@ class SharedPreferencesUtil (context: Context) {
         return preferences.getLong("today", -1)
     }
 
+    fun addUserImg(userImg: String){
+        val editor = preferences.edit()
+        editor.putString("userImg", userImg)
+        editor.apply()
+    }
 
 }
