@@ -31,6 +31,7 @@ class ItemAdapter(val context: Context, val list: List<Int>, val itemList: List<
             var hasItem = false
             itemImage.setImageResource(list[layoutPosition])
             itemTv.setText("10")
+
             list.forEach {
                 if(layoutPosition == it){
                     itemBlocked.visibility = View.GONE
