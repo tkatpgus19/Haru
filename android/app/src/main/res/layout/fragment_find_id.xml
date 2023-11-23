@@ -85,8 +85,8 @@
             android:text="아이디 찾기"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="#72635D"
-            android:background="@drawable/btn_style2"
+            android:textColor="@drawable/btn_text_color"
+            android:background="@drawable/fin_btn_total_style"
             android:layout_marginBottom="24dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -96,8 +96,9 @@
             android:text="로그인 하러 가기"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_style"/>
+            android:textColor="@drawable/btn_text_color2"
+            android:background="@drawable/fin_btn_total_style2"
+            android:layout_marginBottom="24dp"/>
 
     </LinearLayout>
 
