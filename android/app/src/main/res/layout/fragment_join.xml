@@ -84,8 +84,8 @@
                 android:text="중복 체크"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#72635D"
-                android:background="@drawable/btn_style2"/>
+                android:textColor="@drawable/btn_text_color"
+                android:background="@drawable/fin_btn_total_style"/>
 
         </LinearLayout>
 
@@ -132,8 +132,9 @@
             android:text="회원가입"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_style"/>
+            android:textColor="@drawable/btn_text_color2"
+            android:background="@drawable/fin_btn_total_style2"
+            android:layout_marginBottom="24dp"/>
 
     </LinearLayout>
 

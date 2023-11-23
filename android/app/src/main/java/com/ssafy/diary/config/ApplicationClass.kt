@@ -1,5 +1,4 @@
 package com.ssafy.diary.config
-
 import android.Manifest
 import android.app.Application
 import com.google.gson.Gson

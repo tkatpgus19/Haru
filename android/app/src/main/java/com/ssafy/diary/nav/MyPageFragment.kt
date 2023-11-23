@@ -69,45 +69,14 @@ class MyPageFragment : Fragment() {
         val editText = inflater.findViewById<EditText>(R.id.edit_password_dialog)
         val ok = inflater.findViewById<Button>(R.id.btn_ok)
 
-//        ok.setOnTouchListener { view, motionEvent ->
-//            ok.setTextColor(Color.parseColor("#FFFFFF"))
-//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
-//
-//            true
-//        }
-//        ok.setOnTouchListener(new ok2.OnTouchListener() {
-//            ok.setTextColor(Color.parseColor("#FFFFFF"))
-//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
-//        })
-
-        ok.setOnClickListener {
-//            ok.setTextColor(Color.parseColor("#FFFFFF"))
-//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
-
-            lifecycleScope.launch {
-                if (editText.text.isNotEmpty()) {
-                    val pass = editText.text.toString()
-                    val isMatch = RetrofitUtil.userService.matchPassword(userId, pass).body()
-                    if(isMatch != null){
-                        val result = RetrofitUtil.userService.deleteAccount(userId).body()
-                        if(result!!){
-                            Toast.makeText(requireContext(), "계정 탈퇴가 완료되었습니다...", Toast.LENGTH_SHORT).show()
-                            SharedPreferencesUtil(requireContext()).deleteUser()
-                            mActivity.finish()
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                        }
-                    } else{
-                        Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
-                    }
-                } else{
-                    Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
 
         builder.apply {
             setView(inflater)
-            setPositiveButton("확인"){ dialog, _ ->
+
+            ok.setOnClickListener {
+//            ok.setTextColor(Color.parseColor("#FFFFFF"))
+//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
+
                 lifecycleScope.launch {
                     if (editText.text.isNotEmpty()) {
                         val pass = editText.text.toString()
@@ -127,8 +96,29 @@ class MyPageFragment : Fragment() {
                         Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
                     }
                 }
-                dialog.cancel()
             }
+//            setPositiveButton("확인"){ dialog, _ ->
+//                lifecycleScope.launch {
+//                    if (editText.text.isNotEmpty()) {
+//                        val pass = editText.text.toString()
+//                        val isMatch = RetrofitUtil.userService.matchPassword(userId, pass).body()
+//                        if(isMatch != null){
+//                            val result = RetrofitUtil.userService.deleteAccount(userId).body()
+//                            if(result!!){
+//                                Toast.makeText(requireContext(), "계정 탈퇴가 완료되었습니다...", Toast.LENGTH_SHORT).show()
+//                                SharedPreferencesUtil(requireContext()).deleteUser()
+//                                mActivity.finish()
+//                                startActivity(Intent(requireContext(), LoginActivity::class.java))
+//                            }
+//                        } else{
+//                            Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
+//                        }
+//                    } else{
+//                        Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//                dialog.cancel()
+//            }
         }
         builder.create().show()
     }
