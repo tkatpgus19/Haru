@@ -14,6 +14,7 @@ public class User {
     private String userEmail;
     private int userHeart;
     private Timestamp joinDate;
+    private String userImg;
 
     @Override
     public String toString() {
@@ -24,6 +25,7 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 ", userHeart=" + userHeart +
                 ", joinDate=" + joinDate +
+                ", userImg='" + userImg + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,12 @@
 package com.ssafy.diary.mypage
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +15,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
@@ -22,11 +31,17 @@ import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class MyInfoFragment : Fragment() {
     private val binding by lazy { FragmentMyInfoBinding.inflate(layoutInflater) }
     private val sActiity by lazy { activity as SubActivity }
     private var userInfo = User()
+    private var filePath = ""
+    private var userImg: MultipartBody.Part? = MultipartBody.Part.createFormData("diaryImg", "asdfsafsadfasdfsa")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +64,9 @@ class MyInfoFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             sActiity.finish()
         }
-
+        binding.imgPersonal.setOnClickListener {
+            selectGallery()
+        }
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
                 val user = User()
@@ -99,25 +116,76 @@ class MyInfoFragment : Fragment() {
         }
 
     }
-//        builder.apply {
-//            setView(inflater)
-//            setPositiveButton("확인"){ dialog, _ ->
-//                lifecycleScope.launch {
-//                    if (editText.text.isNotEmpty()) {
-//                        val pass = editText.text.toString()
-//                        if(RetrofitUtil.userService.matchPassword(userInfo.userId, pass).body() != null){
-//                            binding.editPassword.isEnabled = true;
-//                            binding.editPassword.setText(pass)
-//                            binding.textPasswordBlocked.visibility = View.GONE
-//                        } else{
-//                            Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
-//                        }
-//                    } else{
-//                        Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//                dialog.cancel()
-//            }
-//        }
-//        builder.create().show()
+    private val imageResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){ result ->
+        if(result.resultCode == Activity.RESULT_OK){
+            filePath = getFilePathUri(result.data?.data!!)
+
+            Glide.with(binding.imgPersonal)
+                .load(filePath)
+                .into(binding.imgPersonal)
+            setImage()
+
+        }
+    }
+    private fun selectGallery(){
+        val writePermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val readPermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        if(writePermission == PackageManager.PERMISSION_DENIED ||
+            readPermission == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                REQ_GALLERY
+            )
+        }else{
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*"
+            )
+            imageResult.launch(intent)
+        }
+    }
+
+    // 절대경로 변환
+    fun getFilePathUri(path: Uri): String {
+        val buildName = Build.MANUFACTURER
+
+        // 샤오미 폰은 바로 경로 반환 가능
+        if (buildName.equals("Xiaomi")) {
+            return path.path.toString()
+        }
+
+        var columnIndex = 0
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        var cursor = requireActivity().contentResolver.query(path, proj, null, null, null)
+
+        if (cursor!!.moveToFirst()){
+            columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        }
+
+        return cursor.getString(columnIndex)
+    }
+
+    fun setImage(){
+        val file = File(filePath)
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        userImg = MultipartBody.Part.createFormData("userImg", file.name, requestFile)
+        lifecycleScope.launch{
+            RetrofitUtil.userService.updateImage(userInfo.userId, userImg!!)
+        }
+    }
+    companion object{
+        const val REQ_GALLERY = 1
+    }
 }

@@ -74,4 +74,13 @@ public class UserServiceImpl implements UserService{
         map.put("userHeart", userHeart);
         return userDao.updateHeart(map);
     }
+
+    @Override
+    public boolean updateImage(String userId, String userImg) {
+        Map<String, String> map = new HashMap<>();
+        userId = userId.replaceAll("\"", "");
+        map.put("userImg", userImg);
+        map.put("userId", userId);
+        return userDao.updateImg(map);
+    }
 }

@@ -8,7 +8,8 @@ data class User(
     var userNickname: String,
     var userEmail: String,
     var userHeart: Int,
-    var joinDate: String
+    var joinDate: String,
+    var userImg: String
 ){
-    constructor(): this("", "", "", "", 0, "")
+    constructor(): this("", "", "", "", 0, "", "")
 }

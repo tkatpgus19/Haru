@@ -37,4 +37,9 @@
         UPDATE user SET user_heart = #{userHeart}
         WHERE user_id = #{userId}
     </update>
+
+    <update id="updateImg" parameterType="Map">
+        UPDATE user SET user_img = #{userImg}
+        WHERE user_id = #{userId}
+    </update>
 </mapper>

@@ -20,6 +20,6 @@ public class ResourceHandler implements WebMvcConfigurer {
     	logger.info("uploadPath : {}", uploadPath);
     	//imgs/menu로 요청이 올 때 static/imgs/menu, uploadPath에서 찾는다. 
     	registry.addResourceHandler("/imgs/diary/**").addResourceLocations( "classpath:/static/imgs/diary/", uploadPath);
-
+        registry.addResourceHandler("/imgs/user/**").addResourceLocations("classpath:/static/imgs/user/", uploadPath);
     }
 }
