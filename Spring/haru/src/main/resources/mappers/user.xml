@@ -5,8 +5,8 @@
 <mapper namespace="com.ssafy.haru.model.dao.UserDao">
 
     <insert id="insert" parameterType="User">
-        INSERT INTO user
-        VALUES (#{userId}, #{userPassword}, #{userNickname}, #{userEmail}, #{userHeart})
+        INSERT INTO user (user_id, user_password, user_nickname, user_email, user_heart)
+        VALUE (#{userId}, #{userPassword}, #{userNickname}, #{userEmail}, #{userHeart})
     </insert>
 
     <select id="selectById" parameterType="String" resultType="User">

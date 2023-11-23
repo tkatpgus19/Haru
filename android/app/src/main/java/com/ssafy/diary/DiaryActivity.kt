@@ -66,5 +66,6 @@ class DiaryActivity : AppCompatActivity() {
     companion object{
         const val DIARY_MAIN_FRAGMENT = 0
         const val DIARY_DETAILS_FRAGMENT = 1
+
     }
 }

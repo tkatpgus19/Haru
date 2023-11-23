@@ -11,6 +11,7 @@ public class Diary {
     private String diaryEmotion;
     private String diaryContent;
     private String diaryDate;
+    private String diaryImg;
 
     @Override
     public String toString() {
@@ -20,6 +21,7 @@ public class Diary {
                 ", diaryEmotion='" + diaryEmotion + '\'' +
                 ", diaryContent='" + diaryContent + '\'' +
                 ", diaryDate='" + diaryDate + '\'' +
+                ", diaryImg='" + diaryImg + '\'' +
                 '}';
     }
 }

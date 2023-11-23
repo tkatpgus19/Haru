@@ -2,6 +2,7 @@ package com.ssafy.diary.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.LoginActivity.Companion.FIND_ID_FRAGMENT
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
+import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.dto.User
+import com.ssafy.diary.util.CommonUtil
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.CoroutineScope
@@ -59,6 +62,7 @@ class LoginFragment : Fragment() {
                     if(result!!.userId != null){
                         Toast.makeText(requireContext(), "반갑습니다 ${result.userNickname}님", Toast.LENGTH_SHORT).show()
                         SharedPreferencesUtil(requireContext()).addUser(result)
+                        SharedPreferencesUtil(requireContext()).saveSetting(R.drawable.background01, R.drawable.character01)
                         startActivity(Intent(requireActivity(), MainActivity::class.java))
                         lActivity.finish()
                     } else{
