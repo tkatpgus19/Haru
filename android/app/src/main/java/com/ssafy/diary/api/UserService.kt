@@ -50,4 +50,8 @@ interface UserService {
     @Multipart
     @PUT("api/user/updateImage")
     suspend fun updateImage(@Part("userId") userId: String, @Part userImg: MultipartBody.Part): Response<Boolean>
+
+    // 사용자 프로필 조회
+    @GET("api/user/getImage")
+    suspend fun getImage(@Query("userId") userId: String): Response<String>
 }

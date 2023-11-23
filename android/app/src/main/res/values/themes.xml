@@ -22,4 +22,5 @@
         <!-- 취소/확인버튼 색상 -->
         <item name="android:textColor">@color/lightBrown</item>
     </style>
+
 </resources>

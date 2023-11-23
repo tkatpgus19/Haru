@@ -12,14 +12,17 @@ public class ResourceHandler implements WebMvcConfigurer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandler.class);
 
-    @Value("${uploadPath}")
-    String uploadPath;
+    @Value("${uploadPath1}")
+    String uploadPath1;
+
+    @Value("${uploadPath2}")
+    String uploadPath2;
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    	logger.info("uploadPath : {}", uploadPath);
+    	logger.info("uploadPath : {}", uploadPath1);
     	//imgs/menu로 요청이 올 때 static/imgs/menu, uploadPath에서 찾는다. 
-    	registry.addResourceHandler("/imgs/diary/**").addResourceLocations( "classpath:/static/imgs/diary/", uploadPath);
-        registry.addResourceHandler("/imgs/user/**").addResourceLocations("classpath:/static/imgs/user/", uploadPath);
+    	registry.addResourceHandler("/imgs/diary/**").addResourceLocations( "classpath:/static/imgs/diary/", uploadPath1);
+        registry.addResourceHandler("/imgs/user/**").addResourceLocations("classpath:/static/imgs/user/", uploadPath2);
     }
 }

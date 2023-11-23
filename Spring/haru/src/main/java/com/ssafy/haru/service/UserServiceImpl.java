@@ -83,4 +83,9 @@ public class UserServiceImpl implements UserService{
         map.put("userId", userId);
         return userDao.updateImg(map);
     }
+
+    @Override
+    public User getImage(String userId) {
+        return userDao.selectById(userId);
+    }
 }

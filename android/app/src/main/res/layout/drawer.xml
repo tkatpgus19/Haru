@@ -19,16 +19,36 @@
         android:orientation="vertical"
         android:background="@color/lightDarkBrown">
 
-        <ImageView
-            android:id="@+id/img_personal"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="left"
-            android:background="@drawable/profile_style"
-            android:src="@drawable/baseline_person_24"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"/>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="5dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/lightBrown"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_person_24" />
+
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/text_name"
