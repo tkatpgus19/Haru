@@ -73,31 +73,35 @@ class StoreAdapter(val binding: FragmentStoreBinding, val context: Context, val 
                             inflater.findViewById<TextView>(R.id.text_item_heart_count_dialog)
                         val ok = inflater.findViewById<Button>(R.id.btn_ok)
                         val cancel = inflater.findViewById<Button>(R.id.btn_cancel)
-
                         builder.apply {
                             setView(inflater)
                             dialogItemImg.setImageResource(itemList[layoutPosition])
                             dialogItemPrice.text = list[layoutPosition].itemPrice.toString()
+                        }
+                        val ad = builder.create()
+                        ad.show()
 
-                            ok.setOnClickListener {
-                                CoroutineScope(Dispatchers.Main).launch {
-                                    if(type == "B"){
-                                        RetrofitUtil.inventoryService.addItem(userInfo.userId, list[layoutPosition].itemId.toString())
-                                    }
-                                    else{
-                                        RetrofitUtil.inventoryService.addItem(userInfo.userId, (list[layoutPosition].itemId+5).toString())
-                                    }
-                                    RetrofitUtil.userService.updateHeart(userInfo.userId, (userInfo.userHeart-list[layoutPosition].itemPrice).toString())
-                                    SharedPreferencesUtil(context).updateHeart(userInfo.userHeart-list[layoutPosition].itemPrice)
-                                    Toast.makeText(context, "구매했습니다", Toast.LENGTH_SHORT).show()
-                                    itemBlocked.visibility = View.GONE
-                                    itemLockImg.visibility = View.GONE
-                                    itemPrice.visibility = View.GONE
-                                    itemHeart.visibility = View.GONE
-                                    hasItem = true
-                                    binding.textHeartCount.text = "${(userInfo.userHeart-list[layoutPosition].itemPrice)}개"
+
+                        ok.setOnClickListener {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                if(type == "B"){
+                                    RetrofitUtil.inventoryService.addItem(userInfo.userId, list[layoutPosition].itemId.toString())
                                 }
+                                else{
+                                    RetrofitUtil.inventoryService.addItem(userInfo.userId, (list[layoutPosition].itemId+5).toString())
+                                }
+                                RetrofitUtil.userService.updateHeart(userInfo.userId, (userInfo.userHeart-list[layoutPosition].itemPrice).toString())
+                                SharedPreferencesUtil(context).updateHeart(userInfo.userHeart-list[layoutPosition].itemPrice)
+                                Toast.makeText(context, "구매했습니다", Toast.LENGTH_SHORT).show()
+                                itemBlocked.visibility = View.GONE
+                                itemLockImg.visibility = View.GONE
+                                itemPrice.visibility = View.GONE
+                                itemHeart.visibility = View.GONE
+                                hasItem = true
+                                binding.textHeartCount.text = "${(userInfo.userHeart-list[layoutPosition].itemPrice)}개"
                             }
+                            ad.cancel()
+                        }
 //                            setPositiveButton("확인") { dialog, _ ->
 //                                CoroutineScope(Dispatchers.Main).launch {
 //                                    if(type == "B"){
@@ -120,13 +124,12 @@ class StoreAdapter(val binding: FragmentStoreBinding, val context: Context, val 
 //                            }
 
                             cancel.setOnClickListener {
-
+                                ad.cancel()
                             }
 //                            setNegativeButton("취소") { dialog, _ ->
 //                                dialog.cancel()
 //                            }
-                        }
-                        builder.create().show()
+
                     }
                 }
             }
