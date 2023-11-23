@@ -30,7 +30,26 @@ import kotlin.random.Random
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
     private val dActivity by lazy { activity as DiaryActivity }
-    private val questionList = arrayOf("내가 할 수 있을까?", "만약 성공한다면?", "내가 만약 부자라면?", "좀 더 효율적인 방법은 없을까?", "왜 그럴까?", "히히히히히히히히" )
+    private val questionList = arrayOf("요즘 내가 느끼는 감정은 무엇인가요?",
+        "나는 요즘 어떤 얼굴 표정으로 살아가고 있나요?",
+        "요즘 내 마음을 닮은 이미지는 무엇인가요?",
+        "오늘 하루 나 자신을 조금 떨어져 관찰한다면, 어떤 모습인가요?",
+        "오늘도 무사히 살아낸 나에게 어떤 말을 해주고 싶은가요?",
+        "하루 중 가장 좋아하는 순간은 언제인가요?",
+        "하루 중 내가 가장 좋아하는 시간대는 언제인가요?",
+        "듣는 것만으로 나를 행복하게 해주는 말 한마디는 무엇인가요?",
+        "오늘, 어떤 음식을 먹으면 행복할 것 같나요?",
+        "내가 가장 좋아하는 색깔은 무엇인가요?",
+        "나의 취미는 무엇인가요?",
+        "나는 어떤 옷을 좋아하는 사람인가요?",
+        "방에 액자를 딱 하나 걸 수 있다면, 어떤 사진을 걸고 싶은가요?",
+        "나의 플레이 리스트는 무엇인가요?",
+        "내 삶에서 가장 좋았던 여행은 언제였나요?",
+        "나의 인생 영화는 무엇인가요?",
+        "나와 가장 닮았다고 생각되는 영화 속 주인공은 누구인가요?",
+        "만약 나 자신을 동물에 비유한다면, 어떤 동물일까요?",
+        "나는 어떤 것에 몰입하는 사람인가요?",
+        "하고 있는 것만으로도 행복한 일이 있나요?")
     private lateinit var question: String
     lateinit var userId: String
     lateinit var joinDate: String

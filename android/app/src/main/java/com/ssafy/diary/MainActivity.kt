@@ -1,18 +1,12 @@
 package com.ssafy.diary
 
 import android.content.Intent
-import android.graphics.Path.Op
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
-import com.ssafy.diary.dto.User
-import com.ssafy.diary.mypage.MyInfoFragment
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
 import com.ssafy.diary.nav.TodoListFragment
@@ -104,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         var backgroundImg = -1
         var characterImg = -1
         val characterList = listOf(R.drawable.character01, R.drawable.character02, R.drawable.character03, R.drawable.character04, R.drawable.character05, R.drawable.character06)
-        val backgroundList = listOf(R.drawable.background01, R.drawable.background02, R.drawable.background03, R.drawable.background04, R.drawable.background05)
+        val backgroundList = listOf(R.drawable.background01, R.drawable.background02, R.drawable.background03, R.drawable.`background04`, R.drawable.`background05`)
     }
 
 }
