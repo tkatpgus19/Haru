@@ -29,4 +29,7 @@ public interface UserService {
 
     // 사용자 프로필 수정
     boolean updateImage(String userId, String userImg);
+
+    // 사용자 프로필 조회
+    User getImage(String userId);
 }

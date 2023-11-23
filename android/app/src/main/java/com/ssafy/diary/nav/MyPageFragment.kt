@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -36,6 +37,16 @@ class MyPageFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val userImg = SharedPreferencesUtil(requireContext()).getUser().userImg
+        if(userImg != ""){
+            Glide.with(binding.imgPersonal)
+                .load("${ApplicationClass.IMGS_URL}${userImg}")
+                .into(binding.imgPersonal)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,9 +54,10 @@ class MyPageFragment : Fragment() {
         // Inflate the layout for this fragment
         userId = SharedPreferencesUtil(requireContext()).getUser().userId
         userName = SharedPreferencesUtil(requireContext()).getUser().userNickname
-        binding.textName.text = userName
+        binding.textName.text = "${userName}님"
 
         val userImg = SharedPreferencesUtil(requireContext()).getUser().userImg
+        Log.d("해위", userImg)
         if(userImg != ""){
             Glide.with(binding.imgPersonal)
                 .load("${ApplicationClass.IMGS_URL}${userImg}")

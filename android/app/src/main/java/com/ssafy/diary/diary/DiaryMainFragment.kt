@@ -10,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.DiaryActivity.Companion.DIARY_DETAILS_FRAGMENT
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
+import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import com.ssafy.diary.dto.Homework
 import com.ssafy.diary.util.CommonUtil
@@ -89,6 +93,14 @@ class DiaryMainFragment : Fragment() {
         val userInfo = SharedPreferencesUtil(requireContext()).getUser()
         userId = userInfo.userId
         joinDate = userInfo.joinDate
+        Glide.with(binding.imgQuestionBack)
+            .load(R.drawable.today_question_back)
+            .transform(CenterCrop(), RoundedCorners(30))
+            .into(binding.imgQuestionBack)
+        Glide.with(binding.imgTodayDiary)
+            .load(R.drawable.img_diary)
+            .transform(CenterCrop(), RoundedCorners(30))
+            .into(binding.imgTodayDiary)
         val calendar = Calendar.getInstance()
         val format = SimpleDateFormat("yyyy-MM-dd")
         val today = format.format(calendar.time)
@@ -131,7 +143,6 @@ class DiaryMainFragment : Fragment() {
                 lifecycleScope.launch {
                     val result = RetrofitUtil.homeworkService.getHomework(userId, date).body()
                     if(result!!.userId != null){
-                        binding.textTodayQuestion.text = result.homeworkQuestion
                         binding.editTextTodayQuestionAnswer.isEnabled = false
                         binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
                         binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
@@ -143,7 +154,6 @@ class DiaryMainFragment : Fragment() {
                             modify = true
                         }
                         else{
-                            binding.textTodayQuestion.text = "해당 날짜의 질문에 답하지 않았습니다"
                             binding.btnSave.visibility = View.GONE
                             binding.btnEdit.visibility = View.GONE
                             binding.btnDelete.visibility = View.GONE
@@ -153,6 +163,7 @@ class DiaryMainFragment : Fragment() {
                         binding.textTodayQuestion.text = "Q " + question
                         binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
                         if(date == today){
+                            binding.editTextTodayQuestionAnswer.setText("")
                             binding.editTextTodayQuestionAnswer.isEnabled = true
                             binding.btnSave.visibility = View.VISIBLE
                             binding.btnEdit.visibility = View.GONE

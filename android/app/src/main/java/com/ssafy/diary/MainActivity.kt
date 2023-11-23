@@ -7,6 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
@@ -15,6 +17,13 @@ import com.ssafy.diary.util.SharedPreferencesUtil
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    override fun onResume() {
+        super.onResume()
+        val userInfo = SharedPreferencesUtil(this).getUser()
+        Glide.with(binding.inViewDrawer.imgPersonal)
+            .load("${ApplicationClass.IMGS_URL}${userInfo.userImg}")
+            .into(binding.inViewDrawer.imgPersonal)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -52,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             binding.layoutMain.close()
         }
-        binding.inViewDrawer.textName.text = userInfo.userNickname
+        binding.inViewDrawer.textName.text = "${userInfo.userNickname}님"
         binding.inViewDrawer.textHeartCount.text = "${userInfo.userHeart}개"
         binding.inViewDrawer.btnLogout.setOnClickListener {
             SharedPreferencesUtil(this).deleteUser()
@@ -60,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, LoginActivity::class.java))
         }
+
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }

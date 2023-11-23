@@ -13,7 +13,7 @@ public class FileConverter {
 		if(file.isEmpty()) return null;
 		String originName = file.getOriginalFilename();
 		String storeName = UUID.randomUUID()+"."+extractExt(originName);
-		File saveFile = new File("C:/Temp/imgs"+folder, storeName);
+		File saveFile = new File("home:/Temp/imgs"+folder, storeName);
 //		file.transferTo();
 		FileCopyUtils.copy(file.getBytes(), saveFile);
 		return new UploadFile(originName, storeName);

@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -21,10 +22,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
 import com.ssafy.diary.SubActivity
+import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.databinding.FragmentMyInfoBinding
 import com.ssafy.diary.dto.User
@@ -52,7 +56,6 @@ class MyInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding.editId.isEnabled = false
         binding.editPassword.isEnabled = false
-
         userInfo = SharedPreferencesUtil(requireContext()).getUser()
 
         binding.editEmail.setText(userInfo.userEmail)
@@ -66,7 +69,12 @@ class MyInfoFragment : Fragment() {
         }
         binding.imgPersonal.setOnClickListener {
             selectGallery()
+
         }
+        Glide.with(binding.imgPersonal)
+            .load("${ApplicationClass.IMGS_URL}${userInfo.userImg}")
+            .into(binding.imgPersonal)
+
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
                 val user = User()
@@ -183,6 +191,9 @@ class MyInfoFragment : Fragment() {
         userImg = MultipartBody.Part.createFormData("userImg", file.name, requestFile)
         lifecycleScope.launch{
             RetrofitUtil.userService.updateImage(userInfo.userId, userImg!!)
+            val tmp = RetrofitUtil.userService.getImage(userInfo.userId).body()
+            SharedPreferencesUtil(requireContext()).addUserImg(tmp!!)
+            Toast.makeText(requireContext(), "프로필 이미지를 수정했습니다.", Toast.LENGTH_SHORT).show()
         }
     }
     companion object{

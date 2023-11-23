@@ -67,10 +67,9 @@
 
             <ImageView
                 android:id="@+id/img_question_back"
-                android:layout_width="420dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:scaleType="centerCrop"
-                android:background="@drawable/edit_text_shape"
                 android:src="@drawable/today_question_back"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="355dp" />

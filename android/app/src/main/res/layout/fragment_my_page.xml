@@ -18,14 +18,46 @@
         android:paddingTop="20dp"
         android:background="@drawable/profile_back_style"
         android:orientation="vertical">
-        <ImageView
-            android:id="@+id/img_personal"
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="5dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/lightBrown"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:background="@drawable/profile_style"
-            android:src="@drawable/baseline_person_24"
-            android:layout_marginBottom="8dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_person_24" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/search_style"
+                    android:src="@drawable/baseline_search_24"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginBottom="32dp"/>
+
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/text_name"
