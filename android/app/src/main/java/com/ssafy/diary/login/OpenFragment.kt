@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.LoginActivity.Companion.JOIN_FRAGMENT
 import com.ssafy.diary.LoginActivity.Companion.LOGIN_FRAGMENT
@@ -17,6 +19,18 @@ class OpenFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        lActivity.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+    private var backPressedTime = 0L
+    private val onBackPressedCallback = object: OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            if(System.currentTimeMillis() - backPressedTime <= 2000){
+                lActivity.finish()
+            } else{
+                backPressedTime = System.currentTimeMillis()
+                Toast.makeText(lActivity, "한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -36,5 +50,4 @@ class OpenFragment : Fragment() {
         }
         return binding.root
     }
-
 }

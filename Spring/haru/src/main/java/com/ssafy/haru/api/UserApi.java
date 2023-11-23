@@ -1,5 +1,7 @@
 package com.ssafy.haru.api;
 
+import com.ssafy.haru.model.dto.FileConverter;
+import com.ssafy.haru.model.dto.UploadFile;
 import com.ssafy.haru.model.dto.User;
 import com.ssafy.haru.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
@@ -82,5 +87,20 @@ public class UserApi {
     @PutMapping("/updateHeart")
     public ResponseEntity<Boolean> updateHeart(@RequestParam String userId, @RequestParam String userHeart){
         return new ResponseEntity<>(userService.updateHeart(userId, userHeart), HttpStatus.OK);
+    }
+
+    @PutMapping("/updateImage")
+    public ResponseEntity<Boolean> updateImage(@RequestPart(value = "userId") String userId, @RequestPart(value = "userImg", required = false)MultipartFile userImg){
+        boolean result = false;
+        try{
+            if(userImg != null){
+                UploadFile ufile = FileConverter.storeFile(userImg, "/user/");
+                assert ufile != null;
+                result = userService.updateImage(userId, ufile.getStoreImgName());
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

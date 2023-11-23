@@ -26,4 +26,7 @@ public interface UserDao {
 
     // 사용자 하트 수 수정
     Boolean updateHeart(Map<String, String> map);
+
+    // 사용자 프로필 수정
+    boolean updateImg(Map<String, String> map);
 }

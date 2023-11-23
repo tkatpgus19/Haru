@@ -26,4 +26,7 @@ public interface UserService {
 
     // 사용자 하트 수 수정
     boolean updateHeart(String userId, String userHeart);
+
+    // 사용자 프로필 수정
+    boolean updateImage(String userId, String userImg);
 }

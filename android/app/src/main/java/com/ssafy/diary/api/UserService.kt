@@ -1,12 +1,15 @@
 package com.ssafy.diary.api
 
 import com.ssafy.diary.dto.User
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -42,4 +45,9 @@ interface UserService {
     // 하트 수 변경
     @PUT("api/user/updateHeart")
     suspend fun updateHeart(@Query("userId") userId: String, @Query("userHeart") userHeart: String): Response<Boolean>
+
+    // 사용자 프로필 변경
+    @Multipart
+    @PUT("api/user/updateImage")
+    suspend fun updateImage(@Part("userId") userId: String, @Part userImg: MultipartBody.Part): Response<Boolean>
 }

@@ -60,7 +60,7 @@ class SharedPreferencesUtil (context: Context) {
             val heart = preferences.getInt("heart", 0)
             val joinDate = preferences.getString("joinDate", "")
 
-            return User(id!!, "", nickname!!, email!!, heart, joinDate!!)
+            return User(id!!, "", nickname!!, email!!, heart, joinDate!!, "")
         }else{
             return User()
         }
