@@ -18,20 +18,18 @@ interface DiaryService {
     suspend fun getDiary(@Query("userId") userId: String, @Query("diaryDate") diaryDate: String): Response<Diary>
 
     // 일기 저장
+    @Multipart
     @POST("api/diary/insert")
-    suspend fun saveDiary(@Body diary: Diary): Response<Boolean>
+    suspend fun saveDiary(@Part("diary") diary: Diary, @Part diaryImg: MultipartBody.Part): Response<Boolean>
 
     //  일기 수정
+    @Multipart
     @PUT("api/diary/update")
-    suspend fun updateDiary(@Body diary: Diary): Response<Boolean>
+    suspend fun updateDiary(@Part("diary") diary: Diary, @Part diaryImg: MultipartBody.Part): Response<Boolean>
 
     // 일기 삭제
     @DELETE("api/diary/delete")
     suspend fun deleteDiary(@Query("userId") userId: String, @Query("diaryDate") diaryDate: String): Response<Boolean>
 
 
-    // 테스트
-    @Multipart
-    @POST("api/diary/test")
-    suspend fun test(@Part image: MultipartBody.Part): Response<Boolean>
 }

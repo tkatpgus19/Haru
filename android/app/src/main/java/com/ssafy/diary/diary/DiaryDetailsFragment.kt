@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide
 import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.DiaryActivity.Companion.DIARY_MAIN_FRAGMENT
 import com.ssafy.diary.R
+import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.FragmentDiaryDetailsBinding
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import com.ssafy.diary.dto.Diary
@@ -41,6 +42,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Retrofit
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import java.io.File
 import java.text.SimpleDateFormat
@@ -60,6 +62,8 @@ class DiaryDetailsFragment : Fragment() {
     lateinit var day: String
 
     private var todayFeeling = ""
+    private var diaryImg: MultipartBody.Part? = MultipartBody.Part.createFormData("diaryImg", "asdfsafsadfasdfsa")
+    private var prevImg = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         year = arguments!!.getString("year")!!
@@ -108,6 +112,12 @@ class DiaryDetailsFragment : Fragment() {
                 binding.btnEdit.visibility = View.VISIBLE
                 todayFeeling = result.diaryEmotion
                 binding.editTextTodayDiary.isEnabled = false
+                if(result.diaryImg != null){
+                    Glide.with(binding.btnImgChoose)
+                        .load("${ApplicationClass.MENU_IMGS_URL}${result.diaryImg}")
+                        .into(binding.btnImgChoose)
+                    prevImg = result.diaryImg
+                }
             }
         }
 
@@ -119,9 +129,11 @@ class DiaryDetailsFragment : Fragment() {
                     diary.userId = userId
                     diary.diaryDate = date
                     diary.diaryEmotion = todayFeeling
+                    diary.diaryImg = prevImg
                     if(!modify) {
-                        val result = RetrofitUtil.diaryService.saveDiary(diary).body()
-                        if (result!!) {
+                        Log.d("해위", diaryImg.toString())
+                        val result = RetrofitUtil.diaryService.saveDiary(diary, diaryImg!!).body()!!
+                        if (result) {
                             Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
 
                             binding.feeling.visibility = View.VISIBLE
@@ -135,7 +147,7 @@ class DiaryDetailsFragment : Fragment() {
                             SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart+1)
                         }
                     } else{
-                        val result = RetrofitUtil.diaryService.updateDiary(diary).body()
+                        val result = RetrofitUtil.diaryService.updateDiary(diary, diaryImg!!).body()
                         if(result!!){
                             Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
 
@@ -202,8 +214,7 @@ class DiaryDetailsFragment : Fragment() {
             Glide.with(binding.btnImgChoose)
                 .load(filePath)
                 .into(binding.btnImgChoose)
-
-            sendImage()
+            setImage()
 
         }
     }
@@ -233,9 +244,6 @@ class DiaryDetailsFragment : Fragment() {
             )
             imageResult.launch(intent)
         }
-
-
-
     }
 
     // 절대경로 변환
@@ -258,16 +266,10 @@ class DiaryDetailsFragment : Fragment() {
         return cursor.getString(columnIndex)
     }
 
-    fun sendImage(){
+    fun setImage(){
         val file = File(filePath)
         val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-        val image: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.name, requestFile)
-
-        lifecycleScope.launch {
-            RetrofitUtil.diaryService.test(image)
-        }
-
-
+        diaryImg = MultipartBody.Part.createFormData("diaryImg", file.name, requestFile)
     }
     companion object{
         const val REQ_GALLERY = 1
