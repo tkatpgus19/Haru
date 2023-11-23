@@ -75,33 +75,29 @@ class MyInfoFragment : Fragment() {
 
         val ok = inflater.findViewById<Button>(R.id.btn_ok)
 
+        builder.setView(inflater)
+        val ad = builder.create()
+        ad.show()
 
-        builder.apply {
-            setView(inflater)
-
-            ok.setOnClickListener {
-//            ok.setTextColor(Color.parseColor("#FFFFFF"))
-//            ok.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.lightBrown)) //(Color.parseColor("#72635D"))
-
-                lifecycleScope.launch {
-                    if (editText.text.isNotEmpty()) {
-                        val pass = editText.text.toString()
-                        if(RetrofitUtil.userService.matchPassword(userInfo.userId, pass).body() != null){
-                            binding.editPassword.isEnabled = true;
-                            binding.editPassword.setText(pass)
-                            binding.textPasswordBlocked.visibility = View.GONE
-                        } else{
-                            Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
-                        }
+        ok.setOnClickListener {
+            lifecycleScope.launch {
+                if (editText.text.isNotEmpty()) {
+                    val pass = editText.text.toString()
+                    val result = RetrofitUtil.userService.matchPassword(userInfo.userId, pass).body()!!.userId
+                    if(result == null){
+                        Toast.makeText(requireContext(), "비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show()
                     } else{
-                        Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
+                        binding.editPassword.isEnabled = true;
+                        binding.editPassword.setText(pass)
+                        binding.textPasswordBlocked.visibility = View.GONE
                     }
+                } else{
+                    Toast.makeText(requireContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show()
                 }
-
             }
-
+            ad.cancel()
         }
-        builder.create().show()
+
     }
 //        builder.apply {
 //            setView(inflater)

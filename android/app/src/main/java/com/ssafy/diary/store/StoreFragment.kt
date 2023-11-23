@@ -61,7 +61,6 @@ class StoreFragment : Fragment() {
             }
 
             inventoryItems = RetrofitUtil.inventoryService.getInventory(userInfo.userId).body()!!
-            Log.d("해위", inventoryItems.toString())
             inventoryItems.forEach {
                 if(it.itemType == "B"){
                     bInvItems.add(it)

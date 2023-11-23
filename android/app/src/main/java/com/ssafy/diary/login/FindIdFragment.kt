@@ -48,7 +48,7 @@ class FindIdFragment : Fragment() {
             if(email.isNotEmpty()){
                 CoroutineScope(Dispatchers.Main).launch {
                     val result = RetrofitUtil.userService.findId(email).body()
-                    if(result != "null"){
+                    if(result != null){
                         showDialog("당신의 아이디는 ${result}입니다.")
                     } else{
                         showDialog("해당 이메일로 등록된 아이디가 없습니다.")
