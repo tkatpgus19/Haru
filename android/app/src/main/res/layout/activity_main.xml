@@ -37,7 +37,7 @@
                     android:id="@+id/btn_go_to_diary"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/baseline_auto_stories_24"
+                    android:src="@drawable/baseline_border_color_24"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="314dp"
                     android:layout_marginRight="8dp"/>
