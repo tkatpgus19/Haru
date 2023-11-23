@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
+import com.ssafy.diary.SubActivity
 import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
