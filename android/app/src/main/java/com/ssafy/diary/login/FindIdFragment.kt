@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -45,13 +47,15 @@ class FindIdFragment : Fragment() {
         // 아이디 찾기
         binding.btnFindId.setOnClickListener {
             val email = binding.editEmail.text.toString()
+            val inflater = layoutInflater.inflate(R.layout.dialog_find_id, null)
+
             if(email.isNotEmpty()){
                 CoroutineScope(Dispatchers.Main).launch {
                     val result = RetrofitUtil.userService.findId(email).body()
                     if(result != null){
-                        showDialog("당신의 아이디는 ${result}입니다.")
+                        showDialog(" ${result} ", "1")
                     } else{
-                        showDialog("해당 이메일로 등록된 아이디가 없습니다.")
+                        showDialog("해당 이메일로 등록된 아이디가 없습니다.", "0")
                     }
                 }
             } else{
@@ -62,19 +66,41 @@ class FindIdFragment : Fragment() {
         return binding.root
     }
 
-    private fun showDialog(result: String){
+    private fun showDialog(result: String, result2: String){
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
 
         val inflater = layoutInflater.inflate(R.layout.dialog_find_id, null)
-        val textView = inflater.findViewById<TextView>(R.id.tv_dialog)
+        val textView = inflater.findViewById<TextView>(R.id.text_id_dialog)
+        val ok = inflater.findViewById<Button>(R.id.btn_ok)
+        val x = inflater.findViewById<ImageView>(R.id.img_x)
+
+        val txt1 = inflater.findViewById<TextView>(R.id.text_id_dialog_01)
+        val txt2 = inflater.findViewById<TextView>(R.id.text_id_dialog_02)
+
         builder.apply {
             setView(inflater)
-            setPositiveButton("확인"){ dialog, _ ->
-                dialog.cancel()
-            }
         }
+        val ad = builder.create()
+        ad.show()
+        ok.setOnClickListener {
+            ad.cancel()
+        }
+
+        x.setOnClickListener {
+            ad.cancel()
+        }
+
+        if(result2 == "0"){
+            txt1.visibility = View.GONE
+            txt2.visibility = View.GONE
+        }
+        else{
+            txt1.visibility = View.VISIBLE
+            txt2.visibility = View.VISIBLE
+        }
+
         textView.text = result
-        builder.create().show()
+
     }
 
 }

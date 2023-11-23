@@ -9,9 +9,9 @@
     <TextView
         android:id="@+id/text_question_dialog"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="64dp"
         android:text="해당 아이템을 구매하시겠습니까?"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:gravity="center"
         android:background="@color/lightBrown"
@@ -92,8 +92,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             style="?android:attr/borderlessButtonStyle"
             android:text="취소"
             android:textSize="16sp"
@@ -106,8 +106,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_ok"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             style="?android:attr/borderlessButtonStyle"
             android:text="확인"
             android:textSize="16sp"
