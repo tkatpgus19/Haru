@@ -120,7 +120,7 @@ class StoreAdapter(val binding: FragmentStoreBinding, val context: Context, val 
 //                            }
 
                             cancel.setOnClickListener {
-                                
+
                             }
 //                            setNegativeButton("취소") { dialog, _ ->
 //                                dialog.cancel()
