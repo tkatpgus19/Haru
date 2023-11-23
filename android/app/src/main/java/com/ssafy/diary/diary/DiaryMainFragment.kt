@@ -89,12 +89,10 @@ class DiaryMainFragment : Fragment() {
         val userInfo = SharedPreferencesUtil(requireContext()).getUser()
         userId = userInfo.userId
         joinDate = userInfo.joinDate
-
+        val calendar = Calendar.getInstance()
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val today = format.format(calendar.time)
         lifecycleScope.launch {
-
-
-
-
             val result = RetrofitUtil.homeworkService.getHomework(userId, date).body()
             if(result!!.userId != null){
                 binding.textTodayQuestion.text = result.homeworkQuestion
@@ -106,8 +104,11 @@ class DiaryMainFragment : Fragment() {
                 binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
                 modify = true
             } else{
-
-                binding.textTodayQuestion.text = "Q " + question
+                if(date != today) {
+                    binding.textTodayQuestion.text = "해당 날짜의 질문에 답하지 않았습니다"
+                }else{
+                    binding.textTodayQuestion.text = "Q "+ question
+                }
                 binding.btnSave.visibility = View.VISIBLE
                 binding.btnEdit.visibility = View.GONE
                 binding.btnDelete.visibility = View.GONE
@@ -120,9 +121,6 @@ class DiaryMainFragment : Fragment() {
 
         binding.tvDate.text = date
         binding.tvDate.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val format = SimpleDateFormat("yyyy-MM-dd")
-            val today = format.format(calendar.time)
 
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 year = y.toString()
@@ -145,6 +143,7 @@ class DiaryMainFragment : Fragment() {
                             modify = true
                         }
                         else{
+                            binding.textTodayQuestion.text = "해당 날짜의 질문에 답하지 않았습니다"
                             binding.btnSave.visibility = View.GONE
                             binding.btnEdit.visibility = View.GONE
                             binding.btnDelete.visibility = View.GONE
@@ -162,6 +161,7 @@ class DiaryMainFragment : Fragment() {
                         }
                         else{
                             binding.editTextTodayQuestionAnswer.isEnabled = false
+                            binding.textTodayQuestion.text = "해당 날짜의 질문에 답하지 않았습니다"
                             binding.editTextTodayQuestionAnswer.setText("작성된 일기가 없습니다.")
                             binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.edit_text_back)
                             binding.btnSave.visibility = View.GONE

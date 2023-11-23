@@ -3,6 +3,8 @@ package com.ssafy.diary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityLoginBinding
 import com.ssafy.diary.databinding.ActivityMainBinding

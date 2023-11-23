@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.nav.MainFragment
@@ -60,6 +61,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+    private var backPressedTime = 0L
+    private val onBackPressedCallback = object: OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            if(System.currentTimeMillis() - backPressedTime <= 2000){
+                finish()
+            } else{
+                backPressedTime = System.currentTimeMillis()
+                Toast.makeText(this@MainActivity, "한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // 프래그먼트 이동 함수
@@ -79,13 +92,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-    }
-    // 프래그먼트 뒤로가기 구현
-    fun goBack(fragment: Fragment){
-        supportFragmentManager.beginTransaction()
-            .remove(fragment)
-            .commit()
-        supportFragmentManager.popBackStack()
     }
 
     companion object{
