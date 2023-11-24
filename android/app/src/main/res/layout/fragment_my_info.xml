@@ -153,6 +153,7 @@
                 android:layout_height="48dp"
                 app:passwordToggleEnabled="true"
                 android:textColorHint="@color/white"
+                style="@style/TextInputLayoutStyle"
                 app:hintEnabled="false"
                 app:hintTextColor="@color/white">
 

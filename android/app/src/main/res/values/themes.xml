@@ -8,6 +8,12 @@
         <item name="colorControlNormal">@color/lightDarkBrown</item>
         <item name="android:statusBarColor" tools:targetApi="1">?attr/colorPrimaryVariant</item>
     </style>
+    
+    <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/lightBrown</item>
+        <item name="boxStrokeColor">@color/lightBrown</item>
+        <item name="android:textCursorDrawable">@color/lightDarkBrown</item>
+    </style>
 
     <style name="Theme.Final_project" parent="Base.Theme.Final_project" />
 
