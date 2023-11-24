@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class ApplicationClass : Application() {
     companion object{
 //        const val SERVER_URL = "http://mobile-pjt.sample.ssafy.io/"
-        const val SERVER_URL = "http://13.209.22.216:9999/"
+        const val SERVER_URL = "http://3.34.134.249:9999/"
 
         const val MENU_IMGS_URL = "${SERVER_URL}imgs/diary/"
         const val IMGS_URL = "${SERVER_URL}imgs/user/"

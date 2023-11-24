@@ -54,4 +54,8 @@ interface UserService {
     // 사용자 프로필 조회
     @GET("api/user/getImage")
     suspend fun getImage(@Query("userId") userId: String): Response<String>
+
+    // 사용자 정보 조회
+    @GET("api/user/getUserInfo")
+    suspend fun getUserInfo(@Query("userId") userId: String): Response<User>
 }

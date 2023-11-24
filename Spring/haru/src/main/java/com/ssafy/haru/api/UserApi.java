@@ -108,4 +108,9 @@ public class UserApi {
     public ResponseEntity<String> getImage(@RequestParam String userId){
         return new ResponseEntity<>(userService.getImage(userId).getUserImg(), HttpStatus.OK);
     }
+
+    @GetMapping("/getUserInfo")
+    public ResponseEntity<User> getUserInfo(@RequestParam String userId){
+        return new ResponseEntity<>(userService.getImage(userId), HttpStatus.OK);
+    }
 }
