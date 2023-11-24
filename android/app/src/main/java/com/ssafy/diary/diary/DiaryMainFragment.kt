@@ -256,6 +256,7 @@ class DiaryMainFragment : Fragment() {
                     binding.btnDelete.visibility = View.GONE
                     binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
                     binding.editTextTodayQuestionAnswer.isEnabled = true
+                    binding.editTextTodayQuestionAnswer.setText("")
 
                     RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart-1).toString())
                     SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart-1)
