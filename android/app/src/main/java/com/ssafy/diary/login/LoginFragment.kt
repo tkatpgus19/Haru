@@ -2,7 +2,6 @@ package com.ssafy.diary.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +10,9 @@ import android.widget.Toast
 import com.ssafy.diary.LoginActivity
 import com.ssafy.diary.LoginActivity.Companion.FIND_ID_FRAGMENT
 import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
 import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.dto.User
-import com.ssafy.diary.util.CommonUtil
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.CoroutineScope

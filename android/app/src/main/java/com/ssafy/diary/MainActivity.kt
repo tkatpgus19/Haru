@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.ActivityMainBinding
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val userInfo = SharedPreferencesUtil(this).getUser()
         Glide.with(binding.inViewDrawer.imgPersonal)
-            .load("${ApplicationClass.IMGS_URL}${userInfo.userImg}")
+            .load("${ApplicationClass.USER_IMGS_URL}${userInfo.userImg}")
             .into(binding.inViewDrawer.imgPersonal)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,10 +45,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        // 일기 쓰는 액티비티로 이동
         binding.btnGoToDiary.setOnClickListener {
             startActivity(Intent(this, DiaryActivity::class.java))
         }
 
+        // 좌측 drawerlayout 호출
         binding.btnMenu.setOnClickListener {
             binding.inViewDrawer.textHeartCount.text = "${SharedPreferencesUtil(this).getUser().userHeart}개"
             binding.layoutMain.open()

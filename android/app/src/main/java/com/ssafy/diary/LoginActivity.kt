@@ -3,20 +3,12 @@ package com.ssafy.diary
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityLoginBinding
-import com.ssafy.diary.databinding.ActivityMainBinding
-import com.ssafy.diary.diary.DiaryDetailsFragment
-import com.ssafy.diary.diary.DiaryMainFragment
 import com.ssafy.diary.login.FindIdFragment
 import com.ssafy.diary.login.JoinFragment
 import com.ssafy.diary.login.LoginFragment
 import com.ssafy.diary.login.OpenFragment
-import com.ssafy.diary.nav.MainFragment
-import com.ssafy.diary.nav.MyPageFragment
-import com.ssafy.diary.nav.TodoListFragment
 import com.ssafy.diary.util.SharedPreferencesUtil
 
 class LoginActivity : AppCompatActivity() {

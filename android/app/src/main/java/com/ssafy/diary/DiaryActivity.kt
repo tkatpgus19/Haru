@@ -4,12 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ssafy.diary.databinding.ActivityDiaryBinding
-import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.diary.DiaryDetailsFragment
 import com.ssafy.diary.diary.DiaryMainFragment
-import com.ssafy.diary.nav.MainFragment
-import com.ssafy.diary.nav.MyPageFragment
-import com.ssafy.diary.nav.TodoListFragment
 import java.util.Calendar
 
 class DiaryActivity : AppCompatActivity() {
