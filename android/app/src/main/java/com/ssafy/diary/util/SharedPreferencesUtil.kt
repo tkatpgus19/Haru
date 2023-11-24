@@ -26,6 +26,8 @@ class SharedPreferencesUtil (context: Context) {
         }
         editor.apply()
     }
+    
+    // 배경화면 세팅 획득
     fun getSetting(): Setting{
         val setting = Setting()
         setting.background = preferences.getInt("background", R.drawable.background01)
@@ -52,6 +54,7 @@ class SharedPreferencesUtil (context: Context) {
         editor.apply()
     }
 
+    // 사용자 정보 획득
     fun getUser(): User{
         val id = preferences.getString("id", "")
         if (id != ""){
@@ -79,20 +82,21 @@ class SharedPreferencesUtil (context: Context) {
     fun saveQuestion(today: Long){
         val editor = preferences.edit()
         editor.putLong("today", today)
-        Log.d("해윙", preferences.getLong("today", -1).toString())
         editor.putInt("question", (0..5).random())
         editor.apply()
     }
 
+    // 오늘의 질문 인덱스 획득
     fun getQuestion(): Int {
         return preferences.getInt("question", -1)
     }
 
+    // 오늘의 질문 날짜 획득
     fun getQuestionDate(): Long{
-        Log.d("해윙", preferences.getLong("today", -1).toString())
         return preferences.getLong("today", -1)
     }
 
+    // 사용자 프로필 이미지 획득
     fun addUserImg(userImg: String){
         val editor = preferences.edit()
         editor.putString("userImg", userImg)

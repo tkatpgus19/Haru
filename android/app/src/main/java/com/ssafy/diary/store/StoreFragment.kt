@@ -1,7 +1,6 @@
 package com.ssafy.diary.store
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.diary.MainActivity.Companion.backgroundList
 import com.ssafy.diary.MainActivity.Companion.characterList
-import com.ssafy.diary.R
 import com.ssafy.diary.SubActivity
 import com.ssafy.diary.adapter.StoreAdapter
-import com.ssafy.diary.databinding.FragmentMyPageBinding
 import com.ssafy.diary.databinding.FragmentStoreBinding
 import com.ssafy.diary.dto.InventoryItem
 import com.ssafy.diary.dto.Item
@@ -27,7 +24,6 @@ class StoreFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -48,9 +44,9 @@ class StoreFragment : Fragment() {
             sActivity.finish()
         }
 
+        // 아이템 목록을 받아 분류하고 리사이클러 뷰에 등록
         lifecycleScope.launch {
             itemList = RetrofitUtil.storeSerivce.getItem().body()!!
-
             itemList.forEach {
                 if(it.itemType == "B"){
                     bItems.add(it)

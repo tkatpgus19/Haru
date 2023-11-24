@@ -67,6 +67,7 @@ class DiaryDetailsFragment : Fragment() {
     private var prevImg = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 특정 날짜의 일기 조회를 위해 날짜 수신
         year = arguments!!.getString("year")!!
         month = arguments!!.getString("month")!!
         day = arguments!!.getString("day")!!
@@ -79,18 +80,16 @@ class DiaryDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        // 일기와 같이 입력할 이모티콘 목록
         val emotions =
-            mapOf<TextView, String>(binding.feeling01 to "\uD83D\uDE0A", binding.feeling02 to "\uD83D\uDE06", binding.feeling03 to "\uD83D\uDE02", binding.feeling04 to "\uD83D\uDE25",
+            mapOf(binding.feeling01 to "\uD83D\uDE0A", binding.feeling02 to "\uD83D\uDE06", binding.feeling03 to "\uD83D\uDE02", binding.feeling04 to "\uD83D\uDE25",
                 binding.feeling05 to "\uD83D\uDE2D", binding.feeling06 to "\uD83D\uDE14", binding.feeling07 to "\uD83D\uDE24", binding.feeling08 to "\uD83D\uDE21",
                 binding.feeling09 to "\uD83E\uDD2C", binding.feeling10 to "\uD83E\uDD12", )
 
+        // 유저 아이디 조회
         userInfo = SharedPreferencesUtil(requireContext()).getUser()
         userId = userInfo.userId
-        binding.btnBack.setOnClickListener {
-            dActivity.goBack(this)
-        }
 
-        binding.editTextTodayDiary.movementMethod = ScrollingMovementMethod.getInstance()
         binding.tvDate.text = date
 
         val calendar = Calendar.getInstance()
@@ -99,7 +98,9 @@ class DiaryDetailsFragment : Fragment() {
 
         lifecycleScope.launch {
             val result = RetrofitUtil.diaryService.getDiary(userId, date).body()
+            // 작성된 일기가 없을 때
             if(result!!.userId == null){
+                // 오늘 날짜면 일기 작성 가능
                 if(date == today) {
                     binding.feeling.visibility = View.INVISIBLE
                     binding.emotionContainer.visibility = View.VISIBLE
@@ -108,7 +109,9 @@ class DiaryDetailsFragment : Fragment() {
                     binding.btnEdit.visibility = View.INVISIBLE
                     binding.editTextTodayDiary.isEnabled = true
                     binding.btnUpload.visibility = View.VISIBLE
-                } else{
+                }
+                // 지난 날짜면 일기 작성 불가
+                else{
                     binding.feeling.visibility = View.GONE
                     binding.editTextTodayDiary.setText("지난 날의 일기는 작성할 수 없습니다.")
                     binding.emotionContainer.visibility = View.GONE
@@ -118,7 +121,9 @@ class DiaryDetailsFragment : Fragment() {
                     binding.editTextTodayDiary.isEnabled = false
                     binding.btnUpload.visibility = View.INVISIBLE
                 }
-            } else{
+            }
+            // 작성된 일기가 있을 때
+            else{
                 binding.feeling.visibility = View.VISIBLE
                 binding.feeling.text = result.diaryEmotion
                 binding.emotionContainer.visibility = View.GONE
@@ -128,16 +133,20 @@ class DiaryDetailsFragment : Fragment() {
                 binding.btnEdit.visibility = View.VISIBLE
                 todayFeeling = result.diaryEmotion
                 binding.editTextTodayDiary.isEnabled = false
+
+                // 일기 이미지가 없으면 더미 데이터 전송
                 if(result.diaryImg != null){
                     Glide.with(binding.btnImgChoose)
-                        .load("${ApplicationClass.MENU_IMGS_URL}${result.diaryImg}")
+                        .load("${ApplicationClass.DIARY_IMGS_URL}${result.diaryImg}")
                         .into(binding.btnImgChoose)
                     prevImg = result.diaryImg
                 }
             }
         }
 
+        // 저장 버튼
         binding.btnSave.setOnClickListener {
+            // edittext가 비지 않았을 때
             if(binding.editTextTodayDiary.text.isNotEmpty()){
                 lifecycleScope.launch {
                     val diary = Diary()
@@ -147,7 +156,6 @@ class DiaryDetailsFragment : Fragment() {
                     diary.diaryEmotion = todayFeeling
                     diary.diaryImg = prevImg
                     if(!modify) {
-                        Log.d("해위", diaryImg.toString())
                         val result = RetrofitUtil.diaryService.saveDiary(diary, diaryImg!!).body()!!
                         if (result) {
                             Toast.makeText(requireContext(), "저장 되었습니다", Toast.LENGTH_SHORT).show()
@@ -179,6 +187,7 @@ class DiaryDetailsFragment : Fragment() {
             }
         }
 
+        // 수정 버튼
         binding.btnEdit.setOnClickListener {
             lifecycleScope.launch {
                 modify = true
@@ -193,6 +202,7 @@ class DiaryDetailsFragment : Fragment() {
             }
         }
 
+        // 삭제 버튼
         binding.btnDelete.setOnClickListener {
             lifecycleScope.launch {
                 val result = RetrofitUtil.diaryService.deleteDiary(userId, date).body()
@@ -205,6 +215,7 @@ class DiaryDetailsFragment : Fragment() {
             }
         }
 
+        // 오늘의 기분 마다 클릭 이벤트 리스너 등록
         emotions.forEach {
             val key = it.key
             it.key.setOnClickListener {
@@ -215,12 +226,20 @@ class DiaryDetailsFragment : Fragment() {
             }
         }
 
+        // 일기 업로드
         binding.btnUpload.setOnClickListener {
             selectGallery()
         }
+
+        // 뒤로 가기
+        binding.btnBack.setOnClickListener {
+            dActivity.goBack(this)
+        }
+        
         return binding.root
     }
 
+    // 이하 사진 전송을 위한 로직
     private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ){ result ->

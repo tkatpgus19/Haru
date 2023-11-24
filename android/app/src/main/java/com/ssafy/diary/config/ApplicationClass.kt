@@ -1,5 +1,4 @@
 package com.ssafy.diary.config
-import android.Manifest
 import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,17 +10,14 @@ import java.util.concurrent.TimeUnit
 
 class ApplicationClass : Application() {
     companion object{
-//        const val SERVER_URL = "http://mobile-pjt.sample.ssafy.io/"
         const val SERVER_URL = "http://3.34.134.249:9999/"
 
-        const val MENU_IMGS_URL = "${SERVER_URL}imgs/diary/"
-        const val IMGS_URL = "${SERVER_URL}imgs/user/"
+        const val DIARY_IMGS_URL = "${SERVER_URL}imgs/diary/"
+        const val USER_IMGS_URL = "${SERVER_URL}imgs/user/"
 
         lateinit var sharedPreferencesUtil: SharedPreferencesUtil
         lateinit var retrofit: Retrofit
-
     }
-
 
     override fun onCreate() {
         super.onCreate()

@@ -2,12 +2,8 @@ package com.ssafy.diary
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ssafy.diary.databinding.ActivityMainBinding
 import com.ssafy.diary.databinding.ActivitySubBinding
 import com.ssafy.diary.mypage.MyInfoFragment
-import com.ssafy.diary.nav.MainFragment
-import com.ssafy.diary.nav.MyPageFragment
-import com.ssafy.diary.nav.TodoListFragment
 import com.ssafy.diary.store.StoreFragment
 
 class SubActivity : AppCompatActivity() {

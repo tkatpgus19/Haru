@@ -39,7 +39,7 @@ class MyPageFragment : Fragment() {
         binding.textName.text = "${SharedPreferencesUtil(requireContext()).getUser().userNickname}님"
         if(userImg != ""){
             Glide.with(binding.imgPersonal)
-                .load("${ApplicationClass.IMGS_URL}${userImg}")
+                .load("${ApplicationClass.USER_IMGS_URL}${userImg}")
                 .into(binding.imgPersonal)
         }
     }
@@ -54,27 +54,29 @@ class MyPageFragment : Fragment() {
         binding.textName.text = "${userName}님"
 
         val userImg = SharedPreferencesUtil(requireContext()).getUser().userImg
-        Log.d("해위", userImg)
+        // 사용자 프로필 이미지가 있으면 로드
         if(userImg != ""){
             Glide.with(binding.imgPersonal)
-                .load("${ApplicationClass.IMGS_URL}${userImg}")
+                .load("${ApplicationClass.USER_IMGS_URL}${userImg}")
                 .into(binding.imgPersonal)
         }
 
+        // 마이페이지로 이동
         binding.btnMyInfo.setOnClickListener {
             val intent = Intent(requireContext(), SubActivity::class.java)
             intent.putExtra("type", "mypage")
             startActivity(intent)
         }
 
+        // 로그아웃 
         binding.btnLogout.setOnClickListener{
-            // 긴급 로그아웃 구현
             SharedPreferencesUtil(requireContext()).deleteUser()
             Toast.makeText(requireContext(), "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
             mActivity.finish()
             startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
 
+        // 계정 탈퇴
         binding.btnDelete.setOnClickListener {
             showDialog()
         }

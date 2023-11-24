@@ -21,6 +21,8 @@ class OpenFragment : Fragment() {
 
         lActivity.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
+    
+    // 뒤로 가기 두번으로 종료
     private var backPressedTime = 0L
     private val onBackPressedCallback = object: OnBackPressedCallback(true){
         override fun handleOnBackPressed() {

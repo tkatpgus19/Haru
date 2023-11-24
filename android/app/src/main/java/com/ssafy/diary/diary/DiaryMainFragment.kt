@@ -1,9 +1,7 @@
 package com.ssafy.diary.diary
 
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,21 +13,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ssafy.diary.DiaryActivity
 import com.ssafy.diary.DiaryActivity.Companion.DIARY_DETAILS_FRAGMENT
-import com.ssafy.diary.MainActivity
-import com.ssafy.diary.MainActivity.Companion.MAIN_FRAGMENT
 import com.ssafy.diary.R
-import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.FragmentDiaryMainBinding
 import com.ssafy.diary.dto.Homework
 import com.ssafy.diary.util.CommonUtil
 import com.ssafy.diary.util.RetrofitUtil
 import com.ssafy.diary.util.SharedPreferencesUtil
 import kotlinx.coroutines.launch
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import kotlin.random.Random
 
 class DiaryMainFragment : Fragment() {
     private val binding by lazy { FragmentDiaryMainBinding.inflate(layoutInflater) }
@@ -72,6 +64,7 @@ class DiaryMainFragment : Fragment() {
         day = arguments!!.getString("day")!!
         date = "${year}-${month}-${day}"
 
+        // 날짜가 넘어갔을 경우 새로운 질문으로 갱신
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
         val today = SharedPreferencesUtil(requireContext()).getQuestionDate()+ 86400000
@@ -93,6 +86,8 @@ class DiaryMainFragment : Fragment() {
         val userInfo = SharedPreferencesUtil(requireContext()).getUser()
         userId = userInfo.userId
         joinDate = userInfo.joinDate
+
+        // 뒷 배경 로드
         Glide.with(binding.imgQuestionBack)
             .load(R.drawable.today_question_back)
             .transform(CenterCrop(), RoundedCorners(30))
@@ -101,11 +96,14 @@ class DiaryMainFragment : Fragment() {
             .load(R.drawable.img_diary)
             .transform(CenterCrop(), RoundedCorners(30))
             .into(binding.imgTodayDiary)
+
         val calendar = Calendar.getInstance()
         val format = SimpleDateFormat("yyyy-MM-dd")
         val today = format.format(calendar.time)
+        
         lifecycleScope.launch {
             val result = RetrofitUtil.homeworkService.getHomework(userId, date).body()
+            // 작성된 숙제가 있을 때
             if(result!!.userId != null){
                 binding.textTodayQuestion.text = result.homeworkQuestion
                 binding.btnSave.visibility = View.GONE
@@ -116,6 +114,7 @@ class DiaryMainFragment : Fragment() {
                 binding.editTextTodayQuestionAnswer.setText(result.homeworkContent)
                 modify = true
             } else{
+                // 작성된 숙제가 없을 때
                 if(date != today) {
                     binding.textTodayQuestion.text = "해당 날짜의 질문에 답하지 않았습니다"
                 }else{
@@ -130,10 +129,10 @@ class DiaryMainFragment : Fragment() {
             }
         }
 
-
         binding.tvDate.text = date
-        binding.tvDate.setOnClickListener {
 
+        // 날짜를 선택해 특정 날짜의 숙제 조회
+        binding.tvDate.setOnClickListener {
             val dpListener = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 year = y.toString()
                 month = (m+1).toString()
@@ -192,17 +191,22 @@ class DiaryMainFragment : Fragment() {
             datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.darkBrown))
         }
 
+        // 뒤로 가기
         binding.btnBack.setOnClickListener {
             dActivity.finish()
         }
 
+        // 일기 작성 페이지로 이동
         binding.btnAddDiary.setOnClickListener {
             dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, year, month, day)
         }
+
+        // 일기 작성 페이지로 이동
         binding.imgTodayDiary.setOnClickListener {
             dActivity.moveFragment(DIARY_DETAILS_FRAGMENT, year, month, day)
         }
 
+        // 숙제 수정 버튼
         binding.btnEdit.setOnClickListener {
             binding.btnSave.visibility = View.VISIBLE
             binding.btnEdit.visibility = View.GONE
@@ -210,12 +214,15 @@ class DiaryMainFragment : Fragment() {
             binding.editTextTodayQuestionAnswer.setBackgroundResource(R.drawable.search_box_style)
             binding.editTextTodayQuestionAnswer.isEnabled = true
         }
+        
+        // 숙제 저장 버튼
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
                 homework.homeworkContent = binding.editTextTodayQuestionAnswer.text.toString()
                 homework.userId = userId
                 homework.homeworkDate = date
                 homework.homeworkQuestion = question
+                // 신규 작성(저장) 일 때
                 if(!modify){
                     val result = RetrofitUtil.homeworkService.saveHomework(homework).body()
                     if(result!!){
@@ -223,8 +230,9 @@ class DiaryMainFragment : Fragment() {
                         RetrofitUtil.userService.updateHeart(userId, (userInfo.userHeart+1).toString())
                         SharedPreferencesUtil(requireContext()).updateHeart(userInfo.userHeart+1)
                     }
-
-                } else{
+                }
+                // 수정 일 때
+                else{
                     val result = RetrofitUtil.homeworkService.updateHomework(homework).body()
                     Toast.makeText(requireContext(), "수정 되었습니다", Toast.LENGTH_SHORT).show()
                 }
@@ -237,6 +245,7 @@ class DiaryMainFragment : Fragment() {
             binding.editTextTodayQuestionAnswer.isEnabled = false
         }
 
+        // 삭제 버튼
         binding.btnDelete.setOnClickListener {
             lifecycleScope.launch {
                 val result = RetrofitUtil.homeworkService.deleteHomework(userId, date).body()

@@ -51,23 +51,29 @@ class MyInfoFragment : Fragment() {
         binding.editPassword.isEnabled = false
         userInfo = SharedPreferencesUtil(requireContext()).getUser()
 
+        // 사용자 정보 로드
         binding.editEmail.setText(userInfo.userEmail)
         binding.editName.setText(userInfo.userNickname)
         binding.editId.setText(userInfo.userId)
         binding.btnChangePassword.setOnClickListener {
             showDialog()
         }
+        
+        // 뒤로 가기
         binding.btnBack.setOnClickListener {
             sActiity.finish()
         }
+        
+        // 프로필 이미지 선택
         binding.imgPersonal.setOnClickListener {
             selectGallery()
 
         }
         Glide.with(binding.imgPersonal)
-            .load("${ApplicationClass.IMGS_URL}${userInfo.userImg}")
+            .load("${ApplicationClass.USER_IMGS_URL}${userInfo.userImg}")
             .into(binding.imgPersonal)
 
+        // 수정 정보 저장
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
                 val user = RetrofitUtil.userService.getUserInfo(userInfo.userId).body()!!
