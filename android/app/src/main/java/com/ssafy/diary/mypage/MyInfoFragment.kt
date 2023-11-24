@@ -7,10 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -22,14 +20,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.ssafy.diary.LoginActivity
-import com.ssafy.diary.MainActivity
 import com.ssafy.diary.R
 import com.ssafy.diary.SubActivity
 import com.ssafy.diary.config.ApplicationClass
-import com.ssafy.diary.databinding.FragmentLoginBinding
 import com.ssafy.diary.databinding.FragmentMyInfoBinding
 import com.ssafy.diary.dto.User
 import com.ssafy.diary.util.RetrofitUtil
@@ -77,15 +70,19 @@ class MyInfoFragment : Fragment() {
 
         binding.btnSave.setOnClickListener {
             lifecycleScope.launch {
-                val user = User()
+                val user = RetrofitUtil.userService.getUserInfo(userInfo.userId).body()!!
                 user.userHeart = userInfo.userHeart
                 user.userEmail = binding.editEmail.text.toString()
                 user.userId = userInfo.userId
-                user.userPassword = binding.editPassword.text.toString()
+                if(binding.editPassword.text.isNotEmpty()) {
+                    user.userPassword = binding.editPassword.text.toString()
+                }
                 user.userNickname = binding.editName.text.toString()
                 val result = RetrofitUtil.userService.update(user).body()
+                SharedPreferencesUtil(requireContext()).addUser(user)
                 if(result!!){
                     Toast.makeText(requireContext(), "수정했습니다.", Toast.LENGTH_SHORT).show()
+                    sActiity.finish()
                 }
             }
         }
