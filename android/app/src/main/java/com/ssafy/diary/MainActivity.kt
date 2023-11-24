@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.ssafy.diary.config.ApplicationClass
 import com.ssafy.diary.databinding.ActivityMainBinding
+import com.ssafy.diary.dto.User
 import com.ssafy.diary.nav.MainFragment
 import com.ssafy.diary.nav.MyPageFragment
 import com.ssafy.diary.nav.TodoListFragment
@@ -16,9 +17,10 @@ import com.ssafy.diary.util.SharedPreferencesUtil
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private lateinit var userInfo: User
     override fun onResume() {
         super.onResume()
-        val userInfo = SharedPreferencesUtil(this).getUser()
+        userInfo = SharedPreferencesUtil(this).getUser()
         Glide.with(binding.inViewDrawer.imgPersonal)
             .load("${ApplicationClass.USER_IMGS_URL}${userInfo.userImg}")
             .into(binding.inViewDrawer.imgPersonal)
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 로그아웃 하지 않아 sharedPreference에 회원 정보가 저장되어 있으면 바로 서비스 연결
-        val userInfo = SharedPreferencesUtil(this).getUser()
+        userInfo = SharedPreferencesUtil(this).getUser()
         if(userInfo.userId != ""){
             moveFragment(MAIN_FRAGMENT)
         } else{
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         // 좌측 drawerlayout 호출
         binding.btnMenu.setOnClickListener {
+            userInfo = SharedPreferencesUtil(this).getUser()
+            binding.inViewDrawer.textName.text = "${userInfo.userNickname}님"
             binding.inViewDrawer.textHeartCount.text = "${SharedPreferencesUtil(this).getUser().userHeart}개"
             binding.layoutMain.open()
         }
